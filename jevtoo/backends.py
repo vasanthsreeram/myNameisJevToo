@@ -36,6 +36,7 @@ class MLXBackend:
         self.model_path = model_path
         self.label_style = label_style
         self._label_ids: dict[int, int] = {}
+        self.stats = {"decisions": 0, "labels_missing": 0, "labels_total": 0}
 
     # -- tokenisation ----------------------------------------------------
     def encode(self, text: str, add_bos: bool = False) -> list[int]:
@@ -63,6 +64,15 @@ class MLXBackend:
         return self._label_ids[i]
 
     # -- the read --------------------------------------------------------
+    def coverage(self) -> float:
+        """Fraction of labels found in the readout.
+
+        Always 1.0 here: labels are indexed straight into the full softmax over
+        the vocabulary, so unlike the GGUF top-N path there is nothing to miss.
+        Exposed anyway so both backends report the same summary fields.
+        """
+        return 1.0
+
     def distribution(self, prompt: str, labels: list[str]) -> Distribution:
         """One forward pass over `prompt`; read P(label) for each option."""
         mx = self.mx
@@ -74,6 +84,8 @@ class MLXBackend:
         mx.eval(probs)
         latency = time.perf_counter() - t0
         raw = [float(probs[self.label_id(i)]) for i in range(len(labels))]
+        self.stats["decisions"] += 1
+        self.stats["labels_total"] += len(labels)
         return Distribution(labels=list(labels), probs=raw, raw=raw, latency_s=latency)
 
     # -- multi-token candidates (slower path, still one prefill) ---------

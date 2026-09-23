@@ -167,9 +167,23 @@ So the identical code was run against **Qwen3.8-27B** on a Mac Studio (M3 Ultra,
 |---|---|---|---|---|
 | Intelligence | 27.4 | 77.6 | **82.6** | 85.7 |
 | Calibration | 40.2 | **86.9** | 77.2 | 82.7 |
-| Speed | 73.6 | 67.1 | 65.9 | 83.3 |
+| Speed | 73.6 | 67.4 | 65.9 | 83.3 |
 | hard-tier ECE | 0.2989 | **0.0655** | 0.1139 | — |
-| Score equivalent | 13.0 | **76.8** | 74.9 | 74.4 |
+| Score equivalent | 13.0 | **76.9** | 74.9 | 74.4 |
+
+The MLX leg was run twice to completion, and the second run reproduced the first
+exactly on every quality number — intelligence 77.6 vs 77.6, calibration 86.9 vs
+86.9, hard ECE 0.0655 vs 0.0655, and identical state-blind figures. Only the
+latency tail moved (p95 8.44 s vs 8.87 s, speed axis 67.4 vs 67.1), which is
+machine noise rather than model behaviour. The values above are from the second
+run, whose per-item records are committed.
+
+The GGUF leg completed once (an earlier attempt died with `ENOSPC` when swap hit
+92 GB from running both legs concurrently — the numbers in this table are from
+the completed run, and its 462 per-item records are committed).
+`benchmarks/rescore.py` rebuilds any summary from its detail file, and
+reproduces the GGUF figures exactly, so the committed summaries are auditable
+rather than taken on trust.
 
 Two things worth noting:
 

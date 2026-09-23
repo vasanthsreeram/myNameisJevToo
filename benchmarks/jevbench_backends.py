@@ -107,6 +107,19 @@ def main():
     intel = num / den
     print(f"{'WEIGHTED':<10} {'':>4} {'':>10} {'':>8} {intel:>17.1f}   <- intelligence axis")
 
+    # Persist per-tier detail too. A summary that only carries the aggregate
+    # cannot be audited or re-scored later, and it made one earlier run
+    # unreproducible from its own artifacts.
+    tier_stats = {}
+    for tier, _ in TIERS:
+        recs = all_recs[tier]
+        acc = sum(r["correct"] for r in recs) / len(recs)
+        ch = TIER_CHANCES[tier]
+        tier_stats[tier] = {
+            "n": len(recs), "accuracy": acc, "chance": ch,
+            "chance_corrected": max(0.0, min(100.0, 100 * (acc - ch) / (1 - ch))),
+        }
+
     hard = all_recs["hard"]
     ece, _ = ece_top_label([(r["confidence"], r["correct"]) for r in hard])
     lat = sorted(r["latency_s"] for t, _ in TIERS for r in all_recs[t])
@@ -137,9 +150,18 @@ def main():
         all_recs["stateblind"] = blind
 
     cov = getattr(backend, "coverage", None)
+    kept = {}
+    for tier, _ in TIERS:
+        if tier in blind:
+            with_state = sum(r["correct"] for r in all_recs[tier]) / len(all_recs[tier])
+            kept[tier] = (blind[tier] / with_state * 100) if with_state else None
     summary = {"tag": tag, "intelligence": intel, "hard_ece": ece, "calibration": cal,
-               "speed": sp, "p50_s": p50, "p95_s": p95, "score_equivalent_3axes": g3 * mult,
-               "stateblind": blind,
+               "speed": sp, "p50_s": p50, "p95_s": p95,
+               "adjusted_p50_s": adj50, "adjusted_p95_s": adj95,
+               "score_equivalent_3axes": g3 * mult,
+               "tiers": tier_stats,
+               "tier_weights": {t: TIER_WEIGHTS[t] for t, _ in TIERS},
+               "stateblind": blind, "stateblind_kept_pct": kept,
                "label_coverage": cov() if callable(cov) else None,
                "stats": getattr(backend, "stats", None)}
     json.dump(summary, open(OUTDIR / f"jevbench_{tag}.json", "w"), indent=1)

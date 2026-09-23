@@ -6,16 +6,44 @@
  "speed": 65.86954006136406,
  "p50_s": 0.636625625193119,
  "p95_s": 9.018570207990706,
+ "adjusted_p50_s": 1.423251250386238,
+ "adjusted_p95_s": 18.18714041598141,
  "score_equivalent_3axes": 74.8884500465688,
+ "tiers": {
+  "easy": {
+   "n": 48,
+   "accuracy": 1.0,
+   "chance": 0.28402777777777777,
+   "chance_corrected": 100.0
+  },
+  "standard": {
+   "n": 72,
+   "accuracy": 0.9722222222222222,
+   "chance": 0.31666666666666665,
+   "chance_corrected": 95.9349593495935
+  },
+  "hard": {
+   "n": 111,
+   "accuracy": 0.7477477477477478,
+   "chance": 0.3364393939393939,
+   "chance_corrected": 61.985047040418664
+  }
+ },
+ "tier_weights": {
+  "easy": 0.14,
+  "standard": 0.28,
+  "hard": 0.3
+ },
  "stateblind": {
   "easy": 0.3333333333333333,
   "standard": 0.3055555555555556,
   "hard": 0.5315315315315315
  },
- "label_coverage": 1.0,
- "stats": {
-  "decisions": 462,
-  "labels_missing": 0,
-  "labels_total": 1698
- }
+ "stateblind_kept_pct": {
+  "easy": 33.33333333333333,
+  "standard": 31.428571428571434,
+  "hard": 71.08433734939759
+ },
+ "item_records": 231,
+ "_source": "rescored from detail file via benchmarks/rescore.py"
 }

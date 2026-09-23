@@ -1,35 +1,49 @@
 {
-  "_note": "Reconstructed from the run's stdout. The run's own json.dump failed with OSError [Errno 28] No space left on device, because swap had ballooned to 92.4 GB after both 27B legs were run in parallel. These are the values the run printed; the per-item detail file was never written. Re-run to regenerate exact artifacts.",
-  "tag": "qwen38_27b_mlx4bit",
-  "host": "humans-Mac-Studio.local (Mac15,14, 96 GB unified memory)",
-  "model": "/Users/hcserver/jevtoo-work/models/Qwen3.8-27B-4bit",
-  "model_config": {
-    "architectures": ["Qwen3_5ForConditionalGeneration"],
-    "model_type": "qwen3_5",
-    "quantization": {"group_size": 64, "bits": 4, "mode": "affine"}
+ "tag": "qwen38_27b_mlx4bit",
+ "intelligence": 77.60454575465755,
+ "hard_ece": 0.06547942221525434,
+ "calibration": 86.90411555694914,
+ "speed": 67.3588789599005,
+ "p50_s": 0.4645068757236004,
+ "p95_s": 8.437460874207318,
+ "adjusted_p50_s": 1.0790137514472007,
+ "adjusted_p95_s": 17.024921748414634,
+ "score_equivalent_3axes": 76.87305110305323,
+ "tiers": {
+  "easy": {
+   "n": 48,
+   "accuracy": 1.0,
+   "chance": 0.28402777777777777,
+   "chance_corrected": 100.0
   },
-  "readout": "single-token letter probability off softmax(logits[-1]); no generation",
-  "tiers": {
-    "easy":     {"n": 48,  "accuracy": 1.000, "chance": 0.284, "chance_corrected": 100.0},
-    "standard": {"n": 72,  "accuracy": 0.944, "chance": 0.317, "chance_corrected": 91.9},
-    "hard":     {"n": 111, "accuracy": 0.694, "chance": 0.336, "chance_corrected": 53.8}
+  "standard": {
+   "n": 72,
+   "accuracy": 0.9444444444444444,
+   "chance": 0.31666666666666665,
+   "chance_corrected": 91.869918699187
   },
-  "tier_weights": {"easy": 0.14, "standard": 0.28, "judge": 0.28, "hard": 0.30},
-  "intelligence": 77.6,
-  "hard_ece": 0.0655,
-  "calibration": 86.9,
-  "speed": 67.1,
-  "p50_s": 0.464,
-  "p95_s": 8.871,
-  "adjusted_p50_s": 1.08,
-  "adjusted_p95_s": 17.89,
-  "score_equivalent_3axes": 76.8,
-  "stateblind": {"easy": 0.354, "standard": 0.306, "hard": 0.523},
-  "stateblind_kept_pct": {"easy": 35, "standard": 32, "hard": 75},
-  "coverage_note": "Public halves only (48/72 easy, 72/96 standard, 111/220 hard); judge tier is not public and was not run. Tier weights renormalised over the three runnable tiers. Cost axis excluded, so the score equivalent is over 3 axes, not JevBench's 4.",
-  "comparison": {
-    "jev_1_13_0":       {"score": 74.4, "intelligence": 85.7, "calibration": 82.7, "speed": 83.3, "cost": 52.0},
-    "minicpm5_2b_4bit": {"score": 13.0, "intelligence": 27.4, "calibration": 40.2, "speed": 73.6, "cost": null},
-    "qwen38_27b_4bit":  {"score": 76.8, "intelligence": 77.6, "calibration": 86.9, "speed": 67.1, "cost": null}
+  "hard": {
+   "n": 111,
+   "accuracy": 0.6936936936936937,
+   "chance": 0.3364393939393939,
+   "chance_corrected": 53.83898569193694
   }
+ },
+ "tier_weights": {
+  "easy": 0.14,
+  "standard": 0.28,
+  "hard": 0.3
+ },
+ "stateblind": {
+  "easy": 0.3541666666666667,
+  "standard": 0.3055555555555556,
+  "hard": 0.5225225225225225
+ },
+ "stateblind_kept_pct": {
+  "easy": 35.41666666666667,
+  "standard": 32.35294117647059,
+  "hard": 75.32467532467531
+ },
+ "item_records": 231,
+ "_source": "rescored from detail file via benchmarks/rescore.py"
 }
