@@ -319,5 +319,5 @@ python benchmarks/jevbench.py              # ~7 min: 231 items + reversed pass
 
 ## License
 
-MIT — see [LICENSE](LICENSE), including notes on third-party material. No model weights are
-vendored here.
+MIT — see [LICENSE](LICENSE). No model weights are vendored here. Third-party names, data and
+referenced figures are catalogued in [THIRD-PARTY.md](THIRD-PARTY.md).

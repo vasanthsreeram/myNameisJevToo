@@ -19,18 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-NOTES ON THIRD-PARTY MATERIAL
-
-- "Jev" and "System One" are TypeSafe AI's names for their model and model class.
-  This project is not affiliated with, endorsed by, or connected to TypeSafe AI.
-  The Jev name is used in the repository title as an affectionate nod, and the
-  comparison numbers cited in RESULTS.md are TypeSafe's own published figures,
-  quoted with attribution.
-- Model weights (MiniCPM5-2B) are OpenBMB's, Apache-2.0, and are downloaded, not
-  vendored. This repository contains no model weights.
-- JevBench task data and scoring formulas are from fstandhartinger/jevbench. That
-  benchmark's public items are used under the terms stated in its own repository;
-  check them before redistributing the task text.
