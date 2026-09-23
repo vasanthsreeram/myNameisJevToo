@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "myNameisJevToo"
-version = "0.1.0"
-description = "Convert any causal language model into a Jev-style (System One) decision model. No retraining, no new weights."
+version = "0.2.0"
+description = "Serve any causal language model at POST /v1/systemone. No retraining, no new weights."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
@@ -15,6 +15,9 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
+
+[project.scripts]
+jevtoo = "jevtoo.serve:main"
 
 # Core package is stdlib-only. The MLX backend is optional so the readout
 # logic stays inspectable on any machine.

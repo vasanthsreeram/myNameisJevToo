@@ -1,7 +1,60 @@
+<p align="center">
+  <img src="docs/my-name-is-jev.png" width="720" alt="MY NAME IS JEV. A drawn TypeSafe wordmark and the words SAME ENDPOINT sit above the still. The bar also says NOT AFFILIATED.">
+</p>
+
 # myNameisJevToo
 
-Convert **any** causal language model into a Jev-style decision model — no retraining, no
-fine-tune, no new weights. Then find out, honestly, whether it is any good.
+Any open causal language model, at the same endpoint TypeSafe publishes.
+No retraining, no new weights. `POST /v1/systemone` takes a `state` and typed
+`questions` and returns `choice`, `noul`, and `score` in the published answer shape.
+
+The bar on the picture is a wordmark drawn for this repository. This project is independent of TypeSafe AI.
+
+```bash
+pip install -e ".[mlx]"                              # core package is stdlib-only; MLX is optional
+python -m jevtoo.serve --model openbmb/MiniCPM5-2B-MLX
+# or, against a running llama-server:
+python -m jevtoo.serve --gguf http://127.0.0.1:8080
+```
+
+```bash
+curl -s http://127.0.0.1:8787/v1/systemone \
+  -H 'Content-Type: application/json' \
+  -H 'X-Jev-Observe: 1' \
+  -d '{
+    "model": "jev-latest",
+    "state": "Customer: I was charged twice and I am furious.",
+    "questions": {
+      "topic": {
+        "type": "choice",
+        "instructions": "What is the issue about?",
+        "criteria": {"billing": "money problems", "bug": "broken product"}
+      },
+      "urgent": {"type": "noul", "instructions": "Escalate to a human now?"}
+    }
+  }'
+```
+
+`jev-latest` and `jev-preview` are aliases for the model you loaded. The response
+`model` field is that concrete id, the way `jev-latest` resolves to `jev-1.13.0` on
+their API. Set `JEVTOO_API_KEY` (or `--api-key`) and the server requires
+`Authorization: Bearer`.
+
+`X-Jev-Observe: 1` keeps the published body and adds an `observability` object:
+
+| field | what it tells you |
+|---|---|
+| `queue_ms` / `service_ms` / `forward_ms` | time waiting on the lock, time inside it, time inside the forwards |
+| `prefill_ms` / `shared_prefix_tokens` | the state was prefilled once and reused across the questions in this request |
+| `option_mass` | probability sitting on the option letters *before* renormalising. Low mass means the model did not want to answer |
+| `winner_probability` | the winner's share. This is `Distribution.confidence` in the library |
+| `peakedness` | `(n * max(p) - 1) / (n - 1)`. This is the HTTP `confidence` field, matching TypeSafe's explorer |
+| `binary_position_prior` | present on every two-label question. On a small model that read is often the label position |
+| `missing_labels` | GGUF only: labels that fell outside top-N. The server retries that request once with a wider window |
+| `head_mode` | `last` once a last-token head has matched a full forward, otherwise `full` |
+
+`GET /health`, `GET /v1/models`, and `GET /metrics` (Prometheus text) are on the same port.
+One MLX model is one Metal queue, so requests take a lock instead of interleaving.
 
 ```python
 from jevtoo import convert
@@ -11,6 +64,7 @@ jev = convert("openbmb/MiniCPM5-2B-MLX")          # any decoder-only LM
 jev.noul(state,   "Has the customer been charged twice this month?")     # -> 0.83
 jev.choice(state, "Route this ticket.", ["billing", "refund", "account", "feature"])
 jev.score(state,  "How urgent is this?", ["low", "medium", "high"])      # -> 1.9
+jev.last.latency_s, jev.last.as_dict()            # the most recent read, including raw mass
 ```
 
 One forward pass each. Nothing is generated. The output is a typed value with a probability.
@@ -52,6 +106,8 @@ Three details turn that into something usable:
    second to gate.
 3. **Prefill once.** If options are not single tokens, clone the KV cache rather than re-running
    the state per option.
+
+Watch it: [`docs/how-it-works.html`](docs/how-it-works.html) — beige diagrams of the mask, the one forward, raw versus share, the three types, and the shared endpoint. Open the file in a browser; GitHub shows the source.
 
 Full method: [`docs/TECHNIQUE.md`](docs/TECHNIQUE.md) ·
 Everything that went wrong on the way: [`docs/PITFALLS.md`](docs/PITFALLS.md)
@@ -254,6 +310,7 @@ Three limits that survive the 27B result, stated plainly:
 
 ```bash
 pip install -e ".[mlx]"          # core package is stdlib-only; MLX backend is optional
+python -m jevtoo.serve --model openbmb/MiniCPM5-2B-MLX   # POST /v1/systemone on :8787
 ./datasets/fetch_jevbench.sh     # pull JevBench's public items
 ```
 
@@ -263,7 +320,7 @@ from jevtoo import convert, ece, abstain_curve
 jev = convert("openbmb/MiniCPM5-2B-MLX")
 
 d = jev.choice(state, "Which exclusion applies?", LABELS, criteria=RUBRIC)
-print(d.choice, d.confidence, d.share)
+print(d.choice, d.confidence, d.share)   # winner's share; HTTP confidence is peakedness
 print(d.as_dict())          # {"labels": [...], "choice": "...", "confidence": 0.91, "share": {...}}
 
 # gate on it rather than trusting it
@@ -275,8 +332,11 @@ print(abstain_curve([(x.confidence, x.choice == gold) for x, gold in pairs]))
 ```
 jevtoo/            the package
   readout.py         Distribution, rendering, token diagnostics  (stdlib only)
-  backends.py        MLX backend + the BOS and KV-cache rules that matter
+  backends.py        MLX backend: last-token head, shared prefix, logsumexp gather
+  backends_gguf.py   llama-server backend, one keep-alive connection
   decide.py          convert(): choice / noul / score primitives
+  contract.py        POST /v1/systemone request and answer shapes
+  serve.py           the local server, /metrics, and the observe block
   calibrate.py       Platt fit, ECE, noise floor, abstain curve
 benchmarks/        the measurement harness, and raw JSON for every number above
   letter_readout.py  single-token label readout + timing
@@ -290,6 +350,7 @@ benchmarks/        the measurement harness, and raw JSON for every number above
   latency.py / length_sweep.py
 tests/run_tests.py   12 unit tests, no external test dependency
 docs/
+  how-it-works.html  beige animated diagrams of the readout
   TECHNIQUE.md       the conversion method, step by step
   PITFALLS.md        nine ways to get a plausible wrong number
   RESULTS-minicpm5.md  full write-up of the MiniCPM5-2B run

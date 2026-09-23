@@ -6,7 +6,7 @@ import pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from jevtoo import Distribution, LETTERS, chance_corrected, ece  # noqa: E402
-from jevtoo.readout import render_options, render_state, softmax  # noqa: E402
+from jevtoo.readout import peakedness, render_options, render_state, softmax  # noqa: E402
 
 
 def test_share_renormalises():
@@ -37,6 +37,14 @@ def test_noul_works_when_yes_is_first():
 def test_score_expected_value():
     d = Distribution(labels=["0", "1", "2", "3"], probs=[0, 0, 0, 1], raw=[0, 0, 0, 1])
     assert abs(d.score() - 3.0) < 1e-9
+
+
+def test_peakedness_matches_the_published_three_way_examples():
+    # (3 * 0.95 - 1) / 2 = 0.925, printed as 0.92 on the confidence page.
+    assert abs(peakedness([0.0, 0.95, 0.05]) - 0.925) < 1e-12
+    # uniform is zero, a sure option is one
+    assert peakedness([1 / 3, 1 / 3, 1 / 3]) == 0.0
+    assert peakedness([1.0, 0.0, 0.0]) == 1.0
 
 
 def test_softmax_stable_on_large_inputs():

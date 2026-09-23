@@ -15,11 +15,11 @@ download.
 """
 from .decide import DecisionModel, convert, convert_gguf
 from .calibrate import abstain_curve, chance_corrected, ece, fit_platt, noise_floor
-from .readout import Distribution, LETTERS, render_options, render_state
+from .readout import Distribution, LETTERS, peakedness, render_options, render_state
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __all__ = [
     "convert", "convert_gguf", "DecisionModel", "Distribution", "LETTERS",
-    "render_state", "render_options",
+    "render_state", "render_options", "peakedness",
     "ece", "fit_platt", "abstain_curve", "noise_floor", "chance_corrected",
 ]

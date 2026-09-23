@@ -16,10 +16,12 @@ before trusting the numbers.
 """
 from __future__ import annotations
 
+import http.client
 import json
 import math
+import threading
 import time
-import urllib.request
+import urllib.parse
 
 from .readout import Distribution, label_token
 
@@ -33,20 +35,64 @@ class LlamaCppServerBackend:
         self.timeout = timeout
         self._label_ids: dict[int, int] = {}
         self._cache: dict[str, int] = {}
-        self.stats = {"decisions": 0, "labels_missing": 0, "labels_total": 0}
+        self.stats = {
+            "decisions": 0, "labels_missing": 0, "labels_total": 0, "latency_s": 0.0,
+        }
+        self._http_lock = threading.Lock()
+        self._conn: http.client.HTTPConnection | None = None
+        self._reset_conn()
         self.info = self._get("/props")
 
     # -- http helpers ----------------------------------------------------
+    def _reset_conn(self) -> None:
+        if self._conn is not None:
+            try:
+                self._conn.close()
+            except Exception:  # noqa: BLE001
+                pass
+        parsed = urllib.parse.urlparse(self.base)
+        port = parsed.port or (443 if parsed.scheme == "https" else 80)
+        host = parsed.hostname or "127.0.0.1"
+        if parsed.scheme == "https":
+            self._conn = http.client.HTTPSConnection(host, port, timeout=self.timeout)
+        else:
+            self._conn = http.client.HTTPConnection(host, port, timeout=self.timeout)
+
+    def _request(self, method: str, path: str, payload: dict | None = None) -> dict:
+        """One keep-alive connection for tokenize and completion.
+
+        urllib opened a new TCP connection per call, and a decision pays for a
+        tokenize per new label plus the completion. The body is read in full
+        before the connection is reused.
+        """
+        body = None if payload is None else json.dumps(payload).encode()
+        headers = {"Connection": "keep-alive"}
+        if body is not None:
+            headers["Content-Type"] = "application/json"
+        last_exc: Exception | None = None
+        for _attempt in (1, 2):
+            try:
+                with self._http_lock:
+                    assert self._conn is not None
+                    self._conn.request(method, path, body=body, headers=headers)
+                    resp = self._conn.getresponse()
+                    data = resp.read()
+                    status = resp.status
+            except Exception as exc:  # noqa: BLE001 - reconnect once, then raise
+                last_exc = exc
+                self._reset_conn()
+                continue
+            if status >= 400:
+                raise RuntimeError(f"llama-server {path} returned {status}: {data[:200]!r}")
+            return json.loads(data)
+        assert last_exc is not None
+        raise last_exc
+
     def _post(self, path: str, payload: dict) -> dict:
-        req = urllib.request.Request(
-            self.base + path, data=json.dumps(payload).encode(),
-            headers={"Content-Type": "application/json"})
-        with urllib.request.urlopen(req, timeout=self.timeout) as r:
-            return json.loads(r.read())
+        return self._request("POST", path, payload)
 
     def _get(self, path: str) -> dict:
-        with urllib.request.urlopen(self.base + path, timeout=60) as r:
-            return json.loads(r.read())
+        return self._request("GET", path)
 
     def _tokenize(self, text: str) -> list[int]:
         out = self._post("/tokenize", {"content": text})
@@ -111,7 +157,14 @@ class LlamaCppServerBackend:
         self.stats["decisions"] += 1
         self.stats["labels_missing"] += missing
         self.stats["labels_total"] += n
-        return Distribution(labels=labels, probs=raw, raw=raw, latency_s=latency)
+        self.stats["latency_s"] += latency
+        evaluated = resp.get("tokens_evaluated")
+        cached = resp.get("tokens_cached")
+        return Distribution(
+            labels=labels, probs=raw, raw=raw, latency_s=latency, missing=missing,
+            n_tokens=evaluated if isinstance(evaluated, int) else None,
+            cached_tokens=cached if isinstance(cached, int) else None,
+        )
 
     def coverage(self) -> float:
         t = self.stats["labels_total"]

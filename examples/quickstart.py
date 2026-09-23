@@ -35,7 +35,8 @@ def main():
 
     p = jev.noul(STATE, ADDRESSES_THE_REFUND)
     print("NOUL    (yes/no gate)")
-    print(f"   {ADDRESSES_THE_REFUND}\n   -> P(yes) = {p:.3f}\n")
+    print(f"   {ADDRESSES_THE_REFUND}\n   -> P(yes) = {p:.3f}  "
+          f"({jev.last.latency_s * 1000:.0f} ms, option mass {sum(jev.last.raw):.3f})\n")
 
     ev, d2 = jev.score(STATE, "How urgent is this ticket?", URGENCY)
     print("SCORE   (rate on a scale)")

@@ -165,3 +165,23 @@ The honest limits of the technique:
 - **This is not an architecture.** There is no new module, no trained head, no
   novel layer. It is a reading of what a causal LM already computes. Anyone
   describing it as a new model class is overclaiming, and so would we be.
+
+## The same call, as HTTP
+
+`python -m jevtoo.serve --model <hf-or-mlx-path>` binds the loaded weights to
+`POST /v1/systemone`. The body is the published one: `model`, `state`,
+`questions` of type `choice` / `noul` / `score`. `jev-latest` is an alias for
+whatever you loaded. The response `model` field is that concrete id.
+
+`confidence` on choice and score is peakedness, `(n * max(p) - 1) / (n - 1)`,
+the figure TypeSafe's confidence explorer publishes. `Distribution.confidence`
+in the library is still the winner's share. Both are in the observe block, with
+`option_mass` (the probability that sat on the option letters before
+renormalising) and `binary_position_prior` on two-label questions.
+
+Questions in one request share a token prefix. On MLX, a shared prefix of at
+least 32 tokens is prefilled once. The first request also compares a
+last-token `lm_head` against a full forward; when those rows match, later
+reads project only the last position, which keeps the vocab-sized logits tensor
+from being built for every token. A GGUF server keeps one HTTP connection and,
+if a label falls outside top-N, retries that request once with a wider window.

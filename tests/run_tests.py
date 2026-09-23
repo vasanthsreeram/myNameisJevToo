@@ -10,12 +10,13 @@ import traceback
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
-spec = importlib.util.spec_from_file_location(
-    "test_readout", pathlib.Path(__file__).parent / "test_readout.py")
-mod = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(mod)
-
-tests = sorted((n, getattr(mod, n)) for n in dir(mod) if n.startswith("test_"))
+tests = []
+for path in sorted(pathlib.Path(__file__).parent.glob("test_*.py")):
+    spec = importlib.util.spec_from_file_location(path.stem, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    tests.extend((f"{path.stem}.{n}", getattr(mod, n)) for n in dir(mod) if n.startswith("test_"))
+tests = sorted(tests, key=lambda item: item[0])
 passed = failed = 0
 for name, fn in tests:
     try:

@@ -25,12 +25,27 @@ class DecisionModel:
 
     backend: object
     instruction: str = DEFAULT_INSTRUCTION
+    # The distribution behind the most recent primitive. ``noul`` returns a
+    # float, so latency, raw mass and the share live here.
+    last: Distribution | None = None
 
     # -- generic ---------------------------------------------------------
     def options(self, state: str, labels: list[str], instructions: str | None = None,
                 criteria: dict | list | None = None) -> Distribution:
         prompt = render_state(state, instructions or self.instruction, labels, criteria)
-        return self.backend.distribution(prompt, labels)
+        self.last = self.backend.distribution(prompt, labels)
+        return self.last
+
+    def distributions(self, items: list[tuple[str, list[str]]]) -> list[Distribution]:
+        """Score ``(prompt, labels)`` pairs. Backends may share a prefix."""
+        batch = getattr(self.backend, "distributions", None)
+        if callable(batch):
+            out = batch(items)
+        else:
+            out = [self.backend.distribution(prompt, labels) for prompt, labels in items]
+        if out:
+            self.last = out[-1]
+        return out
 
     # -- the three primitives -------------------------------------------
     def choice(self, state: str, instructions: str, labels: list[str],
@@ -41,6 +56,8 @@ class DecisionModel:
     def noul(self, state: str, question: str, yes: str = "yes", no: str = "no",
              criteria: dict | None = None) -> float:
         """YES/NO GATE. Returns P(positive) renormalised over the two labels.
+
+        The distribution itself — latency, raw mass, share — is ``self.last``.
 
         Put an explicit no-match or unknown option in `labels` whenever the
         evidence can be missing. Removing that option does not make the model

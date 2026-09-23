@@ -38,6 +38,11 @@ class Distribution:
     raw: list[float] = field(default_factory=list)
     per_token: list[list[float]] = field(default_factory=list)  # non-`spaced` labels may span tokens
     latency_s: float | None = None
+    n_tokens: int | None = None
+    cached_tokens: int | None = None
+    prefill_s: float | None = None
+    prefix_tokens: int | None = None
+    missing: int = 0
 
     # -- typed accessors -------------------------------------------------
     @property
@@ -117,6 +122,24 @@ def render_state(state: str, instructions: str, labels: Sequence[str],
                  criteria: dict | list | None = None,
                  suffix: str = DEFAULT_SUFFIX) -> str:
     return f"{state}\n\n{instructions}\n\n{render_options(labels, criteria)}{suffix}"
+
+
+def peakedness(share: Sequence[float]) -> float:
+    """Confidence the way TypeSafe's explorer defines it.
+
+    ``(n * max(p) - 1) / (n - 1)``. All of the mass on one option is 1. A
+    uniform split is 0. Their published 3-option examples land on this number
+    (0.95 / 0.05 / 0.00 over three levels is 0.925, which they print as 0.92).
+
+    ``Distribution.confidence`` stays the winner's own share. The two numbers
+    answer different questions, and the HTTP ``confidence`` field uses this one
+    so a client can keep the thresholds it already tuned against TypeSafe.
+    """
+    n = len(share)
+    if n <= 1:
+        return 1.0 if n == 1 else 0.0
+    peak = max(share) if share else 0.0
+    return max(0.0, min(1.0, (n * peak - 1.0) / (n - 1)))
 
 
 def softmax(xs: Iterable[float]) -> list[float]:

@@ -133,6 +133,9 @@ Practical rules:
 - Rotate the correct answer's position when building a test set; a fixed position trains you to
   measure the prior.
 
+The local server marks this. `X-Jev-Observe: 1` adds `"binary_position_prior": true` on every
+two-label question, which is every noul and every two-option choice.
+
 ---
 
 ## 6. Label-position prior

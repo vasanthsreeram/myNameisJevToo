@@ -10,7 +10,10 @@ the names, data and numbers that are referenced rather than redistributed.
 **This project is not affiliated with, endorsed by, or connected to TypeSafe AI.** The name
 `myNameisJevToo` is an affectionate nod to them, and every Jev figure quoted in this
 repository's documentation is TypeSafe's own published number, cited to where they published it.
-No TypeSafe code, weights or data are included here.
+No TypeSafe code, weights or data are included here. `POST /v1/systemone` follows the
+request and answer fields in their published API reference. The hero image is the
+"my name is Jeff" still with a wordmark drawn for this repository (the pink is the
+`#E551BA` used on their confidence page). It is not a TypeSafe logo file.
 
 ## Model weights — OpenBMB / MiniCPM5-2B
 
