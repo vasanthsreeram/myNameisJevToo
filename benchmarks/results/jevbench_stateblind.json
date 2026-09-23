@@ -1,0 +1,1412 @@
+{
+ "easy": {
+  "n": 48,
+  "accuracy": 0.3125,
+  "chance": 0.28402777777777777,
+  "chance_corrected": 3.976721629485937,
+  "items": [
+   {
+    "id": "easy-intent-00",
+    "correct": false,
+    "picked": "report_damage",
+    "expected": "track_order"
+   },
+   {
+    "id": "easy-intent-01",
+    "correct": false,
+    "picked": "report_damage",
+    "expected": "cancel_order"
+   },
+   {
+    "id": "easy-intent-02",
+    "correct": false,
+    "picked": "report_damage",
+    "expected": "change_address"
+   },
+   {
+    "id": "easy-intent-03",
+    "correct": true,
+    "picked": "report_damage",
+    "expected": "report_damage"
+   },
+   {
+    "id": "easy-intent-04",
+    "correct": false,
+    "picked": "report_damage",
+    "expected": "billing_question"
+   },
+   {
+    "id": "easy-intent-05",
+    "correct": false,
+    "picked": "report_damage",
+    "expected": "track_order"
+   },
+   {
+    "id": "easy-intent-06",
+    "correct": true,
+    "picked": "set_alarm",
+    "expected": "set_alarm"
+   },
+   {
+    "id": "easy-intent-07",
+    "correct": false,
+    "picked": "set_alarm",
+    "expected": "play_music"
+   },
+   {
+    "id": "easy-intent-08",
+    "correct": false,
+    "picked": "set_alarm",
+    "expected": "weather"
+   },
+   {
+    "id": "easy-intent-09",
+    "correct": false,
+    "picked": "set_alarm",
+    "expected": "send_message"
+   },
+   {
+    "id": "easy-intent-10",
+    "correct": false,
+    "picked": "set_alarm",
+    "expected": "turn_off_lights"
+   },
+   {
+    "id": "easy-intent-11",
+    "correct": true,
+    "picked": "set_alarm",
+    "expected": "set_alarm"
+   },
+   {
+    "id": "easy-fact-00",
+    "correct": false,
+    "picked": "no",
+    "expected": "yes"
+   },
+   {
+    "id": "easy-fact-01",
+    "correct": true,
+    "picked": "no",
+    "expected": "no"
+   },
+   {
+    "id": "easy-fact-02",
+    "correct": false,
+    "picked": "no",
+    "expected": "yes"
+   },
+   {
+    "id": "easy-fact-03",
+    "correct": true,
+    "picked": "no",
+    "expected": "no"
+   },
+   {
+    "id": "easy-fact-04",
+    "correct": false,
+    "picked": "no",
+    "expected": "yes"
+   },
+   {
+    "id": "easy-fact-05",
+    "correct": true,
+    "picked": "no",
+    "expected": "no"
+   },
+   {
+    "id": "easy-fact-06",
+    "correct": false,
+    "picked": "no",
+    "expected": "yes"
+   },
+   {
+    "id": "easy-fact-07",
+    "correct": true,
+    "picked": "no",
+    "expected": "no"
+   },
+   {
+    "id": "easy-fact-08",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "easy-fact-09",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "easy-fact-10",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "easy-fact-11",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "easy-extraction-00",
+    "correct": true,
+    "picked": "paypal",
+    "expected": "paypal"
+   },
+   {
+    "id": "easy-extraction-01",
+    "correct": false,
+    "picked": "paypal",
+    "expected": "cash"
+   },
+   {
+    "id": "easy-extraction-02",
+    "correct": false,
+    "picked": "paypal",
+    "expected": "bank_transfer"
+   },
+   {
+    "id": "easy-extraction-03",
+    "correct": false,
+    "picked": "medium",
+    "expected": "high"
+   },
+   {
+    "id": "easy-extraction-04",
+    "correct": false,
+    "picked": "medium",
+    "expected": "low"
+   },
+   {
+    "id": "easy-extraction-05",
+    "correct": false,
+    "picked": "medium",
+    "expected": "urgent"
+   },
+   {
+    "id": "easy-extraction-06",
+    "correct": true,
+    "picked": "M",
+    "expected": "M"
+   },
+   {
+    "id": "easy-extraction-07",
+    "correct": false,
+    "picked": "M",
+    "expected": "XL"
+   },
+   {
+    "id": "easy-extraction-08",
+    "correct": false,
+    "picked": "tuesday",
+    "expected": "thursday"
+   },
+   {
+    "id": "easy-extraction-09",
+    "correct": false,
+    "picked": "tuesday",
+    "expected": "monday"
+   },
+   {
+    "id": "easy-extraction-10",
+    "correct": false,
+    "picked": "tuesday",
+    "expected": "friday"
+   },
+   {
+    "id": "easy-extraction-11",
+    "correct": false,
+    "picked": "paypal",
+    "expected": "credit_card"
+   },
+   {
+    "id": "easy-tool_selection-00",
+    "correct": false,
+    "picked": "create_calendar_event",
+    "expected": "get_weather"
+   },
+   {
+    "id": "easy-tool_selection-01",
+    "correct": false,
+    "picked": "create_calendar_event",
+    "expected": "send_email"
+   },
+   {
+    "id": "easy-tool_selection-02",
+    "correct": true,
+    "picked": "create_calendar_event",
+    "expected": "create_calendar_event"
+   },
+   {
+    "id": "easy-tool_selection-03",
+    "correct": false,
+    "picked": "create_calendar_event",
+    "expected": "convert_currency"
+   },
+   {
+    "id": "easy-tool_selection-04",
+    "correct": false,
+    "picked": "create_calendar_event",
+    "expected": "translate_text"
+   },
+   {
+    "id": "easy-tool_selection-05",
+    "correct": true,
+    "picked": "create_calendar_event",
+    "expected": "create_calendar_event"
+   },
+   {
+    "id": "easy-tool_selection-06",
+    "correct": false,
+    "picked": "set_reminder",
+    "expected": "search_flights"
+   },
+   {
+    "id": "easy-tool_selection-07",
+    "correct": false,
+    "picked": "set_reminder",
+    "expected": "book_restaurant"
+   },
+   {
+    "id": "easy-tool_selection-08",
+    "correct": true,
+    "picked": "set_reminder",
+    "expected": "set_reminder"
+   },
+   {
+    "id": "easy-tool_selection-09",
+    "correct": false,
+    "picked": "set_reminder",
+    "expected": "get_stock_price"
+   },
+   {
+    "id": "easy-tool_selection-10",
+    "correct": false,
+    "picked": "set_reminder",
+    "expected": "call_taxi"
+   },
+   {
+    "id": "easy-tool_selection-11",
+    "correct": true,
+    "picked": "set_reminder",
+    "expected": "set_reminder"
+   }
+  ]
+ },
+ "standard": {
+  "n": 72,
+  "accuracy": 0.2777777777777778,
+  "chance": 0.31666666666666665,
+  "chance_corrected": 0.0,
+  "items": [
+   {
+    "id": "original-policy-01-0",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "original-policy-01-1",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "original-policy-02-0",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "original-policy-02-1",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "original-policy-03-0",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "original-policy-03-1",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "original-policy-04-0",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "original-policy-04-1",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "original-policy-05-0",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "original-policy-05-1",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "original-policy-06-0",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "original-policy-06-1",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "original-intent-01-0",
+    "correct": false,
+    "picked": "cancel",
+    "expected": "refund"
+   },
+   {
+    "id": "original-intent-01-1",
+    "correct": false,
+    "picked": "cancel",
+    "expected": "refund"
+   },
+   {
+    "id": "original-intent-02-0",
+    "correct": false,
+    "picked": "cancel",
+    "expected": "status"
+   },
+   {
+    "id": "original-intent-02-1",
+    "correct": false,
+    "picked": "cancel",
+    "expected": "status"
+   },
+   {
+    "id": "original-intent-03-0",
+    "correct": false,
+    "picked": "cancel",
+    "expected": "change_address"
+   },
+   {
+    "id": "original-intent-03-1",
+    "correct": false,
+    "picked": "cancel",
+    "expected": "change_address"
+   },
+   {
+    "id": "original-intent-04-0",
+    "correct": true,
+    "picked": "cancel",
+    "expected": "cancel"
+   },
+   {
+    "id": "original-intent-04-1",
+    "correct": true,
+    "picked": "cancel",
+    "expected": "cancel"
+   },
+   {
+    "id": "original-intent-05-0",
+    "correct": false,
+    "picked": "cancel",
+    "expected": "other"
+   },
+   {
+    "id": "original-intent-05-1",
+    "correct": false,
+    "picked": "cancel",
+    "expected": "other"
+   },
+   {
+    "id": "original-intent-06-0",
+    "correct": false,
+    "picked": "cancel",
+    "expected": "status"
+   },
+   {
+    "id": "original-intent-06-1",
+    "correct": false,
+    "picked": "cancel",
+    "expected": "status"
+   },
+   {
+    "id": "original-ordinal-01-0",
+    "correct": false,
+    "picked": "1",
+    "expected": 0
+   },
+   {
+    "id": "original-ordinal-01-1",
+    "correct": false,
+    "picked": "1",
+    "expected": 0
+   },
+   {
+    "id": "original-ordinal-02-0",
+    "correct": true,
+    "picked": "1",
+    "expected": 1
+   },
+   {
+    "id": "original-ordinal-02-1",
+    "correct": true,
+    "picked": "1",
+    "expected": 1
+   },
+   {
+    "id": "original-ordinal-03-0",
+    "correct": false,
+    "picked": "1",
+    "expected": 2
+   },
+   {
+    "id": "original-ordinal-03-1",
+    "correct": false,
+    "picked": "1",
+    "expected": 2
+   },
+   {
+    "id": "original-ordinal-04-0",
+    "correct": false,
+    "picked": "1",
+    "expected": 3
+   },
+   {
+    "id": "original-ordinal-04-1",
+    "correct": false,
+    "picked": "1",
+    "expected": 3
+   },
+   {
+    "id": "original-ordinal-05-0",
+    "correct": false,
+    "picked": "1",
+    "expected": 0
+   },
+   {
+    "id": "original-ordinal-05-1",
+    "correct": false,
+    "picked": "1",
+    "expected": 0
+   },
+   {
+    "id": "original-ordinal-06-0",
+    "correct": false,
+    "picked": "1",
+    "expected": 2
+   },
+   {
+    "id": "original-ordinal-06-1",
+    "correct": false,
+    "picked": "1",
+    "expected": 2
+   },
+   {
+    "id": "original-extraction-01-0",
+    "correct": false,
+    "picked": "post",
+    "expected": "pickup"
+   },
+   {
+    "id": "original-extraction-01-1",
+    "correct": false,
+    "picked": "post",
+    "expected": "pickup"
+   },
+   {
+    "id": "original-extraction-02-0",
+    "correct": false,
+    "picked": "post",
+    "expected": "unknown"
+   },
+   {
+    "id": "original-extraction-02-1",
+    "correct": false,
+    "picked": "post",
+    "expected": "unknown"
+   },
+   {
+    "id": "original-extraction-03-0",
+    "correct": false,
+    "picked": "post",
+    "expected": "courier"
+   },
+   {
+    "id": "original-extraction-03-1",
+    "correct": false,
+    "picked": "post",
+    "expected": "courier"
+   },
+   {
+    "id": "original-extraction-04-0",
+    "correct": true,
+    "picked": "post",
+    "expected": "post"
+   },
+   {
+    "id": "original-extraction-04-1",
+    "correct": true,
+    "picked": "post",
+    "expected": "post"
+   },
+   {
+    "id": "original-extraction-05-0",
+    "correct": false,
+    "picked": "post",
+    "expected": "unknown"
+   },
+   {
+    "id": "original-extraction-05-1",
+    "correct": false,
+    "picked": "post",
+    "expected": "unknown"
+   },
+   {
+    "id": "original-extraction-06-0",
+    "correct": false,
+    "picked": "post",
+    "expected": "courier"
+   },
+   {
+    "id": "original-extraction-06-1",
+    "correct": false,
+    "picked": "post",
+    "expected": "courier"
+   },
+   {
+    "id": "original-adequacy-01-0",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "original-adequacy-01-1",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "original-adequacy-02-0",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "original-adequacy-02-1",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "original-adequacy-03-0",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "original-adequacy-03-1",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "original-adequacy-04-0",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "original-adequacy-04-1",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "original-adequacy-05-0",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "original-adequacy-05-1",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "original-adequacy-06-0",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "original-adequacy-06-1",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "original-routing-01-0",
+    "correct": false,
+    "picked": "coding",
+    "expected": "math"
+   },
+   {
+    "id": "original-routing-01-1",
+    "correct": false,
+    "picked": "coding",
+    "expected": "math"
+   },
+   {
+    "id": "original-routing-02-0",
+    "correct": true,
+    "picked": "coding",
+    "expected": "coding"
+   },
+   {
+    "id": "original-routing-02-1",
+    "correct": true,
+    "picked": "coding",
+    "expected": "coding"
+   },
+   {
+    "id": "original-routing-03-0",
+    "correct": false,
+    "picked": "coding",
+    "expected": "coding_agent"
+   },
+   {
+    "id": "original-routing-03-1",
+    "correct": false,
+    "picked": "coding",
+    "expected": "coding_agent"
+   },
+   {
+    "id": "original-routing-04-0",
+    "correct": false,
+    "picked": "coding",
+    "expected": "document"
+   },
+   {
+    "id": "original-routing-04-1",
+    "correct": false,
+    "picked": "coding",
+    "expected": "document"
+   },
+   {
+    "id": "original-routing-05-0",
+    "correct": false,
+    "picked": "coding",
+    "expected": "tools"
+   },
+   {
+    "id": "original-routing-05-1",
+    "correct": false,
+    "picked": "coding",
+    "expected": "tools"
+   },
+   {
+    "id": "original-routing-06-0",
+    "correct": false,
+    "picked": "coding",
+    "expected": "general"
+   },
+   {
+    "id": "original-routing-06-1",
+    "correct": false,
+    "picked": "coding",
+    "expected": "general"
+   }
+  ]
+ },
+ "hard": {
+  "n": 111,
+  "accuracy": 0.4594594594594595,
+  "chance": 0.3364393939393939,
+  "chance_corrected": 18.539386515182844,
+  "items": [
+   {
+    "id": "hard-opus-a-long_policy-01",
+    "correct": false,
+    "picked": "pay_subject_to_10000_sublimit",
+    "expected": "pay_subject_to_15000_sublimit"
+   },
+   {
+    "id": "hard-opus-a-long_policy-04",
+    "correct": false,
+    "picked": "department_head",
+    "expected": "cfo"
+   },
+   {
+    "id": "hard-opus-a-long_policy-08",
+    "correct": true,
+    "picked": "parts_covered_labour_charged",
+    "expected": "parts_covered_labour_charged"
+   },
+   {
+    "id": "hard-opus-a-long_policy-09",
+    "correct": false,
+    "picked": "license_exception_lvs",
+    "expected": "license_required"
+   },
+   {
+    "id": "hard-opus-a-long_policy-11",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-opus-a-long_policy-13",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-opus-a-long_policy-17",
+    "correct": false,
+    "picked": "no_page_ticket_only",
+    "expected": "database_oncall"
+   },
+   {
+    "id": "hard-opus-a-long_policy-19",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-opus-a-probability-03",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-opus-a-probability-04",
+    "correct": false,
+    "picked": "early",
+    "expected": "on_time"
+   },
+   {
+    "id": "hard-opus-a-probability-07",
+    "correct": true,
+    "picked": "escalated",
+    "expected": "escalated"
+   },
+   {
+    "id": "hard-opus-a-probability-08",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-opus-a-temporal_numeric-03",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-opus-a-temporal_numeric-06",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-opus-a-temporal_numeric-07",
+    "correct": false,
+    "picked": "sep_25",
+    "expected": "sep_26"
+   },
+   {
+    "id": "hard-opus-a-temporal_numeric-09",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-opus-a-temporal_numeric-12",
+    "correct": true,
+    "picked": "1",
+    "expected": 1
+   },
+   {
+    "id": "hard-opus-b-ambiguous-02",
+    "correct": true,
+    "picked": "real_incident",
+    "expected": "real_incident"
+   },
+   {
+    "id": "hard-opus-b-ambiguous-03",
+    "correct": true,
+    "picked": "time_barred",
+    "expected": "time_barred"
+   },
+   {
+    "id": "hard-opus-b-ambiguous-07",
+    "correct": false,
+    "picked": "over_limit",
+    "expected": "within_policy"
+   },
+   {
+    "id": "hard-opus-b-ambiguous-09",
+    "correct": false,
+    "picked": "compromised",
+    "expected": "legitimate"
+   },
+   {
+    "id": "hard-opus-b-ambiguous-10",
+    "correct": false,
+    "picked": "send_to_alex_moreno",
+    "expected": "ask_user_which_alex"
+   },
+   {
+    "id": "hard-opus-b-ambiguous-11",
+    "correct": true,
+    "picked": "cannot_determine",
+    "expected": "cannot_determine"
+   },
+   {
+    "id": "hard-opus-b-ambiguous-13",
+    "correct": true,
+    "picked": "cannot_determine",
+    "expected": "cannot_determine"
+   },
+   {
+    "id": "hard-opus-b-multi_hop-03",
+    "correct": false,
+    "picked": "tier1_team_lead",
+    "expected": "tier3_cfo"
+   },
+   {
+    "id": "hard-opus-b-multi_hop-04",
+    "correct": false,
+    "picked": "no_page_ticket_only",
+    "expected": "bjorn"
+   },
+   {
+    "id": "hard-opus-b-multi_hop-05",
+    "correct": false,
+    "picked": "1",
+    "expected": 2
+   },
+   {
+    "id": "hard-opus-b-multi_hop-07",
+    "correct": false,
+    "picked": "credit_10_percent",
+    "expected": "credit_20_percent"
+   },
+   {
+    "id": "hard-opus-b-multi_hop-08",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-opus-b-probability-01",
+    "correct": true,
+    "picked": "merchant_wins",
+    "expected": "merchant_wins"
+   },
+   {
+    "id": "hard-opus-b-probability-02",
+    "correct": true,
+    "picked": "upstream_provider",
+    "expected": "upstream_provider"
+   },
+   {
+    "id": "hard-opus-b-probability-03",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-opus-b-probability-04",
+    "correct": false,
+    "picked": "late_cancellation",
+    "expected": "attended"
+   },
+   {
+    "id": "hard-opus-b-probability-06",
+    "correct": false,
+    "picked": "modified",
+    "expected": "upheld"
+   },
+   {
+    "id": "hard-opus-b-tradeoff-01",
+    "correct": true,
+    "picked": "escalate_to_engineering",
+    "expected": "escalate_to_engineering"
+   },
+   {
+    "id": "hard-opus-b-tradeoff-03",
+    "correct": true,
+    "picked": "order_b",
+    "expected": "order_b"
+   },
+   {
+    "id": "hard-opus-b-tradeoff-06",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-opus-b-tradeoff-07",
+    "correct": true,
+    "picked": "p0_fix_24h",
+    "expected": "p0_fix_24h"
+   },
+   {
+    "id": "hard-opus-b-tradeoff-08",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-opus-b-tradeoff-12",
+    "correct": true,
+    "picked": "refund_now",
+    "expected": "refund_now"
+   },
+   {
+    "id": "hard-opus-c-long_policy-02",
+    "correct": true,
+    "picked": "erase_but_retain_transaction_records",
+    "expected": "erase_but_retain_transaction_records"
+   },
+   {
+    "id": "hard-opus-c-long_policy-03",
+    "correct": false,
+    "picked": "eur_150",
+    "expected": "eur_400"
+   },
+   {
+    "id": "hard-opus-c-long_policy-04",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-opus-c-long_policy-05",
+    "correct": true,
+    "picked": "1",
+    "expected": 1
+   },
+   {
+    "id": "hard-opus-c-long_policy-08",
+    "correct": false,
+    "picked": "3",
+    "expected": 1
+   },
+   {
+    "id": "hard-opus-c-long_policy-10",
+    "correct": true,
+    "picked": "credit_minus_restocking_fee",
+    "expected": "credit_minus_restocking_fee"
+   },
+   {
+    "id": "hard-opus-c-long_policy-11",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-opus-c-probability-03",
+    "correct": false,
+    "picked": "halvorsen_polymer",
+    "expected": "kuznets_technik"
+   },
+   {
+    "id": "hard-opus-c-temporal_numeric-02",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-opus-c-temporal_numeric-03",
+    "correct": true,
+    "picked": "eur_692_00",
+    "expected": "eur_692_00"
+   },
+   {
+    "id": "hard-opus-c-temporal_numeric-04",
+    "correct": false,
+    "picked": "usd_2303_01",
+    "expected": "usd_2335_00"
+   },
+   {
+    "id": "hard-opus-c-temporal_numeric-06",
+    "correct": false,
+    "picked": "sep_16_taxi",
+    "expected": "sep_18_book_set"
+   },
+   {
+    "id": "hard-opus-c-temporal_numeric-08",
+    "correct": false,
+    "picked": "eur_506_06",
+    "expected": "eur_498_81"
+   },
+   {
+    "id": "hard-opus-c-temporal_numeric-12",
+    "correct": false,
+    "picked": "expired_24_month_term",
+    "expected": "expired_30_month_cap"
+   },
+   {
+    "id": "hard-sol-a-adversarial-01",
+    "correct": true,
+    "picked": "deny_missing_approval",
+    "expected": "deny_missing_approval"
+   },
+   {
+    "id": "hard-sol-a-adversarial-06",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-a-adversarial-07",
+    "correct": false,
+    "picked": "delete_now",
+    "expected": "retain_until_2031"
+   },
+   {
+    "id": "hard-sol-a-adversarial-08",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-sol-a-adversarial-09",
+    "correct": false,
+    "picked": "1",
+    "expected": 2
+   },
+   {
+    "id": "hard-sol-a-adversarial-11",
+    "correct": false,
+    "picked": "ethics_review",
+    "expected": "standard_research"
+   },
+   {
+    "id": "hard-sol-a-multi_hop-01",
+    "correct": true,
+    "picked": "accept_s2_dusk",
+    "expected": "accept_s2_dusk"
+   },
+   {
+    "id": "hard-sol-a-multi_hop-02",
+    "correct": true,
+    "picked": "security_primary",
+    "expected": "security_primary"
+   },
+   {
+    "id": "hard-sol-a-multi_hop-05",
+    "correct": false,
+    "picked": "require_finance_board",
+    "expected": "require_director"
+   },
+   {
+    "id": "hard-sol-a-multi_hop-07",
+    "correct": false,
+    "picked": "deny_prerequisite",
+    "expected": "admit"
+   },
+   {
+    "id": "hard-sol-a-multi_hop-08",
+    "correct": false,
+    "picked": "local_maintenance",
+    "expected": "central_engineering"
+   },
+   {
+    "id": "hard-sol-a-multi_hop-09",
+    "correct": true,
+    "picked": "require_steward",
+    "expected": "require_steward"
+   },
+   {
+    "id": "hard-sol-a-multi_hop-10",
+    "correct": true,
+    "picked": "approve_45_days",
+    "expected": "approve_45_days"
+   },
+   {
+    "id": "hard-sol-a-multi_hop-12",
+    "correct": true,
+    "picked": "needs_authentication",
+    "expected": "needs_authentication"
+   },
+   {
+    "id": "hard-sol-a-trap-02",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-a-trap-04",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-a-trap-05",
+    "correct": false,
+    "picked": "1",
+    "expected": 0
+   },
+   {
+    "id": "hard-sol-a-trap-06",
+    "correct": false,
+    "picked": "close_agent_verified",
+    "expected": "keep_open_unresolved"
+   },
+   {
+    "id": "hard-sol-a-trap-08",
+    "correct": true,
+    "picked": "late",
+    "expected": "late"
+   },
+   {
+    "id": "hard-sol-a-trap-10",
+    "correct": true,
+    "picked": "blocked_second_review",
+    "expected": "blocked_second_review"
+   },
+   {
+    "id": "hard-sol-a-trap-13",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-a-trap-15",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-b-judge_hard-01",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-sol-b-judge_hard-02",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-b-judge_hard-05",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-sol-b-judge_hard-08",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-b-judge_hard-10",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-b-judge_hard-14",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-b-judge_hard-15",
+    "correct": true,
+    "picked": "yes",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-sol-b-judge_hard-18",
+    "correct": false,
+    "picked": "yes",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-b-long_policy-01",
+    "correct": false,
+    "picked": "approve_meals_only",
+    "expected": "reject_entire_claim"
+   },
+   {
+    "id": "hard-sol-b-long_policy-02",
+    "correct": false,
+    "picked": "privacy_and_security",
+    "expected": "deny_current_export"
+   },
+   {
+    "id": "hard-sol-b-long_policy-05",
+    "correct": true,
+    "picked": "delete_profile_omar_april_and_table",
+    "expected": "delete_profile_omar_april_and_table"
+   },
+   {
+    "id": "hard-sol-b-long_policy-06",
+    "correct": true,
+    "picked": "east_ward",
+    "expected": "east_ward"
+   },
+   {
+    "id": "hard-sol-b-routing_hard-01",
+    "correct": true,
+    "picked": "office_file_repair",
+    "expected": "office_file_repair"
+   },
+   {
+    "id": "hard-sol-b-routing_hard-02",
+    "correct": true,
+    "picked": "ledger_reconciliation",
+    "expected": "ledger_reconciliation"
+   },
+   {
+    "id": "hard-sol-b-routing_hard-03",
+    "correct": true,
+    "picked": "network_dns",
+    "expected": "network_dns"
+   },
+   {
+    "id": "hard-sol-b-routing_hard-07",
+    "correct": false,
+    "picked": "code_signing",
+    "expected": "release_notarization"
+   },
+   {
+    "id": "hard-sol-b-routing_hard-09",
+    "correct": true,
+    "picked": "source_access",
+    "expected": "source_access"
+   },
+   {
+    "id": "hard-sol-b-temporal_numeric-01",
+    "correct": false,
+    "picked": "within_window",
+    "expected": "late_by_under_2h"
+   },
+   {
+    "id": "hard-sol-b-temporal_numeric-02",
+    "correct": false,
+    "picked": "under_100gb_below",
+    "expected": "over_limit"
+   },
+   {
+    "id": "hard-sol-b-temporal_numeric-03",
+    "correct": false,
+    "picked": "6_credits",
+    "expected": "9_credits"
+   },
+   {
+    "id": "hard-sol-b-temporal_numeric-04",
+    "correct": false,
+    "picked": "narrow_fail",
+    "expected": "pass"
+   },
+   {
+    "id": "hard-sol-c-judge_hard-03",
+    "correct": true,
+    "picked": "no",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-c-judge_hard-05",
+    "correct": false,
+    "picked": "no",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-sol-c-judge_hard-07",
+    "correct": true,
+    "picked": "no",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-c-judge_hard-08",
+    "correct": true,
+    "picked": "no",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-c-judge_hard-09",
+    "correct": false,
+    "picked": "no",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-sol-c-judge_hard-10",
+    "correct": false,
+    "picked": "no",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-sol-c-judge_hard-11",
+    "correct": true,
+    "picked": "no",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-c-judge_hard-13",
+    "correct": true,
+    "picked": "no",
+    "expected": "no"
+   },
+   {
+    "id": "hard-sol-c-judge_hard-15",
+    "correct": false,
+    "picked": "no",
+    "expected": "yes"
+   },
+   {
+    "id": "hard-sol-c-multi_hop-07",
+    "correct": false,
+    "picked": "release_draw",
+    "expected": "programme_review"
+   },
+   {
+    "id": "hard-sol-c-multi_hop-09",
+    "correct": false,
+    "picked": "call_fen_cross",
+    "expected": "bus_substitution"
+   },
+   {
+    "id": "hard-sol-c-multi_hop-11",
+    "correct": false,
+    "picked": "coverage_confirmed",
+    "expected": "coverage_excluded"
+   },
+   {
+    "id": "hard-sol-c-multi_hop-12",
+    "correct": true,
+    "picked": "conservation_hold",
+    "expected": "conservation_hold"
+   },
+   {
+    "id": "hard-sol-c-multi_hop-13",
+    "correct": true,
+    "picked": "normal_release",
+    "expected": "normal_release"
+   }
+  ]
+ }
+}

@@ -1,0 +1,1212 @@
+{
+ "spearman": 0.9518631863186319,
+ "mean_abs_delta": 0.6848511021265531,
+ "max_abs_delta": 2.9136383105357853,
+ "top1_bf16": 24,
+ "top1_q4": 24,
+ "argmax_flips": 0,
+ "bf16": [
+  {
+   "prompt": "The capital of Australia is",
+   "answer": " Canberra",
+   "mean_logprob": -0.33162015687784874,
+   "is_correct": true
+  },
+  {
+   "prompt": "The capital of Australia is",
+   "answer": " Sydney",
+   "mean_logprob": -3.644120108913779,
+   "is_correct": false
+  },
+  {
+   "prompt": "The capital of Australia is",
+   "answer": " Melbourne",
+   "mean_logprob": -3.3941200552567414,
+   "is_correct": false
+  },
+  {
+   "prompt": "The capital of Australia is",
+   "answer": " Perth",
+   "mean_logprob": -6.769119735343563,
+   "is_correct": false
+  },
+  {
+   "prompt": "The chemical symbol for gold is",
+   "answer": " Au",
+   "mean_logprob": -0.05385185976696415,
+   "is_correct": true
+  },
+  {
+   "prompt": "The chemical symbol for gold is",
+   "answer": " Ag",
+   "mean_logprob": -5.178851876061522,
+   "is_correct": false
+  },
+  {
+   "prompt": "The chemical symbol for gold is",
+   "answer": " Gd",
+   "mean_logprob": -9.678851692023542,
+   "is_correct": false
+  },
+  {
+   "prompt": "The chemical symbol for gold is",
+   "answer": " Go",
+   "mean_logprob": -12.053851356156587,
+   "is_correct": false
+  },
+  {
+   "prompt": "The largest planet in the solar system is",
+   "answer": " Jupiter",
+   "mean_logprob": -0.14910198839039235,
+   "is_correct": true
+  },
+  {
+   "prompt": "The largest planet in the solar system is",
+   "answer": " Saturn",
+   "mean_logprob": -5.5866017738073275,
+   "is_correct": false
+  },
+  {
+   "prompt": "The largest planet in the solar system is",
+   "answer": " Neptune",
+   "mean_logprob": -6.1491016411896195,
+   "is_correct": false
+  },
+  {
+   "prompt": "The largest planet in the solar system is",
+   "answer": " Mars",
+   "mean_logprob": -5.46160175304212,
+   "is_correct": false
+  },
+  {
+   "prompt": "At sea level, water boils at",
+   "answer": " 100 degrees Celsius",
+   "mean_logprob": -0.8124189267641341,
+   "is_correct": true
+  },
+  {
+   "prompt": "At sea level, water boils at",
+   "answer": " 90 degrees Celsius",
+   "mean_logprob": -3.648429605070498,
+   "is_correct": false
+  },
+  {
+   "prompt": "At sea level, water boils at",
+   "answer": " 212 degrees Celsius",
+   "mean_logprob": -2.8448485095711655,
+   "is_correct": false
+  },
+  {
+   "prompt": "At sea level, water boils at",
+   "answer": " 80 degrees Celsius",
+   "mean_logprob": -3.8874470553903406,
+   "is_correct": false
+  },
+  {
+   "prompt": "The author of the novel Pride and Prejudice is",
+   "answer": " Jane Austen",
+   "mean_logprob": -0.4127969957980237,
+   "is_correct": true
+  },
+  {
+   "prompt": "The author of the novel Pride and Prejudice is",
+   "answer": " Charlotte Bronte",
+   "mean_logprob": -2.0837412352010554,
+   "is_correct": false
+  },
+  {
+   "prompt": "The author of the novel Pride and Prejudice is",
+   "answer": " Emily Bronte",
+   "mean_logprob": -3.7429890404437227,
+   "is_correct": false
+  },
+  {
+   "prompt": "The author of the novel Pride and Prejudice is",
+   "answer": " Virginia Woolf",
+   "mean_logprob": -4.172219841552402,
+   "is_correct": false
+  },
+  {
+   "prompt": "Singapore gained independence in the year",
+   "answer": " 1965",
+   "mean_logprob": -0.17026570730063936,
+   "is_correct": true
+  },
+  {
+   "prompt": "Singapore gained independence in the year",
+   "answer": " 1963",
+   "mean_logprob": -1.4619323128975525,
+   "is_correct": false
+  },
+  {
+   "prompt": "Singapore gained independence in the year",
+   "answer": " 1957",
+   "mean_logprob": -3.9960025908169654,
+   "is_correct": false
+  },
+  {
+   "prompt": "Singapore gained independence in the year",
+   "answer": " 1971",
+   "mean_logprob": -2.5765470275853706,
+   "is_correct": false
+  },
+  {
+   "prompt": "The longest river in the world is generally considered the",
+   "answer": " Nile",
+   "mean_logprob": -0.3989574447844307,
+   "is_correct": true
+  },
+  {
+   "prompt": "The longest river in the world is generally considered the",
+   "answer": " Amazon",
+   "mean_logprob": -1.2739575162333965,
+   "is_correct": false
+  },
+  {
+   "prompt": "The longest river in the world is generally considered the",
+   "answer": " Yangtze",
+   "mean_logprob": -3.7308544594561712,
+   "is_correct": false
+  },
+  {
+   "prompt": "The longest river in the world is generally considered the",
+   "answer": " Mississippi",
+   "mean_logprob": -7.586457311210978,
+   "is_correct": false
+  },
+  {
+   "prompt": "The currency of Japan is the",
+   "answer": " yen",
+   "mean_logprob": -2.256030573638343,
+   "is_correct": true
+  },
+  {
+   "prompt": "The currency of Japan is the",
+   "answer": " yuan",
+   "mean_logprob": -12.006030749575924,
+   "is_correct": false
+  },
+  {
+   "prompt": "The currency of Japan is the",
+   "answer": " won",
+   "mean_logprob": -9.631030362540779,
+   "is_correct": false
+  },
+  {
+   "prompt": "The currency of Japan is the",
+   "answer": " baht",
+   "mean_logprob": -5.111292739537787,
+   "is_correct": false
+  },
+  {
+   "prompt": "The human heart has",
+   "answer": " four chambers",
+   "mean_logprob": -3.768370846782169,
+   "is_correct": true
+  },
+  {
+   "prompt": "The human heart has",
+   "answer": " two chambers",
+   "mean_logprob": -2.8400825508533396,
+   "is_correct": false
+  },
+  {
+   "prompt": "The human heart has",
+   "answer": " three chambers",
+   "mean_logprob": -3.4729873123860733,
+   "is_correct": false
+  },
+  {
+   "prompt": "The human heart has",
+   "answer": " six chambers",
+   "mean_logprob": -5.625898020871713,
+   "is_correct": false
+  },
+  {
+   "prompt": "The programming language created by Guido van Rossum is",
+   "answer": " Python",
+   "mean_logprob": -4.143027654242266,
+   "is_correct": true
+  },
+  {
+   "prompt": "The programming language created by Guido van Rossum is",
+   "answer": " Ruby",
+   "mean_logprob": -10.17427789834031,
+   "is_correct": false
+  },
+  {
+   "prompt": "The programming language created by Guido van Rossum is",
+   "answer": " Perl",
+   "mean_logprob": -10.768027562231389,
+   "is_correct": false
+  },
+  {
+   "prompt": "The programming language created by Guido van Rossum is",
+   "answer": " Java",
+   "mean_logprob": -8.893027532006366,
+   "is_correct": false
+  },
+  {
+   "prompt": "The planet closest to the Sun is",
+   "answer": " Mercury",
+   "mean_logprob": -0.06374588695011517,
+   "is_correct": true
+  },
+  {
+   "prompt": "The planet closest to the Sun is",
+   "answer": " Venus",
+   "mean_logprob": -3.751245720446286,
+   "is_correct": false
+  },
+  {
+   "prompt": "The planet closest to the Sun is",
+   "answer": " Mars",
+   "mean_logprob": -5.876245852517147,
+   "is_correct": false
+  },
+  {
+   "prompt": "The planet closest to the Sun is",
+   "answer": " Earth",
+   "mean_logprob": -4.8137458185309985,
+   "is_correct": false
+  },
+  {
+   "prompt": "The chemical formula for table salt is",
+   "answer": " NaCl",
+   "mean_logprob": -0.04746942889621844,
+   "is_correct": true
+  },
+  {
+   "prompt": "The chemical formula for table salt is",
+   "answer": " KCl",
+   "mean_logprob": -7.547469175063221,
+   "is_correct": false
+  },
+  {
+   "prompt": "The chemical formula for table salt is",
+   "answer": " HCl",
+   "mean_logprob": -8.297469429151024,
+   "is_correct": false
+  },
+  {
+   "prompt": "The chemical formula for table salt is",
+   "answer": " NaHCO3",
+   "mean_logprob": -3.6613272421000858,
+   "is_correct": false
+  },
+  {
+   "prompt": "The tallest mountain above sea level is",
+   "answer": " Mount Everest",
+   "mean_logprob": -0.16421184626688573,
+   "is_correct": true
+  },
+  {
+   "prompt": "The tallest mountain above sea level is",
+   "answer": " K2",
+   "mean_logprob": -3.176602924980316,
+   "is_correct": false
+  },
+  {
+   "prompt": "The tallest mountain above sea level is",
+   "answer": " Kangchenjunga",
+   "mean_logprob": -2.6812029838012212,
+   "is_correct": false
+  },
+  {
+   "prompt": "The tallest mountain above sea level is",
+   "answer": " Denali",
+   "mean_logprob": -2.4398171778950037,
+   "is_correct": false
+  },
+  {
+   "prompt": "The speed of light in a vacuum is approximately 300,000",
+   "answer": " km per second",
+   "mean_logprob": -2.0161692740561663,
+   "is_correct": true
+  },
+  {
+   "prompt": "The speed of light in a vacuum is approximately 300,000",
+   "answer": " metres per second",
+   "mean_logprob": -5.176949239533897,
+   "is_correct": false
+  },
+  {
+   "prompt": "The speed of light in a vacuum is approximately 300,000",
+   "answer": " miles per hour",
+   "mean_logprob": -3.738301006119867,
+   "is_correct": false
+  },
+  {
+   "prompt": "The speed of light in a vacuum is approximately 300,000",
+   "answer": " cm per second",
+   "mean_logprob": -6.5822414487853775,
+   "is_correct": false
+  },
+  {
+   "prompt": "The first person to walk on the Moon was",
+   "answer": " Neil Armstrong",
+   "mean_logprob": -0.08585509220176653,
+   "is_correct": true
+  },
+  {
+   "prompt": "The first person to walk on the Moon was",
+   "answer": " Buzz Aldrin",
+   "mean_logprob": -1.3175764861858918,
+   "is_correct": false
+  },
+  {
+   "prompt": "The first person to walk on the Moon was",
+   "answer": " Yuri Gagarin",
+   "mean_logprob": -1.9026404587737913,
+   "is_correct": false
+  },
+  {
+   "prompt": "The first person to walk on the Moon was",
+   "answer": " Michael Collins",
+   "mean_logprob": -3.557698286350185,
+   "is_correct": false
+  },
+  {
+   "prompt": "The largest organ in the human body is the",
+   "answer": " skin",
+   "mean_logprob": -0.0073627611718901686,
+   "is_correct": true
+  },
+  {
+   "prompt": "The largest organ in the human body is the",
+   "answer": " liver",
+   "mean_logprob": -5.6323623619032155,
+   "is_correct": false
+  },
+  {
+   "prompt": "The largest organ in the human body is the",
+   "answer": " brain",
+   "mean_logprob": -7.69486280034095,
+   "is_correct": false
+  },
+  {
+   "prompt": "The largest organ in the human body is the",
+   "answer": " lung",
+   "mean_logprob": -10.132362788585187,
+   "is_correct": false
+  },
+  {
+   "prompt": "The most abundant gas in Earth's atmosphere is",
+   "answer": " nitrogen",
+   "mean_logprob": -0.9553477125522027,
+   "is_correct": true
+  },
+  {
+   "prompt": "The most abundant gas in Earth's atmosphere is",
+   "answer": " oxygen",
+   "mean_logprob": -3.8928475378988012,
+   "is_correct": false
+  },
+  {
+   "prompt": "The most abundant gas in Earth's atmosphere is",
+   "answer": " carbon dioxide",
+   "mean_logprob": -1.7400090721770067,
+   "is_correct": false
+  },
+  {
+   "prompt": "The most abundant gas in Earth's atmosphere is",
+   "answer": " argon",
+   "mean_logprob": -4.142847679959096,
+   "is_correct": false
+  },
+  {
+   "prompt": "The co-founder of Microsoft is",
+   "answer": " Bill Gates",
+   "mean_logprob": -2.2487375169196726,
+   "is_correct": true
+  },
+  {
+   "prompt": "The co-founder of Microsoft is",
+   "answer": " Steve Jobs",
+   "mean_logprob": -4.0021254854279436,
+   "is_correct": false
+  },
+  {
+   "prompt": "The co-founder of Microsoft is",
+   "answer": " Jeff Bezos",
+   "mean_logprob": -2.5475146757300804,
+   "is_correct": false
+  },
+  {
+   "prompt": "The co-founder of Microsoft is",
+   "answer": " Larry Page",
+   "mean_logprob": -4.533291346339708,
+   "is_correct": false
+  },
+  {
+   "prompt": "The capital of Canada is",
+   "answer": " Ottawa",
+   "mean_logprob": -0.3035848053812413,
+   "is_correct": true
+  },
+  {
+   "prompt": "The capital of Canada is",
+   "answer": " Toronto",
+   "mean_logprob": -3.428584730528586,
+   "is_correct": false
+  },
+  {
+   "prompt": "The capital of Canada is",
+   "answer": " Vancouver",
+   "mean_logprob": -7.178584829947938,
+   "is_correct": false
+  },
+  {
+   "prompt": "The capital of Canada is",
+   "answer": " Montreal",
+   "mean_logprob": -5.3035848282932125,
+   "is_correct": false
+  },
+  {
+   "prompt": "Binary 1010 in decimal is",
+   "answer": " 10",
+   "mean_logprob": -0.4853176730807113,
+   "is_correct": true
+  },
+  {
+   "prompt": "Binary 1010 in decimal is",
+   "answer": " 8",
+   "mean_logprob": -2.297817584816408,
+   "is_correct": false
+  },
+  {
+   "prompt": "Binary 1010 in decimal is",
+   "answer": " 12",
+   "mean_logprob": -5.235317573991963,
+   "is_correct": false
+  },
+  {
+   "prompt": "Binary 1010 in decimal is",
+   "answer": " 14",
+   "mean_logprob": -3.9853177436333542,
+   "is_correct": false
+  },
+  {
+   "prompt": "The number of sides of a hexagon is",
+   "answer": " six",
+   "mean_logprob": -4.078670892779324,
+   "is_correct": true
+  },
+  {
+   "prompt": "The number of sides of a hexagon is",
+   "answer": " five",
+   "mean_logprob": -7.203670897544402,
+   "is_correct": false
+  },
+  {
+   "prompt": "The number of sides of a hexagon is",
+   "answer": " seven",
+   "mean_logprob": -8.578670789794176,
+   "is_correct": false
+  },
+  {
+   "prompt": "The number of sides of a hexagon is",
+   "answer": " eight",
+   "mean_logprob": -6.953670807482284,
+   "is_correct": false
+  },
+  {
+   "prompt": "The boiling point of nitrogen in Celsius is about",
+   "answer": " -196",
+   "mean_logprob": -1.144243972041464,
+   "is_correct": true
+  },
+  {
+   "prompt": "The boiling point of nitrogen in Celsius is about",
+   "answer": " -100",
+   "mean_logprob": -4.894243815732921,
+   "is_correct": false
+  },
+  {
+   "prompt": "The boiling point of nitrogen in Celsius is about",
+   "answer": " 0",
+   "mean_logprob": -3.4632560927237463,
+   "is_correct": false
+  },
+  {
+   "prompt": "The boiling point of nitrogen in Celsius is about",
+   "answer": " 100",
+   "mean_logprob": -3.9320061037916574,
+   "is_correct": false
+  },
+  {
+   "prompt": "The Great Barrier Reef lies off the coast of",
+   "answer": " Australia",
+   "mean_logprob": -1.251413149253819,
+   "is_correct": true
+  },
+  {
+   "prompt": "The Great Barrier Reef lies off the coast of",
+   "answer": " Brazil",
+   "mean_logprob": -8.938912838836435,
+   "is_correct": false
+  },
+  {
+   "prompt": "The Great Barrier Reef lies off the coast of",
+   "answer": " India",
+   "mean_logprob": -11.376412822639148,
+   "is_correct": false
+  },
+  {
+   "prompt": "The Great Barrier Reef lies off the coast of",
+   "answer": " Mexico",
+   "mean_logprob": -12.470163527271346,
+   "is_correct": false
+  },
+  {
+   "prompt": "The metric prefix for one thousandth is",
+   "answer": " milli",
+   "mean_logprob": -1.5396968105157758,
+   "is_correct": true
+  },
+  {
+   "prompt": "The metric prefix for one thousandth is",
+   "answer": " micro",
+   "mean_logprob": -5.012047919359758,
+   "is_correct": false
+  },
+  {
+   "prompt": "The metric prefix for one thousandth is",
+   "answer": " kilo",
+   "mean_logprob": -4.319302841787925,
+   "is_correct": false
+  },
+  {
+   "prompt": "The metric prefix for one thousandth is",
+   "answer": " centi",
+   "mean_logprob": -3.6653676559767603,
+   "is_correct": false
+  },
+  {
+   "prompt": "The square root of 144 is",
+   "answer": " 12",
+   "mean_logprob": -0.5802487090934275,
+   "is_correct": true
+  },
+  {
+   "prompt": "The square root of 144 is",
+   "answer": " 14",
+   "mean_logprob": -6.6427487897338455,
+   "is_correct": false
+  },
+  {
+   "prompt": "The square root of 144 is",
+   "answer": " 16",
+   "mean_logprob": -8.01774868680678,
+   "is_correct": false
+  },
+  {
+   "prompt": "The square root of 144 is",
+   "answer": " 11",
+   "mean_logprob": -6.705248490194743,
+   "is_correct": false
+  }
+ ],
+ "q4": [
+  {
+   "prompt": "The capital of Australia is",
+   "answer": " Canberra",
+   "mean_logprob": -1.936113129559223,
+   "is_correct": true
+  },
+  {
+   "prompt": "The capital of Australia is",
+   "answer": " Sydney",
+   "mean_logprob": -3.9361130606608947,
+   "is_correct": false
+  },
+  {
+   "prompt": "The capital of Australia is",
+   "answer": " Melbourne",
+   "mean_logprob": -3.123613064392375,
+   "is_correct": false
+  },
+  {
+   "prompt": "The capital of Australia is",
+   "answer": " Perth",
+   "mean_logprob": -7.686113058812421,
+   "is_correct": false
+  },
+  {
+   "prompt": "The chemical symbol for gold is",
+   "answer": " Au",
+   "mean_logprob": -0.02575234994147036,
+   "is_correct": true
+  },
+  {
+   "prompt": "The chemical symbol for gold is",
+   "answer": " Ag",
+   "mean_logprob": -4.775752220556539,
+   "is_correct": false
+  },
+  {
+   "prompt": "The chemical symbol for gold is",
+   "answer": " Gd",
+   "mean_logprob": -10.588252216383383,
+   "is_correct": false
+  },
+  {
+   "prompt": "The chemical symbol for gold is",
+   "answer": " Go",
+   "mean_logprob": -12.525752071601117,
+   "is_correct": false
+  },
+  {
+   "prompt": "The largest planet in the solar system is",
+   "answer": " Jupiter",
+   "mean_logprob": -0.4058223229332779,
+   "is_correct": true
+  },
+  {
+   "prompt": "The largest planet in the solar system is",
+   "answer": " Saturn",
+   "mean_logprob": -4.343322201764868,
+   "is_correct": false
+  },
+  {
+   "prompt": "The largest planet in the solar system is",
+   "answer": " Neptune",
+   "mean_logprob": -6.468322364621689,
+   "is_correct": false
+  },
+  {
+   "prompt": "The largest planet in the solar system is",
+   "answer": " Mars",
+   "mean_logprob": -4.968322090489902,
+   "is_correct": false
+  },
+  {
+   "prompt": "At sea level, water boils at",
+   "answer": " 100 degrees Celsius",
+   "mean_logprob": -0.45330158616894,
+   "is_correct": true
+  },
+  {
+   "prompt": "At sea level, water boils at",
+   "answer": " 90 degrees Celsius",
+   "mean_logprob": -3.6747157661317424,
+   "is_correct": false
+  },
+  {
+   "prompt": "At sea level, water boils at",
+   "answer": " 212 degrees Celsius",
+   "mean_logprob": -1.723993303248845,
+   "is_correct": false
+  },
+  {
+   "prompt": "At sea level, water boils at",
+   "answer": " 80 degrees Celsius",
+   "mean_logprob": -4.225290853778956,
+   "is_correct": false
+  },
+  {
+   "prompt": "The author of the novel Pride and Prejudice is",
+   "answer": " Jane Austen",
+   "mean_logprob": -0.8841676646743584,
+   "is_correct": true
+  },
+  {
+   "prompt": "The author of the novel Pride and Prejudice is",
+   "answer": " Charlotte Bronte",
+   "mean_logprob": -2.8464943329287564,
+   "is_correct": false
+  },
+  {
+   "prompt": "The author of the novel Pride and Prejudice is",
+   "answer": " Emily Bronte",
+   "mean_logprob": -3.7547808359648016,
+   "is_correct": false
+  },
+  {
+   "prompt": "The author of the novel Pride and Prejudice is",
+   "answer": " Virginia Woolf",
+   "mean_logprob": -4.570810922855514,
+   "is_correct": false
+  },
+  {
+   "prompt": "Singapore gained independence in the year",
+   "answer": " 1965",
+   "mean_logprob": -0.6657944486402384,
+   "is_correct": true
+  },
+  {
+   "prompt": "Singapore gained independence in the year",
+   "answer": " 1963",
+   "mean_logprob": -1.415794408138032,
+   "is_correct": false
+  },
+  {
+   "prompt": "Singapore gained independence in the year",
+   "answer": " 1957",
+   "mean_logprob": -2.356030523631834,
+   "is_correct": false
+  },
+  {
+   "prompt": "Singapore gained independence in the year",
+   "answer": " 1971",
+   "mean_logprob": -1.8067068819405308,
+   "is_correct": false
+  },
+  {
+   "prompt": "The longest river in the world is generally considered the",
+   "answer": " Nile",
+   "mean_logprob": -0.297818939529823,
+   "is_correct": true
+  },
+  {
+   "prompt": "The longest river in the world is generally considered the",
+   "answer": " Amazon",
+   "mean_logprob": -1.6103187950110451,
+   "is_correct": false
+  },
+  {
+   "prompt": "The longest river in the world is generally considered the",
+   "answer": " Yangtze",
+   "mean_logprob": -3.180289362360726,
+   "is_correct": false
+  },
+  {
+   "prompt": "The longest river in the world is generally considered the",
+   "answer": " Mississippi",
+   "mean_logprob": -4.672819000675193,
+   "is_correct": false
+  },
+  {
+   "prompt": "The currency of Japan is the",
+   "answer": " yen",
+   "mean_logprob": -0.8582150070048805,
+   "is_correct": true
+  },
+  {
+   "prompt": "The currency of Japan is the",
+   "answer": " yuan",
+   "mean_logprob": -10.170715221626532,
+   "is_correct": false
+  },
+  {
+   "prompt": "The currency of Japan is the",
+   "answer": " won",
+   "mean_logprob": -8.545715232723994,
+   "is_correct": false
+  },
+  {
+   "prompt": "The currency of Japan is the",
+   "answer": " baht",
+   "mean_logprob": -5.008977364833439,
+   "is_correct": false
+  },
+  {
+   "prompt": "The human heart has",
+   "answer": " four chambers",
+   "mean_logprob": -4.46486035325562,
+   "is_correct": true
+  },
+  {
+   "prompt": "The human heart has",
+   "answer": " two chambers",
+   "mean_logprob": -3.1257739041750487,
+   "is_correct": false
+  },
+  {
+   "prompt": "The human heart has",
+   "answer": " three chambers",
+   "mean_logprob": -3.7582493598601805,
+   "is_correct": false
+  },
+  {
+   "prompt": "The human heart has",
+   "answer": " six chambers",
+   "mean_logprob": -6.075055836620984,
+   "is_correct": false
+  },
+  {
+   "prompt": "The programming language created by Guido van Rossum is",
+   "answer": " Python",
+   "mean_logprob": -5.495494562903601,
+   "is_correct": true
+  },
+  {
+   "prompt": "The programming language created by Guido van Rossum is",
+   "answer": " Ruby",
+   "mean_logprob": -10.339244684108316,
+   "is_correct": false
+  },
+  {
+   "prompt": "The programming language created by Guido van Rossum is",
+   "answer": " Perl",
+   "mean_logprob": -10.807994386969169,
+   "is_correct": false
+  },
+  {
+   "prompt": "The programming language created by Guido van Rossum is",
+   "answer": " Java",
+   "mean_logprob": -10.276744310706903,
+   "is_correct": false
+  },
+  {
+   "prompt": "The planet closest to the Sun is",
+   "answer": " Mercury",
+   "mean_logprob": -0.09096588020160361,
+   "is_correct": true
+  },
+  {
+   "prompt": "The planet closest to the Sun is",
+   "answer": " Venus",
+   "mean_logprob": -4.215965858259942,
+   "is_correct": false
+  },
+  {
+   "prompt": "The planet closest to the Sun is",
+   "answer": " Mars",
+   "mean_logprob": -6.278466014685341,
+   "is_correct": false
+  },
+  {
+   "prompt": "The planet closest to the Sun is",
+   "answer": " Earth",
+   "mean_logprob": -4.9659658323327935,
+   "is_correct": false
+  },
+  {
+   "prompt": "The chemical formula for table salt is",
+   "answer": " NaCl",
+   "mean_logprob": -0.6702256898045633,
+   "is_correct": true
+  },
+  {
+   "prompt": "The chemical formula for table salt is",
+   "answer": " KCl",
+   "mean_logprob": -7.670225832924604,
+   "is_correct": false
+  },
+  {
+   "prompt": "The chemical formula for table salt is",
+   "answer": " HCl",
+   "mean_logprob": -6.732725676722014,
+   "is_correct": false
+  },
+  {
+   "prompt": "The chemical formula for table salt is",
+   "answer": " NaHCO3",
+   "mean_logprob": -3.112445271245394,
+   "is_correct": false
+  },
+  {
+   "prompt": "The tallest mountain above sea level is",
+   "answer": " Mount Everest",
+   "mean_logprob": -0.7123571004627067,
+   "is_correct": true
+  },
+  {
+   "prompt": "The tallest mountain above sea level is",
+   "answer": " K2",
+   "mean_logprob": -3.6108265458642386,
+   "is_correct": false
+  },
+  {
+   "prompt": "The tallest mountain above sea level is",
+   "answer": " Kangchenjunga",
+   "mean_logprob": -3.588256810488453,
+   "is_correct": false
+  },
+  {
+   "prompt": "The tallest mountain above sea level is",
+   "answer": " Denali",
+   "mean_logprob": -2.508577628306042,
+   "is_correct": false
+  },
+  {
+   "prompt": "The speed of light in a vacuum is approximately 300,000",
+   "answer": " km per second",
+   "mean_logprob": -1.4869198832116741,
+   "is_correct": true
+  },
+  {
+   "prompt": "The speed of light in a vacuum is approximately 300,000",
+   "answer": " metres per second",
+   "mean_logprob": -4.6915736324455155,
+   "is_correct": false
+  },
+  {
+   "prompt": "The speed of light in a vacuum is approximately 300,000",
+   "answer": " miles per hour",
+   "mean_logprob": -2.7578471124778154,
+   "is_correct": false
+  },
+  {
+   "prompt": "The speed of light in a vacuum is approximately 300,000",
+   "answer": " cm per second",
+   "mean_logprob": -5.359258194560753,
+   "is_correct": false
+  },
+  {
+   "prompt": "The first person to walk on the Moon was",
+   "answer": " Neil Armstrong",
+   "mean_logprob": -0.15456373083043812,
+   "is_correct": true
+  },
+  {
+   "prompt": "The first person to walk on the Moon was",
+   "answer": " Buzz Aldrin",
+   "mean_logprob": -1.6036466226423658,
+   "is_correct": false
+  },
+  {
+   "prompt": "The first person to walk on the Moon was",
+   "answer": " Yuri Gagarin",
+   "mean_logprob": -2.757986411908314,
+   "is_correct": false
+  },
+  {
+   "prompt": "The first person to walk on the Moon was",
+   "answer": " Michael Collins",
+   "mean_logprob": -3.315317579095851,
+   "is_correct": false
+  },
+  {
+   "prompt": "The largest organ in the human body is the",
+   "answer": " skin",
+   "mean_logprob": -0.034476478337917955,
+   "is_correct": true
+  },
+  {
+   "prompt": "The largest organ in the human body is the",
+   "answer": " liver",
+   "mean_logprob": -4.034476300774576,
+   "is_correct": false
+  },
+  {
+   "prompt": "The largest organ in the human body is the",
+   "answer": " brain",
+   "mean_logprob": -5.659476057640888,
+   "is_correct": false
+  },
+  {
+   "prompt": "The largest organ in the human body is the",
+   "answer": " lung",
+   "mean_logprob": -8.534476524139228,
+   "is_correct": false
+  },
+  {
+   "prompt": "The most abundant gas in Earth's atmosphere is",
+   "answer": " nitrogen",
+   "mean_logprob": -3.0709799993465,
+   "is_correct": true
+  },
+  {
+   "prompt": "The most abundant gas in Earth's atmosphere is",
+   "answer": " oxygen",
+   "mean_logprob": -6.070980124532142,
+   "is_correct": false
+  },
+  {
+   "prompt": "The most abundant gas in Earth's atmosphere is",
+   "answer": " carbon dioxide",
+   "mean_logprob": -3.376360725074745,
+   "is_correct": false
+  },
+  {
+   "prompt": "The most abundant gas in Earth's atmosphere is",
+   "answer": " argon",
+   "mean_logprob": -4.5084801513247115,
+   "is_correct": false
+  },
+  {
+   "prompt": "The co-founder of Microsoft is",
+   "answer": " Bill Gates",
+   "mean_logprob": -1.9141336112938567,
+   "is_correct": true
+  },
+  {
+   "prompt": "The co-founder of Microsoft is",
+   "answer": " Steve Jobs",
+   "mean_logprob": -4.853670057737956,
+   "is_correct": false
+  },
+  {
+   "prompt": "The co-founder of Microsoft is",
+   "answer": " Jeff Bezos",
+   "mean_logprob": -2.868266387074028,
+   "is_correct": false
+  },
+  {
+   "prompt": "The co-founder of Microsoft is",
+   "answer": " Larry Page",
+   "mean_logprob": -5.788854619082402,
+   "is_correct": false
+  },
+  {
+   "prompt": "The capital of Canada is",
+   "answer": " Ottawa",
+   "mean_logprob": -2.469882291204122,
+   "is_correct": true
+  },
+  {
+   "prompt": "The capital of Canada is",
+   "answer": " Toronto",
+   "mean_logprob": -3.344882304371007,
+   "is_correct": false
+  },
+  {
+   "prompt": "The capital of Canada is",
+   "answer": " Vancouver",
+   "mean_logprob": -7.469882308955526,
+   "is_correct": false
+  },
+  {
+   "prompt": "The capital of Canada is",
+   "answer": " Montreal",
+   "mean_logprob": -6.032382444357045,
+   "is_correct": false
+  },
+  {
+   "prompt": "Binary 1010 in decimal is",
+   "answer": " 10",
+   "mean_logprob": -0.907513714225768,
+   "is_correct": true
+  },
+  {
+   "prompt": "Binary 1010 in decimal is",
+   "answer": " 8",
+   "mean_logprob": -2.2200136473952674,
+   "is_correct": false
+  },
+  {
+   "prompt": "Binary 1010 in decimal is",
+   "answer": " 12",
+   "mean_logprob": -3.845013563309736,
+   "is_correct": false
+  },
+  {
+   "prompt": "Binary 1010 in decimal is",
+   "answer": " 14",
+   "mean_logprob": -3.7200135155338416,
+   "is_correct": false
+  },
+  {
+   "prompt": "The number of sides of a hexagon is",
+   "answer": " six",
+   "mean_logprob": -4.359555315298291,
+   "is_correct": true
+  },
+  {
+   "prompt": "The number of sides of a hexagon is",
+   "answer": " five",
+   "mean_logprob": -8.109555081189681,
+   "is_correct": false
+  },
+  {
+   "prompt": "The number of sides of a hexagon is",
+   "answer": " seven",
+   "mean_logprob": -9.109555487920662,
+   "is_correct": false
+  },
+  {
+   "prompt": "The number of sides of a hexagon is",
+   "answer": " eight",
+   "mean_logprob": -7.859555649865289,
+   "is_correct": false
+  },
+  {
+   "prompt": "The boiling point of nitrogen in Celsius is about",
+   "answer": " -196",
+   "mean_logprob": -1.0519563970152275,
+   "is_correct": true
+  },
+  {
+   "prompt": "The boiling point of nitrogen in Celsius is about",
+   "answer": " -100",
+   "mean_logprob": -3.5519564098862593,
+   "is_correct": false
+  },
+  {
+   "prompt": "The boiling point of nitrogen in Celsius is about",
+   "answer": " 0",
+   "mean_logprob": -3.7006588790779005,
+   "is_correct": false
+  },
+  {
+   "prompt": "The boiling point of nitrogen in Celsius is about",
+   "answer": " 100",
+   "mean_logprob": -3.981908805228736,
+   "is_correct": false
+  },
+  {
+   "prompt": "The Great Barrier Reef lies off the coast of",
+   "answer": " Australia",
+   "mean_logprob": -1.7859209860867462,
+   "is_correct": true
+  },
+  {
+   "prompt": "The Great Barrier Reef lies off the coast of",
+   "answer": " Brazil",
+   "mean_logprob": -8.910921178821752,
+   "is_correct": false
+  },
+  {
+   "prompt": "The Great Barrier Reef lies off the coast of",
+   "answer": " India",
+   "mean_logprob": -12.192171077305712,
+   "is_correct": false
+  },
+  {
+   "prompt": "The Great Barrier Reef lies off the coast of",
+   "answer": " Mexico",
+   "mean_logprob": -14.082795391502486,
+   "is_correct": false
+  },
+  {
+   "prompt": "The metric prefix for one thousandth is",
+   "answer": " milli",
+   "mean_logprob": -1.890614459406494,
+   "is_correct": true
+  },
+  {
+   "prompt": "The metric prefix for one thousandth is",
+   "answer": " micro",
+   "mean_logprob": -4.528032269500667,
+   "is_correct": false
+  },
+  {
+   "prompt": "The metric prefix for one thousandth is",
+   "answer": " kilo",
+   "mean_logprob": -3.6395087014377374,
+   "is_correct": false
+  },
+  {
+   "prompt": "The metric prefix for one thousandth is",
+   "answer": " centi",
+   "mean_logprob": -4.174976549607011,
+   "is_correct": false
+  },
+  {
+   "prompt": "The square root of 144 is",
+   "answer": " 12",
+   "mean_logprob": -0.4555531746031839,
+   "is_correct": true
+  },
+  {
+   "prompt": "The square root of 144 is",
+   "answer": " 14",
+   "mean_logprob": -7.143052851304784,
+   "is_correct": false
+  },
+  {
+   "prompt": "The square root of 144 is",
+   "answer": " 16",
+   "mean_logprob": -7.674302902031266,
+   "is_correct": false
+  },
+  {
+   "prompt": "The square root of 144 is",
+   "answer": " 11",
+   "mean_logprob": -7.955552849261272,
+   "is_correct": false
+  }
+ ]
+}

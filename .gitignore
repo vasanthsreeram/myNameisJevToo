@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Model weights are never vendored - see datasets/fetch_jevbench.sh and the README.
+models/
+*.safetensors
+*.gguf
+*.mlx
+
+# Datasets are fetched, not committed (third-party task text).
+datasets/jevbench/*.jsonl
+datasets/jevbench_*.py
+
+.DS_Store

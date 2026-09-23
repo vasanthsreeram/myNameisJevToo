@@ -1,0 +1,1355 @@
+{
+ "model": "/Users/admin/models/MiniCPM5-2B",
+ "test_a": [
+  {
+   "prompt": "The capital of Australia is",
+   "correct": " Canberra",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.33162015687784874,
+   "best_wrong": " Melbourne",
+   "best_wrong_mean_logprob": -3.3941200552567414,
+   "margin": 3.062499898378893,
+   "per_candidate": [
+    {
+     "answer": " Canberra",
+     "mean_logprob": -0.33162015687784874,
+     "ppl": 1.3932235416121872
+    },
+    {
+     "answer": " Sydney",
+     "mean_logprob": -3.644120108913779,
+     "ppl": 38.249102996045224
+    },
+    {
+     "answer": " Melbourne",
+     "mean_logprob": -3.3941200552567414,
+     "ppl": 29.788429766739903
+    },
+    {
+     "answer": " Perth",
+     "mean_logprob": -6.769119735343563,
+     "ppl": 870.5452464016516
+    }
+   ]
+  },
+  {
+   "prompt": "The chemical symbol for gold is",
+   "correct": " Au",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.05385185976696415,
+   "best_wrong": " Ag",
+   "best_wrong_mean_logprob": -5.178851876061522,
+   "margin": 5.125000016294558,
+   "per_candidate": [
+    {
+     "answer": " Au",
+     "mean_logprob": -0.05385185976696415,
+     "ppl": 1.055328254001163
+    },
+    {
+     "answer": " Ag",
+     "mean_logprob": -5.178851876061522,
+     "ppl": 177.4789261695269
+    },
+    {
+     "answer": " Gd",
+     "mean_logprob": -9.678851692023542,
+     "ppl": 15976.140859860965
+    },
+    {
+     "answer": " Go",
+     "mean_logprob": -12.053851356156587,
+     "ppl": 171759.64335858027
+    }
+   ]
+  },
+  {
+   "prompt": "The largest planet in the solar system is",
+   "correct": " Jupiter",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.14910198839039235,
+   "best_wrong": " Mars",
+   "best_wrong_mean_logprob": -5.46160175304212,
+   "margin": 5.312499764651728,
+   "per_candidate": [
+    {
+     "answer": " Jupiter",
+     "mean_logprob": -0.14910198839039235,
+     "ppl": 1.1607913704156787
+    },
+    {
+     "answer": " Saturn",
+     "mean_logprob": -5.5866017738073275,
+     "ppl": 266.8273376660126
+    },
+    {
+     "answer": " Neptune",
+     "mean_logprob": -6.1491016411896195,
+     "ppl": 468.2964994706411
+    },
+    {
+     "answer": " Mars",
+     "mean_logprob": -5.46160175304212,
+     "ppl": 235.4742941254775
+    }
+   ]
+  },
+  {
+   "prompt": "At sea level, water boils at",
+   "correct": " 100 degrees Celsius",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.8124189267641341,
+   "best_wrong": " 212 degrees Celsius",
+   "best_wrong_mean_logprob": -2.8448485095711655,
+   "margin": 2.0324295828070316,
+   "per_candidate": [
+    {
+     "answer": " 100 degrees Celsius",
+     "mean_logprob": -0.8124189267641341,
+     "ppl": 2.2533520932617677
+    },
+    {
+     "answer": " 90 degrees Celsius",
+     "mean_logprob": -3.648429605070498,
+     "ppl": 38.414293045690954
+    },
+    {
+     "answer": " 212 degrees Celsius",
+     "mean_logprob": -2.8448485095711655,
+     "ppl": 17.19895299479839
+    },
+    {
+     "answer": " 80 degrees Celsius",
+     "mean_logprob": -3.8874470553903406,
+     "ppl": 48.7861789930686
+    }
+   ]
+  },
+  {
+   "prompt": "The author of the novel Pride and Prejudice is",
+   "correct": " Jane Austen",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.4127969957980237,
+   "best_wrong": " Charlotte Bronte",
+   "best_wrong_mean_logprob": -2.0837412352010554,
+   "margin": 1.6709442394030316,
+   "per_candidate": [
+    {
+     "answer": " Jane Austen",
+     "mean_logprob": -0.4127969957980237,
+     "ppl": 1.5110382476827837
+    },
+    {
+     "answer": " Charlotte Bronte",
+     "mean_logprob": -2.0837412352010554,
+     "ppl": 8.034471603727955
+    },
+    {
+     "answer": " Emily Bronte",
+     "mean_logprob": -3.7429890404437227,
+     "ppl": 42.22401100707006
+    },
+    {
+     "answer": " Virginia Woolf",
+     "mean_logprob": -4.172219841552402,
+     "ppl": 64.85926972417693
+    }
+   ]
+  },
+  {
+   "prompt": "Singapore gained independence in the year",
+   "correct": " 1965",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.17026570730063936,
+   "best_wrong": " 1963",
+   "best_wrong_mean_logprob": -1.4619323128975525,
+   "margin": 1.2916666055969133,
+   "per_candidate": [
+    {
+     "answer": " 1965",
+     "mean_logprob": -0.17026570730063936,
+     "ppl": 1.1856198373180311
+    },
+    {
+     "answer": " 1963",
+     "mean_logprob": -1.4619323128975525,
+     "ppl": 4.3142880335257185
+    },
+    {
+     "answer": " 1957",
+     "mean_logprob": -3.9960025908169654,
+     "ppl": 54.38033452572434
+    },
+    {
+     "answer": " 1971",
+     "mean_logprob": -2.5765470275853706,
+     "ppl": 13.151647390026266
+    }
+   ]
+  },
+  {
+   "prompt": "The longest river in the world is generally considered the",
+   "correct": " Nile",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.3989574447844307,
+   "best_wrong": " Amazon",
+   "best_wrong_mean_logprob": -1.2739575162333965,
+   "margin": 0.8750000714489659,
+   "per_candidate": [
+    {
+     "answer": " Nile",
+     "mean_logprob": -0.3989574447844307,
+     "ppl": 1.4902701984884306
+    },
+    {
+     "answer": " Amazon",
+     "mean_logprob": -1.2739575162333965,
+     "ppl": 3.574972615917426
+    },
+    {
+     "answer": " Yangtze",
+     "mean_logprob": -3.7308544594561712,
+     "ppl": 41.714736491437776
+    },
+    {
+     "answer": " Mississippi",
+     "mean_logprob": -7.586457311210978,
+     "ppl": 1971.3173645466306
+    }
+   ]
+  },
+  {
+   "prompt": "The currency of Japan is the",
+   "correct": " yen",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -2.256030573638343,
+   "best_wrong": " baht",
+   "best_wrong_mean_logprob": -5.111292739537787,
+   "margin": 2.855262165899444,
+   "per_candidate": [
+    {
+     "answer": " yen",
+     "mean_logprob": -2.256030573638343,
+     "ppl": 9.545125197437805
+    },
+    {
+     "answer": " yuan",
+     "mean_logprob": -12.006030749575924,
+     "ppl": 163739.29045806904
+    },
+    {
+     "answer": " won",
+     "mean_logprob": -9.631030362540779,
+     "ppl": 15230.120571080688
+    },
+    {
+     "answer": " baht",
+     "mean_logprob": -5.111292739537787,
+     "ppl": 165.8846619835058
+    }
+   ]
+  },
+  {
+   "prompt": "The human heart has",
+   "correct": " four chambers",
+   "rank_of_correct": 3,
+   "correct_mean_logprob": -3.768370846782169,
+   "best_wrong": " three chambers",
+   "best_wrong_mean_logprob": -3.4729873123860733,
+   "margin": -0.9282882959288292,
+   "per_candidate": [
+    {
+     "answer": " four chambers",
+     "mean_logprob": -3.768370846782169,
+     "ppl": 43.309449600771856
+    },
+    {
+     "answer": " two chambers",
+     "mean_logprob": -2.8400825508533396,
+     "ppl": 17.117178516517054
+    },
+    {
+     "answer": " three chambers",
+     "mean_logprob": -3.4729873123860733,
+     "ppl": 32.23288847111325
+    },
+    {
+     "answer": " six chambers",
+     "mean_logprob": -5.625898020871713,
+     "ppl": 277.5213926571941
+    }
+   ]
+  },
+  {
+   "prompt": "The programming language created by Guido van Rossum is",
+   "correct": " Python",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -4.143027654242266,
+   "best_wrong": " Java",
+   "best_wrong_mean_logprob": -8.893027532006366,
+   "margin": 4.7499998777641,
+   "per_candidate": [
+    {
+     "answer": " Python",
+     "mean_logprob": -4.143027654242266,
+     "ppl": 62.993254815713314
+    },
+    {
+     "answer": " Ruby",
+     "mean_logprob": -10.17427789834031,
+     "ppl": 26220.003697613352
+    },
+    {
+     "answer": " Perl",
+     "mean_logprob": -10.768027562231389,
+     "ppl": 47478.2771486079
+    },
+    {
+     "answer": " Java",
+     "mean_logprob": -8.893027532006366,
+     "ppl": 7281.029397909809
+    }
+   ]
+  },
+  {
+   "prompt": "The planet closest to the Sun is",
+   "correct": " Mercury",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.06374588695011517,
+   "best_wrong": " Venus",
+   "best_wrong_mean_logprob": -3.751245720446286,
+   "margin": 3.687499833496171,
+   "per_candidate": [
+    {
+     "answer": " Mercury",
+     "mean_logprob": -0.06374588695011517,
+     "ppl": 1.0658215251883094
+    },
+    {
+     "answer": " Venus",
+     "mean_logprob": -3.751245720446286,
+     "ppl": 42.574084387533176
+    },
+    {
+     "answer": " Mars",
+     "mean_logprob": -5.876245852517147,
+     "ppl": 356.46849130679203
+    },
+    {
+     "answer": " Earth",
+     "mean_logprob": -4.8137458185309985,
+     "ppl": 123.19220999386418
+    }
+   ]
+  },
+  {
+   "prompt": "The chemical formula for table salt is",
+   "correct": " NaCl",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.04746942889621844,
+   "best_wrong": " NaHCO3",
+   "best_wrong_mean_logprob": -3.6613272421000858,
+   "margin": 3.6138578132038672,
+   "per_candidate": [
+    {
+     "answer": " NaCl",
+     "mean_logprob": -0.04746942889621844,
+     "ppl": 1.048614143339464
+    },
+    {
+     "answer": " KCl",
+     "mean_logprob": -7.547469175063221,
+     "ppl": 1895.9383663044816
+    },
+    {
+     "answer": " HCl",
+     "mean_logprob": -8.297469429151024,
+     "ppl": 4013.7025727959312
+    },
+    {
+     "answer": " NaHCO3",
+     "mean_logprob": -3.6613272421000858,
+     "ppl": 38.912955525324186
+    }
+   ]
+  },
+  {
+   "prompt": "The tallest mountain above sea level is",
+   "correct": " Mount Everest",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.16421184626688573,
+   "best_wrong": " Denali",
+   "best_wrong_mean_logprob": -2.4398171778950037,
+   "margin": 2.275605331628118,
+   "per_candidate": [
+    {
+     "answer": " Mount Everest",
+     "mean_logprob": -0.16421184626688573,
+     "ppl": 1.1784639418372793
+    },
+    {
+     "answer": " K2",
+     "mean_logprob": -3.176602924980316,
+     "ppl": 23.96520352048059
+    },
+    {
+     "answer": " Kangchenjunga",
+     "mean_logprob": -2.6812029838012212,
+     "ppl": 14.602649484643148
+    },
+    {
+     "answer": " Denali",
+     "mean_logprob": -2.4398171778950037,
+     "ppl": 11.470943409060853
+    }
+   ]
+  },
+  {
+   "prompt": "The speed of light in a vacuum is approximately 300,000",
+   "correct": " km per second",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -2.0161692740561663,
+   "best_wrong": " miles per hour",
+   "best_wrong_mean_logprob": -3.738301006119867,
+   "margin": 1.7221317320637008,
+   "per_candidate": [
+    {
+     "answer": " km per second",
+     "mean_logprob": -2.0161692740561663,
+     "ppl": 7.509502916635306
+    },
+    {
+     "answer": " metres per second",
+     "mean_logprob": -5.176949239533897,
+     "ppl": 177.1415693172182
+    },
+    {
+     "answer": " miles per hour",
+     "mean_logprob": -3.738301006119867,
+     "ppl": 42.02652666255776
+    },
+    {
+     "answer": " cm per second",
+     "mean_logprob": -6.5822414487853775,
+     "ppl": 722.156192634819
+    }
+   ]
+  },
+  {
+   "prompt": "The first person to walk on the Moon was",
+   "correct": " Neil Armstrong",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.08585509220176653,
+   "best_wrong": " Buzz Aldrin",
+   "best_wrong_mean_logprob": -1.3175764861858918,
+   "margin": 1.2317213939841254,
+   "per_candidate": [
+    {
+     "answer": " Neil Armstrong",
+     "mean_logprob": -0.08585509220176653,
+     "ppl": 1.0896484183110642
+    },
+    {
+     "answer": " Buzz Aldrin",
+     "mean_logprob": -1.3175764861858918,
+     "ppl": 3.7343601283070917
+    },
+    {
+     "answer": " Yuri Gagarin",
+     "mean_logprob": -1.9026404587737913,
+     "ppl": 6.703571598550755
+    },
+    {
+     "answer": " Michael Collins",
+     "mean_logprob": -3.557698286350185,
+     "ppl": 35.082354608143206
+    }
+   ]
+  },
+  {
+   "prompt": "The largest organ in the human body is the",
+   "correct": " skin",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.0073627611718901686,
+   "best_wrong": " liver",
+   "best_wrong_mean_logprob": -5.6323623619032155,
+   "margin": 5.624999600731325,
+   "per_candidate": [
+    {
+     "answer": " skin",
+     "mean_logprob": -0.0073627611718901686,
+     "ppl": 1.0073899329434124
+    },
+    {
+     "answer": " liver",
+     "mean_logprob": -5.6323623619032155,
+     "ppl": 279.32119658860046
+    },
+    {
+     "answer": " brain",
+     "mean_logprob": -7.69486280034095,
+     "ppl": 2197.0323575583575
+    },
+    {
+     "answer": " lung",
+     "mean_logprob": -10.132362788585187,
+     "ppl": 25143.70355669763
+    }
+   ]
+  },
+  {
+   "prompt": "The most abundant gas in Earth's atmosphere is",
+   "correct": " nitrogen",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.9553477125522027,
+   "best_wrong": " carbon dioxide",
+   "best_wrong_mean_logprob": -1.7400090721770067,
+   "margin": 0.784661359624804,
+   "per_candidate": [
+    {
+     "answer": " nitrogen",
+     "mean_logprob": -0.9553477125522027,
+     "ppl": 2.599574330413311
+    },
+    {
+     "answer": " oxygen",
+     "mean_logprob": -3.8928475378988012,
+     "ppl": 49.05036061140398
+    },
+    {
+     "answer": " carbon dioxide",
+     "mean_logprob": -1.7400090721770067,
+     "ppl": 5.697395110214448
+    },
+    {
+     "answer": " argon",
+     "mean_logprob": -4.142847679959096,
+     "ppl": 62.98191866997127
+    }
+   ]
+  },
+  {
+   "prompt": "The co-founder of Microsoft is",
+   "correct": " Bill Gates",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -2.2487375169196726,
+   "best_wrong": " Jeff Bezos",
+   "best_wrong_mean_logprob": -2.5475146757300804,
+   "margin": 0.2987771588104078,
+   "per_candidate": [
+    {
+     "answer": " Bill Gates",
+     "mean_logprob": -2.2487375169196726,
+     "ppl": 9.475765288291656
+    },
+    {
+     "answer": " Steve Jobs",
+     "mean_logprob": -4.0021254854279436,
+     "ppl": 54.71432102156853
+    },
+    {
+     "answer": " Jeff Bezos",
+     "mean_logprob": -2.5475146757300804,
+     "ppl": 12.775313497751535
+    },
+    {
+     "answer": " Larry Page",
+     "mean_logprob": -4.533291346339708,
+     "ppl": 93.06436460920264
+    }
+   ]
+  },
+  {
+   "prompt": "The capital of Canada is",
+   "correct": " Ottawa",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.3035848053812413,
+   "best_wrong": " Toronto",
+   "best_wrong_mean_logprob": -3.428584730528586,
+   "margin": 3.124999925147345,
+   "per_candidate": [
+    {
+     "answer": " Ottawa",
+     "mean_logprob": -0.3035848053812413,
+     "ppl": 1.3547064724695408
+    },
+    {
+     "answer": " Toronto",
+     "mean_logprob": -3.428584730528586,
+     "ppl": 30.832974887998272
+    },
+    {
+     "answer": " Vancouver",
+     "mean_logprob": -7.178584829947938,
+     "ppl": 1311.0515838623433
+    },
+    {
+     "answer": " Montreal",
+     "mean_logprob": -5.3035848282932125,
+     "ppl": 201.05627184250773
+    }
+   ]
+  },
+  {
+   "prompt": "Binary 1010 in decimal is",
+   "correct": " 10",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.4853176730807113,
+   "best_wrong": " 8",
+   "best_wrong_mean_logprob": -2.297817584816408,
+   "margin": 1.8124999117356966,
+   "per_candidate": [
+    {
+     "answer": " 10",
+     "mean_logprob": -0.4853176730807113,
+     "ppl": 1.6246910474843557
+    },
+    {
+     "answer": " 8",
+     "mean_logprob": -2.297817584816408,
+     "ppl": 9.95243838350757
+    },
+    {
+     "answer": " 12",
+     "mean_logprob": -5.235317573991963,
+     "ppl": 187.7887336934548
+    },
+    {
+     "answer": " 14",
+     "mean_logprob": -3.9853177436333542,
+     "ppl": 53.8023821265858
+    }
+   ]
+  },
+  {
+   "prompt": "The number of sides of a hexagon is",
+   "correct": " six",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -4.078670892779324,
+   "best_wrong": " eight",
+   "best_wrong_mean_logprob": -6.953670807482284,
+   "margin": 2.8749999147029603,
+   "per_candidate": [
+    {
+     "answer": " six",
+     "mean_logprob": -4.078670892779324,
+     "ppl": 59.06691139670283
+    },
+    {
+     "answer": " five",
+     "mean_logprob": -7.203670897544402,
+     "ppl": 1344.3567132935593
+    },
+    {
+     "answer": " seven",
+     "mean_logprob": -8.578670789794176,
+     "ppl": 5317.033371137787
+    },
+    {
+     "answer": " eight",
+     "mean_logprob": -6.953670807482284,
+     "ppl": 1046.9859667465464
+    }
+   ]
+  },
+  {
+   "prompt": "The boiling point of nitrogen in Celsius is about",
+   "correct": " -196",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -1.144243972041464,
+   "best_wrong": " 0",
+   "best_wrong_mean_logprob": -3.4632560927237463,
+   "margin": 2.3190121206822822,
+   "per_candidate": [
+    {
+     "answer": " -196",
+     "mean_logprob": -1.144243972041464,
+     "ppl": 3.1400664811646597
+    },
+    {
+     "answer": " -100",
+     "mean_logprob": -4.894243815732921,
+     "ppl": 133.51900346108852
+    },
+    {
+     "answer": " 0",
+     "mean_logprob": -3.4632560927237463,
+     "ppl": 31.920744387616633
+    },
+    {
+     "answer": " 100",
+     "mean_logprob": -3.9320061037916574,
+     "ppl": 51.009204855013934
+    }
+   ]
+  },
+  {
+   "prompt": "The Great Barrier Reef lies off the coast of",
+   "correct": " Australia",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -1.251413149253819,
+   "best_wrong": " Brazil",
+   "best_wrong_mean_logprob": -8.938912838836435,
+   "margin": 7.687499689582616,
+   "per_candidate": [
+    {
+     "answer": " Australia",
+     "mean_logprob": -1.251413149253819,
+     "ppl": 3.4952788197413938
+    },
+    {
+     "answer": " Brazil",
+     "mean_logprob": -8.938912838836435,
+     "ppl": 7622.905222672726
+    },
+    {
+     "answer": " India",
+     "mean_logprob": -11.376412822639148,
+     "ppl": 87239.52910798023
+    },
+    {
+     "answer": " Mexico",
+     "mean_logprob": -12.470163527271346,
+     "ppl": 260449.30827124487
+    }
+   ]
+  },
+  {
+   "prompt": "The metric prefix for one thousandth is",
+   "correct": " milli",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -1.5396968105157758,
+   "best_wrong": " centi",
+   "best_wrong_mean_logprob": -3.6653676559767603,
+   "margin": 2.1256708454609843,
+   "per_candidate": [
+    {
+     "answer": " milli",
+     "mean_logprob": -1.5396968105157758,
+     "ppl": 4.663176230641661
+    },
+    {
+     "answer": " micro",
+     "mean_logprob": -5.012047919359758,
+     "ppl": 150.21204352328306
+    },
+    {
+     "answer": " kilo",
+     "mean_logprob": -4.319302841787925,
+     "ppl": 75.1362281900577
+    },
+    {
+     "answer": " centi",
+     "mean_logprob": -3.6653676559767603,
+     "ppl": 39.070498024939276
+    }
+   ]
+  },
+  {
+   "prompt": "The square root of 144 is",
+   "correct": " 12",
+   "rank_of_correct": 1,
+   "correct_mean_logprob": -0.5802487090934275,
+   "best_wrong": " 14",
+   "best_wrong_mean_logprob": -6.6427487897338455,
+   "margin": 6.062500080640418,
+   "per_candidate": [
+    {
+     "answer": " 12",
+     "mean_logprob": -0.5802487090934275,
+     "ppl": 1.7864826899923787
+    },
+    {
+     "answer": " 14",
+     "mean_logprob": -6.6427487897338455,
+     "ppl": 767.2009714021092
+    },
+    {
+     "answer": " 16",
+     "mean_logprob": -8.01774868680678,
+     "ppl": 3034.3383914789733
+    },
+    {
+     "answer": " 11",
+     "mean_logprob": -6.705248490194743,
+     "ppl": 816.6809383060322
+    }
+   ]
+  }
+ ],
+ "test_b": [
+  {
+   "clean_word": "fox",
+   "corrupt_word": "telescope",
+   "position": 4,
+   "p_clean": 0.5640696287155151,
+   "p_corrupt": 1.1742194772068615e-08,
+   "pct_outside_corrupt": 99.99999882578052,
+   "rank_corrupt": 61257,
+   "surprisal_clean": 0.5725775799346874,
+   "surprisal_corrupt": 18.260077091802014,
+   "is_worst_in_sentence": true
+  },
+  {
+   "clean_word": "dog",
+   "corrupt_word": "helicopter",
+   "position": 9,
+   "p_clean": 0.997887909412384,
+   "p_corrupt": 7.220051223555402e-10,
+   "pct_outside_corrupt": 99.9999999277995,
+   "rank_corrupt": 4958,
+   "surprisal_clean": 0.0021143241965515657,
+   "surprisal_corrupt": 21.048988882385625,
+   "is_worst_in_sentence": true
+  },
+  {
+   "clean_word": "river",
+   "corrupt_word": "sandwich",
+   "position": 20,
+   "p_clean": 0.11026424914598465,
+   "p_corrupt": 3.555124417076172e-09,
+   "pct_outside_corrupt": 99.99999964448756,
+   "rank_corrupt": 10486,
+   "surprisal_clean": 2.204875529051953,
+   "surprisal_corrupt": 19.45487577653254,
+   "is_worst_in_sentence": true
+  },
+  {
+   "clean_word": "grass",
+   "corrupt_word": "algebra",
+   "position": 16,
+   "p_clean": 0.9628035426139832,
+   "p_corrupt": 1.8856647146514582e-11,
+   "pct_outside_corrupt": 99.99999999811433,
+   "rank_corrupt": 70009,
+   "surprisal_clean": 0.037905893588939255,
+   "surprisal_corrupt": 24.69415563042785,
+   "is_worst_in_sentence": true
+  }
+ ],
+ "test_c": {
+  "auc": 0.7441734417344174,
+  "n_pos": 41,
+  "n_neg": 135,
+  "median_p_pos": 0.7840587496757507,
+  "median_p_neg": 0.020239342004060745
+ },
+ "test_a_accuracy": 0.96,
+ "test_b_summary": {
+  "clean_min_p": 1.3930986824561842e-05,
+  "corrupt_max_p": 1.1742194772068615e-08,
+  "clean_median_p": 0.15300917625427246
+ },
+ "test_d": {
+  "n_points": 100,
+  "n_pos": 25,
+  "answer_auc": 0.9392,
+  "best_threshold_acc": 0.93,
+  "brier_raw": 0.08644425342187312,
+  "brier_platt_oof": 0.0751988156274632,
+  "ece_platt_oof": 0.06454124713086229,
+  "acc_at_half_oof": 0.89,
+  "points": [
+   {
+    "log10p": -0.1440208042199404,
+    "label": 1,
+    "oof_calibrated": 0.9181319935010313
+   },
+   {
+    "log10p": -1.5826212546939311,
+    "label": 0,
+    "oof_calibrated": 0.06538179757001729
+   },
+   {
+    "log10p": -1.474047610915163,
+    "label": 0,
+    "oof_calibrated": 0.09306988621641092
+   },
+   {
+    "log10p": -2.93979134840211,
+    "label": 0,
+    "oof_calibrated": 0.0005813150224491983
+   },
+   {
+    "log10p": -0.023387565537020268,
+    "label": 1,
+    "oof_calibrated": 0.9287978047500675
+   },
+   {
+    "log10p": -2.2491467923678226,
+    "label": 0,
+    "oof_calibrated": 0.014197309028645537
+   },
+   {
+    "log10p": -4.203471881005776,
+    "label": 0,
+    "oof_calibrated": 3.6475372799833544e-05
+   },
+   {
+    "log10p": -5.234921129660834,
+    "label": 0,
+    "oof_calibrated": 1.5548646161035918e-06
+   },
+   {
+    "log10p": -0.06475417079875012,
+    "label": 1,
+    "oof_calibrated": 0.8957424312693975
+   },
+   {
+    "log10p": -2.426230322955441,
+    "label": 0,
+    "oof_calibrated": 0.007123252594488088
+   },
+   {
+    "log10p": -2.670520911430881,
+    "label": 0,
+    "oof_calibrated": 0.0034343529293385977
+   },
+   {
+    "log10p": -2.3719435036993195,
+    "label": 0,
+    "oof_calibrated": 0.008373298583713587
+   },
+   {
+    "log10p": -0.3528290568874255,
+    "label": 1,
+    "oof_calibrated": 0.7858436032939653
+   },
+   {
+    "log10p": -1.5844928450945774,
+    "label": 0,
+    "oof_calibrated": 0.06601026582127856
+   },
+   {
+    "log10p": -1.2355020095574476,
+    "label": 0,
+    "oof_calibrated": 0.17791916802683994
+   },
+   {
+    "log10p": -1.68829680484707,
+    "label": 0,
+    "oof_calibrated": 0.04822118153075772
+   },
+   {
+    "log10p": -0.1792754574213215,
+    "label": 1,
+    "oof_calibrated": 0.9293704591768667
+   },
+   {
+    "log10p": -0.9049573201620843,
+    "label": 0,
+    "oof_calibrated": 0.4781995981221949
+   },
+   {
+    "log10p": -1.6255594860890563,
+    "label": 0,
+    "oof_calibrated": 0.06105837855438047
+   },
+   {
+    "log10p": -1.8119720544734679,
+    "label": 0,
+    "oof_calibrated": 0.03175822194353631
+   },
+   {
+    "log10p": -0.07394545713802186,
+    "label": 1,
+    "oof_calibrated": 0.9349017454316813
+   },
+   {
+    "log10p": -0.6349091364074653,
+    "label": 0,
+    "oof_calibrated": 0.6648054903042997
+   },
+   {
+    "log10p": -1.735441874862906,
+    "label": 0,
+    "oof_calibrated": 0.03919468327306183
+   },
+   {
+    "log10p": -1.118980156444552,
+    "label": 0,
+    "oof_calibrated": 0.2643255675726287
+   },
+   {
+    "log10p": -0.17326501678409953,
+    "label": 1,
+    "oof_calibrated": 0.8918598176745732
+   },
+   {
+    "log10p": -0.5532727194793364,
+    "label": 0,
+    "oof_calibrated": 0.7205934808898727
+   },
+   {
+    "log10p": -1.6202895045259544,
+    "label": 0,
+    "oof_calibrated": 0.08975089899029204
+   },
+   {
+    "log10p": -3.2947565474535088,
+    "label": 0,
+    "oof_calibrated": 0.0005875240764949793
+   },
+   {
+    "log10p": -0.9797816291361602,
+    "label": 1,
+    "oof_calibrated": 0.35533044826997506
+   },
+   {
+    "log10p": -5.214152904101586,
+    "label": 0,
+    "oof_calibrated": 1.6657017411198012e-06
+   },
+   {
+    "log10p": -4.182703341494135,
+    "label": 0,
+    "oof_calibrated": 3.682339409942094e-05
+   },
+   {
+    "log10p": -2.219806232173416,
+    "label": 0,
+    "oof_calibrated": 0.013155728616104707
+   },
+   {
+    "log10p": -1.6365826645225803,
+    "label": 1,
+    "oof_calibrated": 0.05642853684917775
+   },
+   {
+    "log10p": -1.233432179985317,
+    "label": 0,
+    "oof_calibrated": 0.17889207727190443
+   },
+   {
+    "log10p": -1.5082992254892766,
+    "label": 0,
+    "oof_calibrated": 0.08276814283961889
+   },
+   {
+    "log10p": -2.4432964662150103,
+    "label": 0,
+    "oof_calibrated": 0.0044798692746502505
+   },
+   {
+    "log10p": -1.7992940486099895,
+    "label": 1,
+    "oof_calibrated": 0.033221141495500095
+   },
+   {
+    "log10p": -4.4186327485994115,
+    "label": 0,
+    "oof_calibrated": 2.288538601943122e-06
+   },
+   {
+    "log10p": -4.676494951259217,
+    "label": 0,
+    "oof_calibrated": 8.879700045268978e-07
+   },
+   {
+    "log10p": -3.862192784564059,
+    "label": 0,
+    "oof_calibrated": 1.7651983927645605e-05
+   },
+   {
+    "log10p": -0.02768448694646353,
+    "label": 1,
+    "oof_calibrated": 0.9441601752436432
+   },
+   {
+    "log10p": -1.6291453166530105,
+    "label": 0,
+    "oof_calibrated": 0.05603632600366473
+   },
+   {
+    "log10p": -2.5520211480550663,
+    "label": 0,
+    "oof_calibrated": 0.0022804197956556365
+   },
+   {
+    "log10p": -2.090583246272865,
+    "label": 0,
+    "oof_calibrated": 0.011514120956607714
+   },
+   {
+    "log10p": -0.02061571102872644,
+    "label": 1,
+    "oof_calibrated": 0.9293565280294325
+   },
+   {
+    "log10p": -3.277824215064845,
+    "label": 0,
+    "oof_calibrated": 0.0006187388658859082
+   },
+   {
+    "log10p": -3.6035451868412145,
+    "label": 0,
+    "oof_calibrated": 0.00022853007424673564
+   },
+   {
+    "log10p": -1.5900942176861186,
+    "label": 0,
+    "oof_calibrated": 0.09758853959253162
+   },
+   {
+    "log10p": -0.0713162986968536,
+    "label": 1,
+    "oof_calibrated": 0.8938886360700119
+   },
+   {
+    "log10p": -1.3795811215166807,
+    "label": 0,
+    "oof_calibrated": 0.14237555457564352
+   },
+   {
+    "log10p": -1.1644316607274043,
+    "label": 0,
+    "oof_calibrated": 0.24050343690218237
+   },
+   {
+    "log10p": -1.0595991372125646,
+    "label": 0,
+    "oof_calibrated": 0.3025331895900351
+   },
+   {
+    "log10p": -0.8756111903054782,
+    "label": 1,
+    "oof_calibrated": 0.40699317826598436
+   },
+   {
+    "log10p": -2.2483204878228076,
+    "label": 0,
+    "oof_calibrated": 0.008339137276326977
+   },
+   {
+    "log10p": -1.6235234986512328,
+    "label": 0,
+    "oof_calibrated": 0.05870018107519978
+   },
+   {
+    "log10p": -2.8586311397623554,
+    "label": 0,
+    "oof_calibrated": 0.0011864895961642855
+   },
+   {
+    "log10p": -0.03728639278652209,
+    "label": 1,
+    "oof_calibrated": 0.9568253306815181
+   },
+   {
+    "log10p": -0.5722161974360089,
+    "label": 0,
+    "oof_calibrated": 0.7566482589396104
+   },
+   {
+    "log10p": -0.826306252291329,
+    "label": 0,
+    "oof_calibrated": 0.5502071620733784
+   },
+   {
+    "log10p": -1.5450887340385406,
+    "label": 0,
+    "oof_calibrated": 0.08035914715125834
+   },
+   {
+    "log10p": -0.00319760654852342,
+    "label": 1,
+    "oof_calibrated": 0.9485453088447464
+   },
+   {
+    "log10p": -2.446103893854133,
+    "label": 0,
+    "oof_calibrated": 0.003310605162157033
+   },
+   {
+    "log10p": -3.341836453190678,
+    "label": 0,
+    "oof_calibrated": 0.00014072826597867334
+   },
+   {
+    "log10p": -4.400429247724392,
+    "label": 0,
+    "oof_calibrated": 3.356735742748008e-06
+   },
+   {
+    "log10p": -0.41490223986031566,
+    "label": 1,
+    "oof_calibrated": 0.7974921709119637
+   },
+   {
+    "log10p": -1.6906422046001093,
+    "label": 0,
+    "oof_calibrated": 0.07365227426107653
+   },
+   {
+    "log10p": -0.755676338508071,
+    "label": 0,
+    "oof_calibrated": 0.5813308134251609
+   },
+   {
+    "log10p": -1.7992158867719243,
+    "label": 0,
+    "oof_calibrated": 0.05396060215992961
+   },
+   {
+    "log10p": -0.9766142948470342,
+    "label": 1,
+    "oof_calibrated": 0.3575111684520032
+   },
+   {
+    "log10p": -1.738101014205729,
+    "label": 0,
+    "oof_calibrated": 0.0535650963467561
+   },
+   {
+    "log10p": -1.1063715662371258,
+    "label": 0,
+    "oof_calibrated": 0.2737552597326064
+   },
+   {
+    "log10p": -1.9687834165750986,
+    "label": 0,
+    "oof_calibrated": 0.027539620978509854
+   },
+   {
+    "log10p": -0.13184520576674572,
+    "label": 1,
+    "oof_calibrated": 0.8817078635500041
+   },
+   {
+    "log10p": -1.4890154292063125,
+    "label": 0,
+    "oof_calibrated": 0.08758560115470965
+   },
+   {
+    "log10p": -3.117619779520783,
+    "label": 0,
+    "oof_calibrated": 0.0005174421295973517
+   },
+   {
+    "log10p": -2.3033176252335474,
+    "label": 0,
+    "oof_calibrated": 0.0070002361597115105
+   },
+   {
+    "log10p": -0.21077078738907923,
+    "label": 1,
+    "oof_calibrated": 0.9213929299132217
+   },
+   {
+    "log10p": -0.9979294975060233,
+    "label": 0,
+    "oof_calibrated": 0.39446043400353326
+   },
+   {
+    "log10p": -2.273669533395829,
+    "label": 0,
+    "oof_calibrated": 0.005985353663610488
+   },
+   {
+    "log10p": -1.730801504691084,
+    "label": 0,
+    "oof_calibrated": 0.04231751147803747
+   },
+   {
+    "log10p": -1.77134426223347,
+    "label": 1,
+    "oof_calibrated": 0.03469200825438925
+   },
+   {
+    "log10p": -3.128514520250579,
+    "label": 0,
+    "oof_calibrated": 0.0002987273541792344
+   },
+   {
+    "log10p": -3.7256693860722216,
+    "label": 0,
+    "oof_calibrated": 3.631777043656175e-05
+   },
+   {
+    "log10p": -3.0199408606612854,
+    "label": 0,
+    "oof_calibrated": 0.00043815440343441246
+   },
+   {
+    "log10p": -0.4969388430086666,
+    "label": 1,
+    "oof_calibrated": 0.7539399474756391
+   },
+   {
+    "log10p": -2.125543082261923,
+    "label": 0,
+    "oof_calibrated": 0.020587064891237454
+   },
+   {
+    "log10p": -1.5040730104877398,
+    "label": 0,
+    "oof_calibrated": 0.12334103078096705
+   },
+   {
+    "log10p": -1.7076485536866217,
+    "label": 0,
+    "oof_calibrated": 0.07018060318271849
+   },
+   {
+    "log10p": -0.543481825302104,
+    "label": 1,
+    "oof_calibrated": 0.6712568835235748
+   },
+   {
+    "log10p": -3.882120520120796,
+    "label": 0,
+    "oof_calibrated": 9.076614507912285e-05
+   },
+   {
+    "log10p": -4.940713312725579,
+    "label": 0,
+    "oof_calibrated": 3.7847515615142724e-06
+   },
+   {
+    "log10p": -5.4157232083251365,
+    "label": 0,
+    "oof_calibrated": 9.095810945195654e-07
+   },
+   {
+    "log10p": -0.6686818286110382,
+    "label": 1,
+    "oof_calibrated": 0.5713038392337182
+   },
+   {
+    "log10p": -2.1767047544126172,
+    "label": 0,
+    "oof_calibrated": 0.010469506722093765
+   },
+   {
+    "log10p": -1.8758493898575301,
+    "label": 0,
+    "oof_calibrated": 0.02701493193048947
+   },
+   {
+    "log10p": -1.5918489471373638,
+    "label": 0,
+    "oof_calibrated": 0.06457070343868719
+   },
+   {
+    "log10p": -0.2519988124907608,
+    "label": 1,
+    "oof_calibrated": 0.9097065919979825
+   },
+   {
+    "log10p": -2.8849091440509134,
+    "label": 0,
+    "oof_calibrated": 0.0006379696859732969
+   },
+   {
+    "log10p": -3.482064011967228,
+    "label": 0,
+    "oof_calibrated": 7.126634628322455e-05
+   },
+   {
+    "log10p": -2.912052419081687,
+    "label": 0,
+    "oof_calibrated": 0.0005774926330975653
+   }
+  ]
+ }
+}
