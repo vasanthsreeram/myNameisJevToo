@@ -68,3 +68,20 @@ def convert(model_path: str, label_style: str = "spaced",
     """
     return DecisionModel(backend=load_backend(model_path, label_style=label_style),
                          instruction=instruction)
+
+
+def convert_gguf(base_url: str = "http://127.0.0.1:8080", n_probs: int = 200,
+                 label_style: str = "spaced",
+                 instruction: str = DEFAULT_INSTRUCTION) -> DecisionModel:
+    """Same conversion over a running llama-server (GGUF weights).
+
+    llama.cpp does not expose full logits over HTTP, so label probabilities are
+    read from the server's top-N token list. Always check `jev.backend.coverage()`
+    before trusting the numbers: a label that fell outside the top-N is scored 0
+    and would silently look like a confident rejection.
+    """
+    from .backends_gguf import LlamaCppServerBackend
+
+    return DecisionModel(
+        backend=LlamaCppServerBackend(base_url, label_style=label_style, n_probs=n_probs),
+        instruction=instruction)

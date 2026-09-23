@@ -13,13 +13,13 @@ download.
     jev.noul(state, "Is this claim fraudulent?")        # -> 0.83
     jev.choice(state, "Route this ticket.", LABELS)     # -> distribution
 """
-from .decide import DecisionModel, convert
+from .decide import DecisionModel, convert, convert_gguf
 from .calibrate import abstain_curve, chance_corrected, ece, fit_platt, noise_floor
 from .readout import Distribution, LETTERS, render_options, render_state
 
 __version__ = "0.1.0"
 __all__ = [
-    "convert", "DecisionModel", "Distribution", "LETTERS",
+    "convert", "convert_gguf", "DecisionModel", "Distribution", "LETTERS",
     "render_state", "render_options",
     "ece", "fit_platt", "abstain_curve", "noise_floor", "chance_corrected",
 ]

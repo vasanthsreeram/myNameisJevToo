@@ -40,8 +40,13 @@ class MLXBackend:
     # -- tokenisation ----------------------------------------------------
     def encode(self, text: str, add_bos: bool = False) -> list[int]:
         ids = self.tokenizer.encode(text, add_special_tokens=False)
-        if add_bos:
-            ids = [self.tokenizer.bos_token_id] + ids
+        # Not every tokenizer defines a BOS. Qwen3.5's is None, and blindly
+        # prepending it yields [None] + ids, which throws at mx.array() time -
+        # and the exception surfaces once per item, so the whole run reads as
+        # "0 items scored" rather than as a tokenizer problem.
+        bos = getattr(self.tokenizer, "bos_token_id", None)
+        if add_bos and bos is not None:
+            ids = [bos] + ids
         return ids
 
     def label_id(self, i: int) -> int:

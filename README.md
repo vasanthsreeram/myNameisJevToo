@@ -58,8 +58,11 @@ Everything that went wrong on the way: [`docs/PITFALLS.md`](docs/PITFALLS.md)
 
 ## Results
 
-All measurements on a **Mac mini M4, 16 GB, no accelerator**, `openbmb/MiniCPM5-2B-MLX` at 4-bit,
-unless stated otherwise.
+All measurements are ours, from real runs. Baseline model
+**`openbmb/MiniCPM5-2B-MLX` at 4-bit on a Mac mini M4 (16 GB, no accelerator)**; the 27B section
+below was run on a **Mac Studio (M3 Ultra, 96 GB)**. Every number is reproducible from
+`benchmarks/`, and per-item detail for the JevBench runs is committed under
+`benchmarks/results/`.
 
 ### The technique itself: verified — and one of its properties is a trap
 
@@ -147,29 +150,91 @@ option-list priors, and true state-driven performance on hard decisions is close
 Without this control the headline would have been "27.4 intelligence, above chance on every tier".
 With it, the honest headline is: **on hard items, this model is guessing.**
 
+## The same technique on a 27B: model quality was the bottleneck, not the interface
+
+The 2B results above raised the obvious question — is the interface weak, or the model?
+So the identical code was run against **Qwen3.8-27B** on a Mac Studio (M3 Ultra, 96 GB), in
+**both** 4-bit MLX and GGUF Q4_K_M, on the same public items with the same readout.
+
+| tier | n | MLX 4-bit | GGUF Q4_K_M | chance |
+|---|---|---|---|---|
+| easy | 48 | **100.0%** | **100.0%** | 28.4% |
+| standard | 72 | 94.4% | **97.2%** | 31.7% |
+| hard | 111 | 69.4% | **74.8%** | 33.6% |
+| **intelligence** | | **77.6** | **82.6** | |
+
+| | MiniCPM5-2B | Qwen3.8-27B MLX | Qwen3.8-27B GGUF | Jev 1.13.0 |
+|---|---|---|---|---|
+| Intelligence | 27.4 | 77.6 | **82.6** | 85.7 |
+| Calibration | 40.2 | **86.9** | 77.2 | 82.7 |
+| Speed | 73.6 | 67.1 | 65.9 | 83.3 |
+| hard-tier ECE | 0.2989 | **0.0655** | 0.1139 | — |
+| Score equivalent | 13.0 | **76.8** | 74.9 | 74.4 |
+
+Two things worth noting:
+
+- **Intelligence went 27.4 → 82.6 on an unchanged interface.** The conversion never was the
+  bottleneck. If you want a decision model, pick a better base model before you write any
+  glue code.
+- **Calibration and intelligence trade off between the two quantisations.** MLX 4-bit is
+  markedly better calibrated (86.9 vs 77.2, ECE 0.0655 vs 0.1139) while GGUF Q4_K_M is
+  smarter (82.6 vs 77.6). Neither dominates, and the difference is not visible from the
+  headline accuracy numbers.
+
+### The state-blind control on the 27B
+
+Kept % = how much accuracy survives when the state is replaced by a placeholder:
+
+| tier | MiniCPM5-2B | Qwen3.8-27B |
+|---|---|---|
+| easy | 41% | **33–35%** |
+| standard | 56% | **31%** |
+| hard | **116%** | **71–75%** |
+
+The 2B scored *above* chance on the hard tier with the state removed — it was reading option
+priors, not input. The 27B drops to 71–75% kept there: still real option-list reliance on hard
+items, but no longer a model that ignores its input.
+
+### Caveats
+
+Public halves only (48/72 easy, 72/96 standard, 111/220 hard); the judge tier is not public, so
+tier weights are renormalised over three tiers. The cost axis is excluded, which is why the score
+equivalent is over three axes and cannot be read as a JevBench Score. Per-item detail is in
+`benchmarks/results/*_detail.json`.
+
 ## What this is and is not
 
 **Is:** a small, dependency-light implementation of a real interface — read the distribution, do
 not sample from it — with the harness to measure whether the result is trustworthy, including the
 controls most write-ups skip.
 
-**Is not:** a Jev-class decision model. A general-purpose language model read this way does not
-become one. The board already said so before we ran anything: the systems at the top of JevBench
-(Jev 85.7, SemIf 79.0, djev, Winnow) were **trained** for this, and the ones that are just LMs
-with a readout sit far below them. Our 2B model lands below jeff, a 400M model — because jeff was
-built for the job and ours was not.
+**Is not:** a way to make a *small* model smart. The 2B experiment is unambiguous: read this
+way, it scores 27.4 intelligence and on hard items does **better with the state removed** than
+with it. It is guessing, and the interface cannot fix that.
 
-The gap is training, not interface. That is the finding, and it is worth more than a flattering
-number would have been.
+**But it is not a dead end either.** The identical code on a 27B scored **82.6** intelligence —
+within 3 points of Jev's published 85.7 — with **better calibration on the 4-bit MLX leg (86.9
+vs 82.7)**, and 100% on the easy tier. So the honest conclusion is not "the interface is weak"
+and not "scale fixes everything", but:
 
-Three further limits, stated plainly:
+> The interface is real and cheap. What it delivers is bounded almost entirely by the base
+> model. Below roughly 10B parameters, read this way, a general LM is an option-list guesser;
+> at 27B it is a credible decision model.
+
+That reframes the build order. You do not need a bespoke architecture or a training run to get
+Jev-shaped behaviour — you need enough base model, and then the interface gets you the rest.
+The systems at the top of JevBench were trained for the job; the finding here is that you can
+get close without that, which is a lower bar than the board implies.
+
+Three limits that survive the 27B result, stated plainly:
 
 - **It cannot compute.** These are judgment reads. Anything with an exact answer belongs in code,
-  handed over as facts.
+  handed over as facts. The JevBench hard tier rewards exactly that, and it is the tier where
+  every model here scores worst.
 - **A wrong-but-valid answer is still wrong.** The typed interface removes malformed output. It
   does not remove error, and it does not remove confident error.
-- **Calibration is task-local.** Every number here is ours, on our items, on our hardware. It does
-  not transfer to your task because it was measured on ours.
+- **Calibration is task-local.** Every number here is ours, on our items, on our hardware. It
+  does not transfer to your task because it was measured on ours.
 
 ## Install and use
 

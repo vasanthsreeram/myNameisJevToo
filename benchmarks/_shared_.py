@@ -36,10 +36,16 @@ def _encode(tok, text, add_bos=False):
     """MLX TokenizerWrapper.encode() prepends BOS on EVERY call.
     Concatenating two encodes therefore injects a bogus <s> mid-sequence,
     which wrecks the score of the first continuation token. Always call with
-    add_special_tokens=False and add BOS exactly once, at the very front."""
+    add_special_tokens=False and add BOS exactly once, at the very front.
+
+    Some tokenizers define no BOS at all (Qwen3.5's bos_token_id is None);
+    prepending it there produces [None] + ids, which throws later and looks
+    like the model failed rather than the tokenizer.
+    """
     ids = tok.encode(text, add_special_tokens=False)
-    if add_bos:
-        ids = [tok.bos_token_id] + ids
+    bos = getattr(tok, "bos_token_id", None)
+    if add_bos and bos is not None:
+        ids = [bos] + ids
     return ids
 
 
