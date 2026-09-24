@@ -1,31 +1,29 @@
 # The conversion technique
 
-Turning any causal language model into a System-One-style decision model.
+A causal language model already predicts the next token. This interface reads
+that distribution as a typed decision using the model's original weights.
 
-## The claim
+## From token blocks to answer letters
 
-A decoder-only LM does not need to generate text to answer a question. It only
-needs one forward pass and someone willing to read the distribution instead of
-sampling from it. This document is the complete method.
+Think of speculative decoding: a small model proposes token blocks, then a
+larger model checks the proposed tokens using its probabilities. That check
+looks at **successive positions** in one verification pass.
 
-No retraining. No fine-tuning. No new weights. The model is not modified at all.
-What changes is the interface.
+![A small model drafts tokens, a larger model checks them, and this project reads option letters at Answer.](anim/bridge.png)
 
-## Why it works
-
-A causal LM applies a causal mask, so the computation at position `t` attends
-only to positions `< t`. Therefore `logits[t]` is a complete distribution over
-the vocabulary for the token that comes next, computed without ever having seen
-the future.
-
-Put the question and the candidate answers in the context, end the context at the
-point where the answer belongs, and the final position's distribution *is* the
-model's answer distribution. Nothing needs to be generated to obtain it.
+Here we need just **one final position**. Show a causal language model the state,
+question, and lettered options; end the prompt at `Answer:`. Its next-token
+distribution includes probabilities for ` A`, ` B`, ` C`, and every other token.
+The causal model predicts what comes after the supplied prompt, so this read
+needs no generated answer text.
 
 ```python
-logits = model(input_ids)              # one pass, whole state
-p_last = softmax(logits[0, -1, :])     # distribution over 130,560 tokens
+logits = model(input_ids)              # one forward pass on the prompt
+p_last = softmax(logits[0, -1, :])     # next-token distribution
 ```
+
+The examples use illustrative probabilities. Real values depend on the model,
+prompt, and tokenizer.
 
 ## Step 1 - make every option a single token
 
@@ -40,8 +38,8 @@ p_a = p_last[359]
 p_b = p_last[408]
 ```
 
-For N options, the cost is **one** forward pass total, regardless of N. The
-"spec-decode read" is free precisely because the label is one token.
+For N single-token options, the cost is **one** forward pass total, regardless
+of N. Looking up another letter needs no extra pass.
 
 Check this property for your tokeniser before assuming it holds:
 
@@ -122,8 +120,8 @@ All three are one forward pass each. None generates text.
 
 ## Step 6 - calibrate, then gate
 
-A raw likelihood is a sufficient statistic, not a probability. Whether you need
-to fit anything is an empirical question - measure it:
+A next-token probability is a model output, not a calibrated estimate of
+correctness. Measure calibration on the decisions you plan to make:
 
 ```python
 ece_value, bins = ece([(d.confidence, d.choice == gold) for d, gold in pairs])

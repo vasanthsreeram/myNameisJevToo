@@ -1,321 +1,227 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How the readout works — myNameisJevToo</title>
+<meta name="color-scheme" content="light">
+<title>How the readout works · myNameisJevToo</title>
 <style>
   :root {
-    --bg: #f3ecdf;
-    --paper: #fbf6ee;
-    --ink: #2c261f;
-    --soft: #6f6558;
-    --faint: #8d8272;
-    --line: #e3d6c3;
-    --line-strong: #d4c4ab;
-    --clay: #b85c38;
-    --clay-deep: #8d4328;
-    --sage: #3d6b54;
-    --gold-soft: #e7d3a4;
-    --shadow: 0 18px 40px rgba(74, 52, 28, 0.08);
+    --background: #f5f0e7;
+    --paper: #fffdf8;
+    --ink: #292923;
+    --muted: #625f56;
+    --line: #dcd6c9;
+    --clay: #a44d34;
+    --clay-wash: #f7e7df;
+    --sage: #385f4c;
+    --sage-wash: #edf3ec;
+    --sand: #e9ddc8;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
-    margin: 0;
-    background: radial-gradient(1000px 420px at 8% -10%, #fffaf2 0%, transparent 50%), var(--bg);
-    color: var(--ink);
-    font-family: "Iowan Old Style", Palatino, Georgia, serif;
+    margin: 0; color: var(--ink); background: var(--background);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
-  a { color: var(--clay-deep); }
-  .wrap { max-width: 980px; margin: 0 auto; padding: 28px 22px 72px; }
-  header.top {
-    display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap;
-    padding-bottom: 14px; border-bottom: 1px solid var(--line);
+  a { color: var(--clay); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--clay); outline-offset: 4px; }
+  .shell { max-width: 1080px; padding: 0 32px; margin: 0 auto; }
+  .topbar { border-bottom: 1px solid var(--line); background: var(--paper); }
+  .topbar .shell { display: flex; align-items: center; justify-content: space-between; gap: 22px; min-height: 72px; }
+  .brand { font-size: 13px; font-weight: 750; letter-spacing: -.02em; color: var(--ink); text-decoration: none; white-space: nowrap; }
+  .brand span { color: var(--clay); }
+  nav { display: flex; align-items: center; gap: 24px; font-size: 13px; font-weight: 580; }
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a:hover { color: var(--clay); }
+  .hero { padding: 68px 0 54px; border-bottom: 1px solid var(--line); }
+  .eyebrow, .step, .mini-label {
+    color: var(--clay); font-size: 11px; font-weight: 750; letter-spacing: .11em; text-transform: uppercase;
   }
-  .brand { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--soft); }
-  nav { display: flex; flex-wrap: wrap; gap: 14px; font-size: 14px; }
-  nav a { text-decoration: none; color: var(--soft); }
-  .hero { padding: 42px 0 8px; max-width: 640px; }
-  h1 { font-weight: 500; font-size: clamp(36px, 5vw, 58px); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 12px; }
-  .lead { font-size: 20px; color: var(--soft); margin: 0; }
-  section.scene { margin-top: 36px; }
-  h2 { font-weight: 500; font-size: 28px; letter-spacing: -0.02em; margin: 0 0 6px; }
-  .note { margin: 0 0 12px; color: var(--soft); font-size: 17px; max-width: 40em; }
-  .stage {
-    background: var(--paper); border: 1px solid var(--line); border-radius: 22px;
-    box-shadow: var(--shadow); padding: 22px; overflow: hidden;
+  .hero h1, h2 { font-family: Georgia, "Iowan Old Style", serif; font-weight: 400; letter-spacing: -.045em; }
+  .hero h1 { max-width: 800px; font-size: clamp(43px, 6.4vw, 76px); line-height: 1.04; margin: 18px 0 22px; }
+  .hero p { max-width: 640px; color: var(--muted); font-size: 19px; line-height: 1.55; margin: 0; }
+  .facts { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 27px; }
+  .facts span { background: #e9e2d5; border: 1px solid #ded4c5; padding: 8px 11px; border-radius: 6px; font-size: 12px; font-weight: 650; }
+  main section { padding-top: 62px; scroll-margin-top: 22px; }
+  .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
+  .section-head > div { max-width: 680px; }
+  h2 { font-size: clamp(31px, 4vw, 43px); line-height: 1.13; margin: 8px 0 10px; }
+  .section-head p, .explain { color: var(--muted); font-size: 16px; line-height: 1.6; margin: 0; }
+  button { font: inherit; cursor: pointer; }
+  .motion-control { flex: none; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 9px 13px; font-size: 12px; font-weight: 650; }
+  .motion-control:hover { border-color: var(--clay); }
+  .figure { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 12px 28px rgba(66, 53, 34, .045); }
+  .bridge { padding: 30px 32px; }
+  .bridge-line { display: grid; grid-template-columns: 152px minmax(0, 1fr); gap: 18px; align-items: center; }
+  .bridge-line + .bridge-line { margin-top: 16px; }
+  .bridge-line .mini-label { color: var(--muted); }
+  .bridge-arrow { color: var(--muted); font-size: 12px; padding: 9px 0 9px 170px; }
+  .tokens { display: flex; flex-wrap: wrap; gap: 8px; }
+  .token { min-width: 78px; padding: 10px 13px; border: 1px solid var(--line); background: #f8f5ee; border-radius: 6px; font-family: Georgia, serif; font-size: 18px; text-align: center; }
+  .token.checked { border-color: #b3ccba; background: var(--sage-wash); }
+  .token.rejected { border-color: #ddb09e; background: var(--clay-wash); }
+  .token b { margin-left: 6px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; color: var(--sage); }
+  .token.rejected b { color: var(--clay); }
+  .bridge-divider { height: 1px; background: var(--line); margin: 24px 0; }
+  .token.answer { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; min-width: 74px; }
+  .token.answer strong { color: var(--clay); }
+  .readout { padding: 32px; display: grid; grid-template-columns: minmax(0, 1.1fr) 110px minmax(0, .9fr); gap: 22px; align-items: center; }
+  .prompt { background: #f8f5ee; border: 1px solid var(--line); border-radius: 8px; padding: 20px 23px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; line-height: 1.8; }
+  .prompt .mini-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; display: block; margin-bottom: 8px; }
+  .prompt .question { margin: 0 0 14px; color: var(--muted); }
+  .prompt .option { display: grid; grid-template-columns: 25px 1fr; }
+  .prompt .option b { color: var(--clay); }
+  .prompt .end { margin-top: 12px; font-weight: 800; color: var(--ink); }
+  .forward { text-align: center; font-size: 11px; font-weight: 720; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+  .forward .rail { display: block; height: 2px; margin: 13px 12px 0 0; background: var(--line); position: relative; }
+  .forward .rail::after { content: ""; position: absolute; right: -1px; top: -4px; width: 9px; height: 9px; border-top: 2px solid var(--line); border-right: 2px solid var(--line); transform: rotate(45deg); }
+  .forward .dot { position: absolute; top: -4px; left: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--clay); animation: travel 5.6s ease-in-out infinite; }
+  .probabilities .mini-label { display: block; margin-bottom: 14px; }
+  .prob-row { display: grid; grid-template-columns: 22px minmax(0, 1fr) 43px; gap: 10px; align-items: center; padding: 7px 0; opacity: .36; transform: translateY(6px); animation: show 5.6s ease-out infinite; }
+  .prob-row:nth-of-type(2) { animation-delay: .12s; }
+  .prob-row:nth-of-type(3) { animation-delay: .24s; }
+  .prob-row b, .prob-row strong { font-size: 14px; font-variant-numeric: tabular-nums; }
+  .prob-row strong { text-align: right; font-weight: 680; }
+  .bar { height: 11px; border-radius: 20px; background: #eee8de; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: var(--width); border-radius: inherit; background: #adbaa9; }
+  .prob-row.winner b, .prob-row.winner strong { color: var(--clay); }
+  .prob-row.winner .bar i { background: var(--clay); }
+  .remainder { padding-top: 12px; margin-top: 8px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+  .under { margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+  .under code, .explain code { background: #e9e2d5; border-radius: 3px; padding: 1px 4px; color: var(--ink); }
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .compare .figure { padding: 28px; }
+  .compare h3 { font-family: Georgia, serif; font-size: 25px; font-weight: 400; letter-spacing: -.03em; margin: 8px 0 6px; }
+  .compare p { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0 0 18px; }
+  .static-row { display: grid; grid-template-columns: 75px minmax(0, 1fr) 42px; align-items: center; gap: 10px; font-size: 13px; padding: 7px 0; font-variant-numeric: tabular-nums; }
+  .static-row b { text-align: right; }
+  .static-row .bar i { background: var(--sand); }
+  .static-row.winner .bar i { background: var(--clay); }
+  .static-row.winner b { color: var(--clay); }
+  .static-row.other { color: var(--muted); }
+  .formula { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 15px; font-size: 13px; font-weight: 650; }
+  .types { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .type { padding: 25px 26px; min-height: 173px; }
+  .type .mini-label { display: block; }
+  .type strong { display: block; font-family: Georgia, serif; font-weight: 400; font-size: 32px; margin: 18px 0 7px; letter-spacing: -.035em; }
+  .type p { color: var(--muted); margin: 0; font-size: 13px; line-height: 1.5; }
+  .bias { padding: 28px 32px; display: grid; grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr); gap: 32px; }
+  .bias .divider { background: var(--line); }
+  .bias h3 { font-size: 13px; margin: 0 0 14px; font-weight: 700; }
+  .bias h3 span { color: var(--muted); font-weight: 500; }
+  .slot { position: relative; height: 54px; border: 1px solid var(--line); border-radius: 6px; margin-top: 7px; padding: 0 15px; display: flex; align-items: center; justify-content: space-between; background: #f8f5ee; }
+  .slot.first { border-color: #dcb19f; background: var(--clay-wash); }
+  .slot .letter { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; }
+  .slot .picked { color: var(--clay); font-size: 12px; font-weight: 700; }
+  .swapword { position: absolute; left: 45px; top: 15px; font-size: 15px; font-weight: 650; animation: fade-out 6s ease-in-out infinite; }
+  .swapword.reversed { opacity: 0; animation-name: fade-in; }
+  .after .swapword { animation: none; }
+  @keyframes travel { 0%, 8% { transform: translateX(0); opacity: 0; } 12% { opacity: 1; } 43% { transform: translateX(80px); opacity: 1; } 50%, 100% { transform: translateX(80px); opacity: 0; } }
+  @keyframes show { 0%, 39% { opacity: .36; transform: translateY(6px); } 52%, 88% { opacity: 1; transform: translateY(0); } 100% { opacity: .36; transform: translateY(6px); } }
+  @keyframes fade-out { 0%, 26% { opacity: 1; } 43%, 81% { opacity: 0; } 100% { opacity: 1; } }
+  @keyframes fade-in { 0%, 26% { opacity: 0; } 43%, 81% { opacity: 1; } 100% { opacity: 0; } }
+  .motion-paused *, .motion-paused *::before, .motion-paused *::after { animation: none !important; }
+  .motion-paused .prob-row { opacity: 1; transform: none; }
+  .motion-paused .forward .dot { display: none; }
+  .closing { border-top: 1px solid var(--line); margin-top: 68px; padding: 28px 0 48px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+  @media (max-width: 760px) {
+    .shell { padding: 0 20px; }
+    .topbar .shell { min-height: 62px; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    nav { gap: 15px; flex-wrap: wrap; }
+    .hero { padding: 48px 0 40px; }
+    .hero p { font-size: 17px; }
+    main section { padding-top: 48px; }
+    .bridge { padding: 20px; }
+    .bridge-line { grid-template-columns: 1fr; gap: 8px; }
+    .bridge-arrow { padding: 10px 0; }
+    .token { min-width: 65px; font-size: 16px; padding: 8px 10px; }
+    .readout { grid-template-columns: 1fr; gap: 18px; padding: 20px; }
+    .forward { text-align: left; }
+    .forward .rail { width: 92px; margin-top: 9px; }
+    .compare { grid-template-columns: 1fr; }
+    .types { grid-template-columns: 1fr; }
+    .type { min-height: 0; }
+    .bias { padding: 20px; gap: 16px; }
+    .bias .swapword { left: 30px; }
+    .section-head { align-items: start; }
   }
-  .caption {
-    font-family: ui-sans-serif, system-ui, sans-serif;
-    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin: 12px 0 0;
-  }
-
-  #mask .stage, #trap .stage { width: max-content; max-width: 100%; }
-  .mask {
-    display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;
-    width: 520px; max-width: 100%; margin: 8px auto 0;
-  }
-  .cell { aspect-ratio: 1; border-radius: 8px; background: #efe6d6; }
-  .cell.causal { animation: cellIn 6.4s ease-in-out infinite; }
-  .cell.read { animation: readPulse 6.4s ease-in-out infinite; }
-  .axis {
-    display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;
-    width: 520px; max-width: 100%; margin: 6px auto 0;
-  }
-  .axis span {
-    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 10px; text-align: center; color: var(--faint);
-  }
-  @keyframes cellIn {
-    0%, 8% { background: #efe6d6; }
-    28%, 78% { background: var(--gold-soft); }
-    100% { background: #efe6d6; }
-  }
-  @keyframes readPulse {
-    0%, 58% { background: #efe6d6; }
-    72%, 88% { background: var(--clay); }
-    100% { background: #efe6d6; }
-  }
-
-  .spec { display: grid; gap: 18px; }
-  .band { display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: center; }
-  .k {
-    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11px; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--faint);
-  }
-  .toks { display: flex; gap: 10px; flex-wrap: wrap; }
-  .tok {
-    min-width: 72px; text-align: center; border: 1px solid var(--line-strong); border-radius: 12px;
-    background: #fffaf3; padding: 10px 12px 8px;
-    font-family: ui-sans-serif, system-ui, sans-serif;
-  }
-  .tok b { display: block; font-size: 16px; font-weight: 650; }
-  .tok em { display: block; margin-top: 4px; font-style: normal; font-size: 13px; color: var(--soft); opacity: 0; }
-  .tok.ok em, .tok.bad em, .tok .p { animation: reveal 6.2s ease infinite; }
-  .tok.ok { border-color: var(--sage); }
-  .tok.bad { border-color: var(--clay); }
-  .tok.hot { background: #f8ebe4; border-color: var(--clay); }
-  .tok .p { color: var(--clay-deep); font-variant-numeric: tabular-nums; }
-  @keyframes reveal {
-    0%, 42% { opacity: 0; transform: translateY(6px); }
-    56%, 88% { opacity: 1; transform: none; }
-    100% { opacity: 0; }
-  }
-  .ribbon-wrap { position: relative; height: 78px; }
-  .ribbon { display: flex; align-items: flex-end; gap: 3px; height: 100%; }
-  .ribbon i {
-    flex: 1 1 0; min-width: 0; display: block; background: #e7dccb; border-radius: 3px 3px 0 0; height: var(--h);
-  }
-  .ribbon i.on { background: var(--clay); }
-  .sweep {
-    position: absolute; top: 0; bottom: 0; width: 22%;
-    background: linear-gradient(90deg, transparent, rgba(184, 92, 56, 0.28), transparent);
-    animation: sweep 6.2s ease-in-out infinite;
-  }
-  @keyframes sweep {
-    0% { left: -24%; opacity: 0; }
-    12% { opacity: 1; }
-    48% { left: 102%; opacity: 1; }
-    62%, 100% { left: 102%; opacity: 0; }
-  }
-
-  .still .fill { width: var(--w); }
-  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-  .cols h3 { margin: 0 0 10px; font-weight: 500; font-size: 18px; }
-  .row {
-    display: grid; grid-template-columns: 118px minmax(0, 1fr) 44px; gap: 8px; align-items: center;
-    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; margin-bottom: 8px;
-  }
-  .row .name { color: var(--soft); white-space: nowrap; }
-  .row .pct { text-align: right; font-variant-numeric: tabular-nums; }
-  .tube { height: 12px; background: #efe6d8; border-radius: 99px; overflow: hidden; }
-  .fill { display: block; height: 100%; border-radius: 99px; background: var(--gold-soft); }
-  .fill.clay { background: var(--clay); }
-  .fill.ghost { background: #cfc3b0; }
-  .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .card {
-    border: 1px solid var(--line); border-radius: 16px; padding: 14px; background: #fffaf3;
-    font-family: ui-sans-serif, system-ui, sans-serif;
-  }
-  .card .k { margin-bottom: 8px; }
-  .card strong { display: block; font-size: 28px; font-weight: 560; letter-spacing: -0.03em; }
-  .card span { color: var(--soft); font-size: 14px; }
-
-  .slots { position: relative; height: 116px; width: 320px; max-width: 100%; }
-  .slot {
-    position: absolute; left: 0; right: 0; height: 52px; border-radius: 12px;
-    border: 1px solid var(--line-strong); background: #fffaf3;
-    display: flex; align-items: center; justify-content: flex-end; padding: 0 14px;
-    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; color: var(--faint);
-  }
-  .slot.win { top: 0; border-color: var(--clay); background: #f8ebe4; color: var(--clay-deep); }
-  .slot.other { top: 64px; }
-  .word {
-    position: absolute; left: 16px; top: 16px;
-    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 16px;
-    animation: swap 5s ease-in-out infinite;
-  }
-  .word.b { top: 80px; animation-name: swapB; }
-  @keyframes swap {
-    0%, 30% { transform: none; }
-    48%, 80% { transform: translateY(64px); }
-    100% { transform: none; }
-  }
-  @keyframes swapB {
-    0%, 30% { transform: none; }
-    48%, 80% { transform: translateY(-64px); }
-    100% { transform: none; }
-  }
-  .trap { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
-  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--soft); }
-  @media (max-width: 720px) {
-    .cols, .three, .band { grid-template-columns: 1fr; }
-    .row { grid-template-columns: 92px minmax(0, 1fr) 40px; }
-    .mask, .axis, #mask .stage, #trap .stage, .slots { width: 100%; }
+  @media (max-width: 520px) {
+    .section-head { display: block; }
+    .motion-control { margin-top: 16px; }
+    .bias { grid-template-columns: 1fr; }
+    .bias .divider { height: 1px; }
+    .bias .swapword { left: 45px; }
   }
   @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; }
-    .cell.causal { background: var(--gold-soft); }
-    .cell.read { background: var(--clay); }
-    .tok em, .sweep { opacity: 1; transform: none; }
+    .prob-row { opacity: 1; transform: none; }
+    .forward .dot, .motion-control { display: none; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <div class="brand">myNameisJevToo</div>
-    <nav>
-      <a href="#mask">Mask</a>
-      <a href="#spec">Pull</a>
-      <a href="#share">Share</a>
-      <a href="#trap">Trap</a>
-      <a href="TECHNIQUE.md">Write-up</a>
-    </nav>
-  </header>
-
+<header class="topbar"><div class="shell">
+  <a class="brand" href="../README.md">myNameis<span>JevToo</span></a>
+  <nav aria-label="On this page"><a href="#bridge">The idea</a><a href="#readout">The readout</a><a href="#normalize">The numbers</a><a href="#bias">The trap</a><a href="TECHNIQUE.md">Full method ↗</a></nav>
+</div></header>
+<div class="shell">
   <div class="hero">
-    <h1>One forward. Pull the probability.</h1>
-    <p class="lead">Don’t sample. Read the tokens you already care about.</p>
+    <span class="eyebrow">How it works</span>
+    <h1>Read the answer before the model writes it.</h1>
+    <p>Give a language model a question and named options. Its next-token probabilities already contain a decision.</p>
+    <div class="facts"><span>One forward pass per question*</span><span>Zero generated tokens</span><span>Original model weights</span></div>
   </div>
-
-  <section class="scene" id="mask">
-    <h2>The mask.</h2>
-    <p class="note">Each row sees only its past. The clay cell is the read.</p>
-    <div class="stage">
-      <div class="mask" id="mask-grid" aria-hidden="true"></div>
-      <div class="axis" aria-hidden="true">
-        <span>cust</span><span>twice</span><span>which</span><span>A</span><span>B</span><span>C</span><span>ans</span>
+  <main>
+    <section id="bridge" aria-labelledby="bridge-title">
+      <div class="section-head"><div><span class="step">01 / A familiar pattern</span><h2 id="bridge-title">Predict tokens. Then read their probabilities.</h2><p>In speculative decoding, a small model drafts tokens and a larger model checks the draft in one pass.</p></div></div>
+      <div class="figure bridge" role="img" aria-label="Speculative decoding: a small model proposes The quick fox jumps, and a larger model verifies the proposed tokens, accepting The, quick, fox and rejecting jumps. This project reads the probabilities of answer letters A, B, C at the final prompt position.">
+        <div class="bridge-line"><span class="mini-label">Small model</span><div class="tokens"><span class="token">The</span><span class="token">quick</span><span class="token">fox</span><span class="token">jumps</span></div></div>
+        <div class="bridge-arrow">↓ &nbsp; One verification pass</div>
+        <div class="bridge-line"><span class="mini-label">Larger model</span><div class="tokens"><span class="token checked">The <b>✓</b></span><span class="token checked">quick <b>✓</b></span><span class="token checked">fox <b>✓</b></span><span class="token rejected">jumps <b>×</b></span></div></div>
+        <div class="bridge-divider"></div>
+        <div class="bridge-line"><span class="mini-label">This project</span><div class="tokens"><span class="token answer">Answer:</span><span class="token answer">A · .04</span><span class="token answer"><strong>B · .26</strong></span><span class="token answer">C · .06</span></div></div>
       </div>
-    </div>
-  </section>
-
-  <section class="scene" id="spec">
-    <h2>Same pull as speculative decoding.</h2>
-    <p class="note">One pass. Then take P(token) for the tokens you named.</p>
-    <div class="stage spec">
-      <div class="band">
-        <div class="k">Spec decode</div>
-        <div class="toks">
-          <div class="tok ok"><b>the</b><em>0.91 ✓</em></div>
-          <div class="tok ok"><b>cat</b><em>0.84 ✓</em></div>
-          <div class="tok bad"><b>sat</b><em>0.07 ✗</em></div>
-        </div>
+      <p class="under">The shared idea is looking up named tokens in model probabilities. Speculative decoding checks draft tokens across successive positions. Here one model scores answer letters at a single final position.</p>
+    </section>
+    <section id="readout" aria-labelledby="readout-title">
+      <div class="section-head"><div><span class="step">02 / Look up</span><h2 id="readout-title">Stop at “Answer:”</h2><p>The model can continue with any token. We read the likelihood of the option letters at this exact point.</p></div><button type="button" class="motion-control" id="motion-toggle" aria-pressed="false">Pause motion</button></div>
+      <div class="figure readout" role="img" aria-label="A prompt asks how to route a crashing checkout. One forward pass gives raw next-token probabilities: A billing 0.04, B bug 0.26, C account 0.06, and all other tokens 0.64.">
+        <div class="prompt"><span class="mini-label">Prompt · fixed</span><div class="question">Checkout crashes. Route the ticket.</div><div class="option"><b>A.</b> billing</div><div class="option"><b>B.</b> bug</div><div class="option"><b>C.</b> account</div><div class="end">Answer:</div></div>
+        <div class="forward">One forward<span class="rail"><i class="dot"></i></span></div>
+        <div class="probabilities"><span class="mini-label">Next token · raw probability</span><div class="prob-row"><b>A</b><span class="bar"><i style="--width: 4%"></i></span><strong>.04</strong></div><div class="prob-row winner"><b>B</b><span class="bar"><i style="--width: 26%"></i></span><strong>.26</strong></div><div class="prob-row"><b>C</b><span class="bar"><i style="--width: 6%"></i></span><strong>.06</strong></div><div class="remainder">All other tokens · .64</div></div>
       </div>
-      <div class="ribbon-wrap" aria-hidden="true">
-        <div class="ribbon" id="ribbon"></div>
-        <div class="sweep"></div>
+      <p class="under">The probabilities above are illustrative. * The fast path uses single-token labels such as <code> A</code>, <code> B</code>, and <code> C</code>. The implementation checks the tokenizer; up to 26 lettered choices are supported.</p>
+    </section>
+    <section id="normalize" aria-labelledby="normalize-title">
+      <div class="section-head"><div><span class="step">03 / Keep both numbers</span><h2 id="normalize-title">A winning share can hide low option coverage.</h2><p>Option share tells us which valid answer wins. Raw option mass tells us how much probability the model gave to the valid answers at all.</p></div></div>
+      <div class="compare">
+        <div class="figure"><span class="mini-label">Entire vocabulary</span><h3>Raw probability</h3><p>Only 36% lands on the three option letters.</p><div class="static-row"><span>A · billing</span><span class="bar"><i style="width: 4%"></i></span><b>.04</b></div><div class="static-row winner"><span>B · bug</span><span class="bar"><i style="width: 26%"></i></span><b>.26</b></div><div class="static-row"><span>C · account</span><span class="bar"><i style="width: 6%"></i></span><b>.06</b></div><div class="static-row other"><span>other tokens</span><span class="bar"><i style="width: 64%"></i></span><b>.64</b></div><div class="formula">Option mass = .04 + .26 + .06 = .36</div></div>
+        <div class="figure"><span class="mini-label">Valid options only</span><h3>Share of options</h3><p>Divide each letter by .36; the three shares sum to 1.</p><div class="static-row"><span>A · billing</span><span class="bar"><i style="width: 11.1%"></i></span><b>11%</b></div><div class="static-row winner"><span>B · bug</span><span class="bar"><i style="width: 72.2%"></i></span><b>72%</b></div><div class="static-row"><span>C · account</span><span class="bar"><i style="width: 16.7%"></i></span><b>17%</b></div><div class="formula">B wins · .26 ÷ .36 ≈ 72%</div></div>
       </div>
-      <div class="band">
-        <div class="k">This readout</div>
-        <div class="toks">
-          <div class="tok"><b>A</b><em class="p">0.11</em></div>
-          <div class="tok hot"><b>B</b><em class="p">0.72</em></div>
-          <div class="tok"><b>C</b><em class="p">0.17</em></div>
-        </div>
-      </div>
-      <p class="caption">Same distribution.</p>
-    </div>
-  </section>
-
-  <section class="scene" id="share">
-    <h2>Raw, then share.</h2>
-    <p class="note">Raw keeps the rest of the vocab. Share is only the options.</p>
-    <div class="stage still">
-      <div class="cols">
-        <div>
-          <h3>Raw</h3>
-          <div class="row"><span class="name">billing</span><div class="tube"><i class="fill" style="--w:8%"></i></div><span class="pct">0.04</span></div>
-          <div class="row"><span class="name">bug</span><div class="tube"><i class="fill clay" style="--w:52%"></i></div><span class="pct">0.26</span></div>
-          <div class="row"><span class="name">account</span><div class="tube"><i class="fill" style="--w:12%"></i></div><span class="pct">0.06</span></div>
-          <div class="row"><span class="name">other</span><div class="tube"><i class="fill ghost" style="--w:100%"></i></div><span class="pct">0.64</span></div>
-        </div>
-        <div>
-          <h3>Share</h3>
-          <div class="row"><span class="name">billing</span><div class="tube"><i class="fill" style="--w:11%"></i></div><span class="pct">0.11</span></div>
-          <div class="row"><span class="name">bug</span><div class="tube"><i class="fill clay" style="--w:72%"></i></div><span class="pct">0.72</span></div>
-          <div class="row"><span class="name">account</span><div class="tube"><i class="fill" style="--w:17%"></i></div><span class="pct">0.17</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="scene" id="types">
-    <h2>Three reads.</h2>
-    <div class="stage">
-      <div class="three">
-        <div class="card"><div class="k">choice</div><strong>bug</strong><span>argmax</span></div>
-        <div class="card"><div class="k">noul</div><strong>0.83</strong><span>P(yes)</span></div>
-        <div class="card"><div class="k">score</div><strong>1.20</strong><span>expected level</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="scene" id="trap">
-    <h2>Two labels.</h2>
-    <p class="note">The pick stays in the top slot.</p>
-    <div class="stage">
-      <div class="trap">
-        <div class="slots" aria-hidden="true">
-          <div class="slot win">picked</div>
-          <div class="slot other"></div>
-          <div class="word">yes</div>
-          <div class="word b">no</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    Independent of TypeSafe AI. Method in <a href="TECHNIQUE.md">TECHNIQUE.md</a>.
-  </footer>
+      <p class="under">The HTTP <code>confidence</code> field expresses peakedness of the option shares. The library’s <code>Distribution.confidence</code> is the winning share. Both deserve task-specific calibration.</p>
+    </section>
+    <section id="outputs" aria-labelledby="outputs-title">
+      <div class="section-head"><div><span class="step">04 / Return a value</span><h2 id="outputs-title">One readout. Three answer types.</h2><p>The same lookup can choose an option, report the share assigned to “yes,” or calculate a weighted score.</p></div></div>
+      <div class="types"><div class="figure type"><span class="mini-label">choice</span><strong>bug</strong><p>Highest option share.</p></div><div class="figure type"><span class="mini-label">noul</span><strong>0.83</strong><p>Share of “yes,” found by name.</p></div><div class="figure type"><span class="mini-label">score</span><strong>1.20</strong><p>Expected level on a 0–2 scale.</p></div></div>
+    </section>
+    <section id="bias" aria-labelledby="bias-title">
+      <div class="section-head"><div><span class="step">05 / Check the model</span><h2 id="bias-title">Swap the options. Does the answer move?</h2><p>In the measured 2B model, the first position often wins even when “yes” and “no” trade places. Test order sensitivity before using a binary readout.</p></div></div>
+      <div class="figure bias" role="img" aria-label="The first option is selected in both label orders. Before: A yes is picked, B no. After swapping: A no is picked, B yes. This shows a position bias in the measured small model."><div><h3>Before <span>· same question</span></h3><div class="slot first"><span class="letter">A</span><span class="swapword">yes</span><span class="swapword reversed">no</span><span class="picked">PICKED</span></div><div class="slot second"><span class="letter">B</span><span class="swapword">no</span><span class="swapword reversed">yes</span></div></div><div class="divider"></div><div class="after"><h3>After <span>· labels reversed</span></h3><div class="slot first"><span class="letter">A</span><span class="swapword">no</span><span class="picked">PICKED</span></div><div class="slot second"><span class="letter">B</span><span class="swapword">yes</span></div></div></div>
+      <p class="under">The left column animates the swap; the right column shows the reversed result. The test is about this model and prompt, not a universal property of language models.</p>
+    </section>
+  </main>
+  <footer class="closing">myNameisJevToo is independent of TypeSafe AI. Read the <a href="TECHNIQUE.md">full method</a>, <a href="PITFALLS.md">failure modes</a>, or <a href="../README.md">return to the README</a>.</footer>
 </div>
 <script>
-  const grid = document.getElementById("mask-grid");
-  for (let r = 0; r < 7; r++) {
-    for (let c = 0; c < 7; c++) {
-      const cell = document.createElement("div");
-      cell.className = "cell";
-      if (c <= r) {
-        cell.classList.add("causal");
-        cell.style.animationDelay = ((r * 7 + c) * 0.04) + "s";
-      }
-      if (r === 6 && c === 6) {
-        cell.classList.add("read");
-        cell.style.animationDelay = "2.2s";
-      }
-      grid.appendChild(cell);
-    }
-  }
-  const ribbon = document.getElementById("ribbon");
-  const hot = new Set([6, 18, 31]);
-  for (let i = 0; i < 42; i++) {
-    const bar = document.createElement("i");
-    let h = 10 + ((i * 19) % 28);
-    if (hot.has(i)) { h = 86; bar.className = "on"; }
-    else if (i % 9 === 0) h = 48;
-    bar.style.setProperty("--h", h + "%");
-    ribbon.appendChild(bar);
-  }
+  const control = document.getElementById('motion-toggle');
+  control.addEventListener('click', () => {
+    const paused = document.body.classList.toggle('motion-paused');
+    control.setAttribute('aria-pressed', String(paused));
+    control.textContent = paused ? 'Play motion' : 'Pause motion';
+  });
 </script>
 </body>
 </html>

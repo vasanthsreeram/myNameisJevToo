@@ -1,399 +1,148 @@
 <p align="center">
-  <img src="docs/my-name-is-jev.png" width="720" alt="MY NAME IS JEV. A drawn TypeSafe wordmark and the words SAME ENDPOINT sit above the still. The bar also says NOT AFFILIATED.">
+  <img src="docs/my-name-is-jev.png" width="720" alt="MY NAME IS JEV still with a drawn TypeSafe wordmark and an independent-project disclaimer above it.">
 </p>
 
 # myNameisJevToo
 
-Any open causal language model, at the same endpoint TypeSafe publishes.
-No retraining, no new weights. `POST /v1/systemone` takes a `state` and typed
-`questions` and returns `choice`, `noul`, and `score` in the published answer shape.
+**Turn an open decoder-only language model into a typed decision API.** Load a model with MLX or connect a running `llama-server`, then call `POST /v1/systemone` with a state and questions. The server returns `choice`, `noul`, and `score` answers using the [published request and answer shape](https://docs.typesafe.ai/api).
 
-The bar on the picture is a wordmark drawn for this repository. This project is independent of TypeSafe AI.
+The name is a joke and a nod to TypeSafe AI. This is an independent project, unaffiliated with TypeSafe AI; the wordmark above is drawn for this repository.
+
+## The idea
+
+Speculative decoding gives a useful picture: a small model **drafts token blocks**, and a larger model **checks those tokens** in one verification pass. This is a simplified illustration of that process.
+
+<p align="center">
+  <img src="docs/anim/bridge.png" width="900" alt="A small model drafts The quick fox jumps; a larger model accepts the first three draft tokens and rejects jumps. Below, this project reads A, B, C at the final Answer position.">
+</p>
+
+This project uses the same kind of **probability lookup** for a different question. A prompt lists options and ends at `Answer:`. At that one final position, we read the next-token probabilities of the option letters. There is no text generation or change to the model's weights. The numbers below are illustrative.
+
+<p align="center">
+  <img src="docs/anim/readout.gif" width="900" alt="A fixed prompt lists A billing, B bug, C account and ends at Answer. One forward pass reveals raw next-token probabilities A .04, B .26, C .06; all other tokens together have .64.">
+</p>
+
+For the fast path, ` A`, ` B`, and ` C` each need to be **one token in the model's tokenizer**. The implementation checks this. Choices support up to 26 lettered options; multi-token labels use a cached-prefix scoring path. [Explore the full explanation](docs/how-it-works.html).
+
+### Why the probabilities need two views
+
+| View | In the example | What it answers |
+|---|---:|---|
+| **Raw option mass** | `.04 + .26 + .06 = .36` | How much probability landed on valid answer letters? |
+| **Share of options** | B: `.26 / .36 ≈ 72%` | Given a valid option, which one wins? |
+
+The remaining `.64` belongs to other tokens in the vocabulary. A **72% share** can therefore coexist with **36% option mass**. Keep both when deciding whether to act. The HTTP `confidence` field is [peakedness](docs/TECHNIQUE.md) of the option shares; the Python library's `Distribution.confidence` is the winner's share. Calibrate thresholds on your own task.
+
+## Run it
 
 ```bash
-pip install -e ".[mlx]"                              # core package is stdlib-only; MLX is optional
+pip install -e ".[mlx]"                     # Apple Silicon / MLX
 python -m jevtoo.serve --model openbmb/MiniCPM5-2B-MLX
-# or, against a running llama-server:
+# Or connect to a running llama-server:
 python -m jevtoo.serve --gguf http://127.0.0.1:8080
 ```
+
+The server listens on `127.0.0.1:8787` by default. The core package uses the Python standard library; MLX is optional. `jev-latest` and `jev-preview` resolve to the loaded model. Set `JEVTOO_API_KEY` or pass `--api-key` to require `Authorization: Bearer <key>`.
 
 ```bash
 curl -s http://127.0.0.1:8787/v1/systemone \
   -H 'Content-Type: application/json' \
-  -H 'X-Jev-Observe: 1' \
   -d '{
     "model": "jev-latest",
-    "state": "Customer: I was charged twice and I am furious.",
+    "state": "The checkout page crashes every time I pay.",
     "questions": {
       "topic": {
         "type": "choice",
-        "instructions": "What is the issue about?",
-        "criteria": {"billing": "money problems", "bug": "broken product"}
+        "instructions": "Route this ticket.",
+        "criteria": {"billing": "charges and refunds", "bug": "broken product"}
       },
       "urgent": {"type": "noul", "instructions": "Escalate to a human now?"}
     }
   }'
 ```
 
-`jev-latest` and `jev-preview` are aliases for the model you loaded. The response
-`model` field is that concrete id, the way `jev-latest` resolves to `jev-1.13.0` on
-their API. Set `JEVTOO_API_KEY` (or `--api-key`) and the server requires
-`Authorization: Bearer`.
-
-`X-Jev-Observe: 1` keeps the published body and adds an `observability` object:
-
-| field | what it tells you |
-|---|---|
-| `queue_ms` / `service_ms` / `forward_ms` | time waiting on the lock, time inside it, time inside the forwards |
-| `prefill_ms` / `shared_prefix_tokens` | the state was prefilled once and reused across the questions in this request |
-| `option_mass` | probability sitting on the option letters *before* renormalising. Low mass means the model did not want to answer |
-| `winner_probability` | the winner's share. This is `Distribution.confidence` in the library |
-| `peakedness` | `(n * max(p) - 1) / (n - 1)`. This is the HTTP `confidence` field, matching TypeSafe's explorer |
-| `binary_position_prior` | present on every two-label question. On a small model that read is often the label position |
-| `missing_labels` | GGUF only: labels that fell outside top-N. The server retries that request once with a wider window |
-| `head_mode` | `last` once a last-token head has matched a full forward, otherwise `full` |
-
-`GET /health`, `GET /v1/models`, and `GET /metrics` (Prometheus text) are on the same port.
-One MLX model is one Metal queue, so requests take a lock instead of interleaving.
+The response contains `model`, `answers`, and `usage`. A choice answer contains `choice`, `probabilities`, and `confidence`; a `noul` answer contains the share assigned to **yes**. A `score` question takes an ordered list of 2–10 levels and returns its expected level on a zero-based scale.
 
 ```python
 from jevtoo import convert
 
-jev = convert("openbmb/MiniCPM5-2B-MLX")          # any decoder-only LM
-
-jev.noul(state,   "Has the customer been charged twice this month?")     # -> 0.83
-jev.choice(state, "Route this ticket.", ["billing", "refund", "account", "feature"])
-jev.score(state,  "How urgent is this?", ["low", "medium", "high"])      # -> 1.9
-jev.last.latency_s, jev.last.as_dict()            # the most recent read, including raw mass
-```
-
-One forward pass each. Nothing is generated. The output is a typed value with a probability.
-
-## On the name
-
-**It is a tease and a tribute, in that order.**
-
-`myNameisJevToo` is a joke about how many "Jev, but mine" projects appeared within a week of
-launch, and it is a genuine nod to the team at **TypeSafe AI**. Jev made *"typed decisions with
-calibrated probabilities"* into a category worth building in, and it did so with a clean,
-inspectable contract rather than a wall of marketing: state in, `choice` / `noul` / `score` out,
-output tokens free. That contract is the good idea here, and this repository is our attempt to
-see how far the *interface* alone gets you on weights anyone can download.
-
-This project is **not affiliated with, endorsed by, or connected to TypeSafe AI**. "Jev" and
-"System One" are their names for their model and model class. Every Jev figure quoted below is
-their own published number, cited to where they published it.
-
-## The technique
-
-A decoder-only LM does not need to generate text to answer a question. It applies a causal mask,
-so the computation at position `t` sees only positions `< t` — which means `logits[t]` is already
-a complete distribution over the next token, computed without having seen the future.
-
-Put the state and the candidate answers in the context, end it where the answer belongs, and read:
-
-```python
-p_last = softmax(model(input_ids)[0, -1, :])   # one pass, whole state
-```
-
-Three details turn that into something usable:
-
-1. **Make each option a single token.** Write options as `" A"`, `" B"`, `" C"`. Each is one token
-   in most tokenisers, so every option's probability is read straight off `p_last`. For N options
-   the total cost is **one** forward pass, no matter how large N is.
-2. **Renormalise over the option set.** `share = raw / raw.sum()` answers "given that it picks one
-   of these, which?" `raw` answers "does it want to answer at all?" — use the first to choose, the
-   second to gate.
-3. **Prefill once.** If options are not single tokens, clone the KV cache rather than re-running
-   the state per option.
-
-### The readout, in motion
-
-Three loops. The stills — raw versus share, and the three answer types — sit on the [full page](docs/how-it-works.html).
-
-<p align="center">
-  <img src="docs/anim/mask.gif" width="520" alt="Causal mask. The lower triangle lights, then the last cell.">
-</p>
-
-<p align="center">
-  <img src="docs/anim/spec.gif" width="820" alt="One distribution. Speculative decoding reads draft tokens. This readout reads the option letters.">
-</p>
-
-<p align="center">
-  <img src="docs/anim/trap.gif" width="360" alt="Yes and no trade places. The pick stays in the top slot.">
-</p>
-
-Full method: [`docs/TECHNIQUE.md`](docs/TECHNIQUE.md) ·
-Everything that went wrong on the way: [`docs/PITFALLS.md`](docs/PITFALLS.md)
-
-## Results
-
-All measurements are ours, from real runs. Baseline model
-**`openbmb/MiniCPM5-2B-MLX` at 4-bit on a Mac mini M4 (16 GB, no accelerator)**; the 27B section
-below was run on a **Mac Studio (M3 Ultra, 96 GB)**. Every number is reproducible from
-`benchmarks/`, and per-item detail for the JevBench runs is committed under
-`benchmarks/results/`.
-
-### The technique itself: verified — and one of its properties is a trap
-
-| property | measured |
-|---|---|
-| Single-token labels | ` A` ` B` ` C` … ` I` are each 1 token (ids 359/408/371/437/440/438/485/417/354) |
-| N-way decision cost | 1 forward pass, zero extra passes for the labels |
-| Cached-prefix vs re-prefill | **4.2× faster**, bit-identical (max \|Δ mean logprob\| = **0.00000000** nats) |
-| MCQ accuracy, 55 items, 4 options | **89.1 %** (87.3 % plain scaffold) |
-| Calibration, letter readout | **ECE 0.040**, 1/55 confidently wrong (p ≥ 0.90) — with no fitting at all |
-| Decision latency, short state | **54.5 ms** per 4-way decision |
-| 4-bit vs bf16 ranking | Spearman ρ 0.95, 0/25 argmax flips on factual items |
-| **Two-option questions** | **the label order decides the answer** (see below) |
-
-#### Two options is a trap, not a test
-
-On a binary question whose state plainly contains the answer — the ticket says *"I need this
-refunded today"* — the readout does this:
-
-| labels | with state | state withheld |
-|---|---|---|
-| `["no", "yes"]` | no **91.5 %** | no 94.7 % |
-| `["yes", "no"]` | yes **99.2 %** | yes 89.3 % |
-
-The answer is the *first option* in both orders, and it is the first option whether or not the
-state is present. There is no content signal here at all: the model is reading the label
-position, not the ticket.
-
-This also corrects a result we initially misread as good news. On JevBench's 74 public binary
-items, accuracy is 54.1 % forward and 52.7 % reversed — which looked like order *robustness*
-(a Δ of 1.4 points) until the flip test showed why: chance for two options is 50 %, and a model
-that always picks position A scores ≈50 % in any order. **The stable number was the symptom.**
-
-Four- and five-option items do carry real signal (77.1 % against 28.4 % chance on the easy tier),
-so this is specific to small option sets, where a position prior has nowhere to spread.
-
-
-### On JevBench's frozen items: not good
-
-Run on [JevBench](https://github.com/fstandhartinger/jevbench)'s public task items with their
-published scoring formulas. **Public halves only** — 48/72 easy, 72/96 standard, 111/220 hard —
-so this is not directly comparable to a full board row, and the judge tier is not public at all.
-
-| tier | n | accuracy | chance | chance-corrected |
-|---|---|---|---|---|
-| easy | 48 | 77.1 % | 28.4 % | 68.0 |
-| standard | 72 | 50.0 % | 31.7 % | 26.8 |
-| hard | 111 | 39.6 % | 33.6 % | **9.0** |
-
-| axis | ours | for reference (JevBench v1.3.0's own board) |
-|---|---|---|
-| Intelligence | **27.4** | Jev 1.13.0 **85.7** · jeff (GLiFormer 400M) **46.9** · SemIf (Qwen3.5-4B) **79.0** |
-| Calibration | **40.2** | Jev 82.7 · jeff 64.6 |
-| Speed | **73.6** | Jev 83.3 · jeff 63.5 |
-| Cost | local, not comparable | Jev 52.0 · jeff 76.6 |
-| **Score equivalent** | **≈13** | Jev **74.4** · jeff **54.4** · SemIf **73.1** |
-
-Latency on these items: raw p50 **188 ms**, p95 **4092 ms** (the long hard items run to 3,746
-tokens of state). Under JevBench's own-server adjustment (×2 + 0.15 s) that is p50 0.53 s,
-p95 8.33 s.
-
-Hard-tier ECE is **0.2989** against a noise floor near 0.030 — roughly ten times the floor. The
-model is not slightly overconfident, it is badly overconfident: in the 0.90–1.00 confidence bin
-it is right **45.0 %** of the time.
-
-### The control that decides it
-
-The [jev-calibration-audit](https://github.com/jujumilk3/jev-calibration-audit) found that on
-MMLU-ProX, shown only the options with the state replaced by a placeholder, Jev still scored
-0.383 / 0.463 against a chance rate near 0.15 — *"a third to a half of apparent multiple-choice
-accuracy on this benchmark is recoverable from the option list alone."*
-
-So we ran the same control. It is the most important number in this repository:
-
-| tier | with state | state withheld | verdict |
-|---|---|---|---|
-| easy | 77.1 % | 31.2 % | state drives it |
-| standard | 50.0 % | 27.8 % | partly option-list driven |
-| hard | 39.6 % | **45.9 %** | **mostly option-list driven** |
-
-On hard items the model scores **higher with the state removed**. The state does not merely fail
-to help — it actively hurts. The 27.4 intelligence axis is therefore largely an artifact of
-option-list priors, and true state-driven performance on hard decisions is close to zero.
-
-Without this control the headline would have been "27.4 intelligence, above chance on every tier".
-With it, the honest headline is: **on hard items, this model is guessing.**
-
-## The same technique on a 27B: model quality was the bottleneck, not the interface
-
-The 2B results above raised the obvious question — is the interface weak, or the model?
-So the identical code was run against **Qwen3.8-27B** on a Mac Studio (M3 Ultra, 96 GB), in
-**both** 4-bit MLX and GGUF Q4_K_M, on the same public items with the same readout.
-
-| tier | n | MLX 4-bit | GGUF Q4_K_M | chance |
-|---|---|---|---|---|
-| easy | 48 | **100.0%** | **100.0%** | 28.4% |
-| standard | 72 | 94.4% | **97.2%** | 31.7% |
-| hard | 111 | 69.4% | **74.8%** | 33.6% |
-| **intelligence** | | **77.6** | **82.6** | |
-
-| | MiniCPM5-2B | Qwen3.8-27B MLX | Qwen3.8-27B GGUF | Jev 1.13.0 |
-|---|---|---|---|---|
-| Intelligence | 27.4 | 77.6 | **82.6** | 85.7 |
-| Calibration | 40.2 | **86.9** | 77.2 | 82.7 |
-| Speed | 73.6 | 67.4 | 65.9 | 83.3 |
-| hard-tier ECE | 0.2989 | **0.0655** | 0.1139 | — |
-| Score equivalent | 13.0 | **76.9** | 74.9 | 74.4 |
-
-The MLX leg was run twice to completion, and the second run reproduced the first
-exactly on every quality number — intelligence 77.6 vs 77.6, calibration 86.9 vs
-86.9, hard ECE 0.0655 vs 0.0655, and identical state-blind figures. Only the
-latency tail moved (p95 8.44 s vs 8.87 s, speed axis 67.4 vs 67.1), which is
-machine noise rather than model behaviour. The values above are from the second
-run, whose per-item records are committed.
-
-The GGUF leg completed once (an earlier attempt died with `ENOSPC` when swap hit
-92 GB from running both legs concurrently — the numbers in this table are from
-the completed run, and its 462 per-item records are committed).
-`benchmarks/rescore.py` rebuilds any summary from its detail file, and
-reproduces the GGUF figures exactly, so the committed summaries are auditable
-rather than taken on trust.
-
-Two things worth noting:
-
-- **Intelligence went 27.4 → 82.6 on an unchanged interface.** The conversion never was the
-  bottleneck. If you want a decision model, pick a better base model before you write any
-  glue code.
-- **Calibration and intelligence trade off between the two quantisations.** MLX 4-bit is
-  markedly better calibrated (86.9 vs 77.2, ECE 0.0655 vs 0.1139) while GGUF Q4_K_M is
-  smarter (82.6 vs 77.6). Neither dominates, and the difference is not visible from the
-  headline accuracy numbers.
-
-### The state-blind control on the 27B
-
-Kept % = how much accuracy survives when the state is replaced by a placeholder:
-
-| tier | MiniCPM5-2B | Qwen3.8-27B |
-|---|---|---|
-| easy | 41% | **33–35%** |
-| standard | 56% | **31%** |
-| hard | **116%** | **71–75%** |
-
-The 2B scored *above* chance on the hard tier with the state removed — it was reading option
-priors, not input. The 27B drops to 71–75% kept there: still real option-list reliance on hard
-items, but no longer a model that ignores its input.
-
-### Caveats
-
-Public halves only (48/72 easy, 72/96 standard, 111/220 hard); the judge tier is not public, so
-tier weights are renormalised over three tiers. The cost axis is excluded, which is why the score
-equivalent is over three axes and cannot be read as a JevBench Score. Per-item detail is in
-`benchmarks/results/*_detail.json`.
-
-## What this is and is not
-
-**Is:** a small, dependency-light implementation of a real interface — read the distribution, do
-not sample from it — with the harness to measure whether the result is trustworthy, including the
-controls most write-ups skip.
-
-**Is not:** a way to make a *small* model smart. The 2B experiment is unambiguous: read this
-way, it scores 27.4 intelligence and on hard items does **better with the state removed** than
-with it. It is guessing, and the interface cannot fix that.
-
-**But it is not a dead end either.** The identical code on a 27B scored **82.6** intelligence —
-within 3 points of Jev's published 85.7 — with **better calibration on the 4-bit MLX leg (86.9
-vs 82.7)**, and 100% on the easy tier. So the honest conclusion is not "the interface is weak"
-and not "scale fixes everything", but:
-
-> The interface is real and cheap. What it delivers is bounded almost entirely by the base
-> model. Below roughly 10B parameters, read this way, a general LM is an option-list guesser;
-> at 27B it is a credible decision model.
-
-That reframes the build order. You do not need a bespoke architecture or a training run to get
-Jev-shaped behaviour — you need enough base model, and then the interface gets you the rest.
-The systems at the top of JevBench were trained for the job; the finding here is that you can
-get close without that, which is a lower bar than the board implies.
-
-Three limits that survive the 27B result, stated plainly:
-
-- **It cannot compute.** These are judgment reads. Anything with an exact answer belongs in code,
-  handed over as facts. The JevBench hard tier rewards exactly that, and it is the tier where
-  every model here scores worst.
-- **A wrong-but-valid answer is still wrong.** The typed interface removes malformed output. It
-  does not remove error, and it does not remove confident error.
-- **Calibration is task-local.** Every number here is ours, on our items, on our hardware. It
-  does not transfer to your task because it was measured on ours.
-
-## Install and use
-
-```bash
-pip install -e ".[mlx]"          # core package is stdlib-only; MLX backend is optional
-python -m jevtoo.serve --model openbmb/MiniCPM5-2B-MLX   # POST /v1/systemone on :8787
-./datasets/fetch_jevbench.sh     # pull JevBench's public items
-```
-
-```python
-from jevtoo import convert, ece, abstain_curve
-
 jev = convert("openbmb/MiniCPM5-2B-MLX")
+state = "The checkout page crashes every time I pay."
+route = jev.choice(state, "Route this ticket.", ["billing", "bug", "account"])
+print(route.choice, route.share, route.raw)
 
-d = jev.choice(state, "Which exclusion applies?", LABELS, criteria=RUBRIC)
-print(d.choice, d.confidence, d.share)   # winner's share; HTTP confidence is peakedness
-print(d.as_dict())          # {"labels": [...], "choice": "...", "confidence": 0.91, "share": {...}}
-
-# gate on it rather than trusting it
-print(abstain_curve([(x.confidence, x.choice == gold) for x, gold in pairs]))
+p_yes = jev.noul(state, "Escalate to a human now?")
+urgency = jev.score(state, "How urgent?", ["low", "medium", "high"])
+print(p_yes, urgency, jev.last.as_dict())
 ```
 
-### Layout
+Each question is one decision readout. The server can share a common prompt prefix across questions in the same request.
 
-```
-jevtoo/            the package
-  readout.py         Distribution, rendering, token diagnostics  (stdlib only)
-  backends.py        MLX backend: last-token head, shared prefix, logsumexp gather
-  backends_gguf.py   llama-server backend, one keep-alive connection
-  decide.py          convert(): choice / noul / score primitives
-  contract.py        POST /v1/systemone request and answer shapes
-  serve.py           the local server, /metrics, and the observe block
-  calibrate.py       Platt fit, ECE, noise floor, abstain curve
-benchmarks/        the measurement harness, and raw JSON for every number above
-  letter_readout.py  single-token label readout + timing
-  mcq_eval.py        55-item MCQ, position bias, calibration, abstain curve
-  token_scoring.py   per-token scores, anomaly localisation
-  jevbench.py        JevBench public items, their scoring formulas
-  stateblind.py      the option-list leakage control
-  binary_flip_test.py  does swapping two options change the answer?
-  cache_equivalence.py  proof the cached path == the naive path
-  quantization.py    bf16 vs 4-bit
-  latency.py / length_sweep.py
-tests/run_tests.py   12 unit tests, no external test dependency
-docs/
-  how-it-works.html  the same diagrams, full page
-  anim/              mask, probability pull, and the two-label swap
-  TECHNIQUE.md       the conversion method, step by step
-  PITFALLS.md        nine ways to get a plausible wrong number
-  RESULTS-minicpm5.md  full write-up of the MiniCPM5-2B run
-```
+## Check for position bias
+
+A two-option read can reflect the **first letter's position** more than the state. In our MiniCPM5-2B experiment, reversing `yes` and `no` changed which word won while the first slot kept winning.
+
+<p align="center">
+  <img src="docs/anim/bias.gif" width="820" alt="On the left, yes and no swap positions; the highlighted A slot stays selected. On the right, the reversed order picks no in A. This illustrates a measured position bias in the 2B model.">
+</p>
+
+| Option order | With state | State withheld |
+|---|---:|---:|
+| `no`, `yes` | no · 91.5% | no · 94.7% |
+| `yes`, `no` | yes · 99.2% | yes · 89.3% |
+
+That test found a position prior in **this model and prompt**. Reorder options and rerun the question before trusting binary decisions. The API's `binary_position_prior` observation marks two-label questions for inspection; it is a warning flag, not a measured bias score.
+
+## Observe a decision
+
+Add `-H 'X-Jev-Observe: 1'` to the request above (or use `?observe=1`). The usual response shape gains an `observability` object with request timing and per-question diagnostics:
+
+| Signal | Use |
+|---|---|
+| `queue_ms`, `service_ms`, `forward_ms` | Separate lock wait, service time, and model computation. |
+| `prefill_ms`, `shared_prefix_tokens` | See when a shared question prefix was reused. |
+| `option_mass`, `winner_probability`, `peakedness` | Compare raw option coverage, winning share, and HTTP confidence. |
+| `missing_labels` | Detect GGUF labels missing from top-N; the server retries once with a wider window. |
+| `binary_position_prior`, `head_mode` | Flag two-label reads; inspect whether a verified last-token head is in use. |
+
+`GET /health`, `GET /v1/models`, and Prometheus `GET /metrics` are on the same port. Responses include `Server-Timing` and `X-Request-Id`; structured server logs exclude prompt text. An MLX server serializes forwards on one Metal lock.
+
+## What we measured
+
+The interface is cheap; **answer quality depends on the base model and the task**. On public JevBench items, our 2B model struggled on hard decisions. Running the same readout on Qwen3.8-27B improved its intelligence axis substantially.
+
+| Public JevBench tier | Items | MiniCPM5-2B MLX | Qwen3.8-27B MLX 4-bit | Qwen3.8-27B GGUF Q4_K_M |
+|---|---:|---:|---:|---:|
+| Easy | 48 | 77.1% | 100.0% | 100.0% |
+| Standard | 72 | 50.0% | 94.4% | 97.2% |
+| Hard | 111 | 39.6% | 69.4% | 74.8% |
+| Intelligence axis | — | 27.4 | 77.6 | 82.6 |
+
+The **state-blind control** replaces the state with a placeholder while leaving the options intact. On hard items, the 2B model scored **45.9% without the state versus 39.6% with it**. Its hard-tier score largely reflected option-list priors. The 27B retained 71–75% of its hard accuracy in the state-blind control, so option-list reliance remains worth checking.
+
+These are our runs on the **public portions only** (48/72 easy, 72/96 standard, 111/220 hard). They cannot be read as full-board JevBench scores. The 2B ran on a Mac mini M4 (16 GB); the 27B ran on a Mac Studio M3 Ultra (96 GB). Results are task-specific and include confident errors. The 27B MLX hard-tier expected calibration error (ECE) was **0.0655**; GGUF was **0.1139**. See [the complete 2B write-up](docs/RESULTS-minicpm5.md), [the method](docs/TECHNIQUE.md), [pitfalls](docs/PITFALLS.md), and the committed per-item records under [`benchmarks/results/`](benchmarks/results/).
 
 ### Reproduce
 
 ```bash
-python tests/run_tests.py                  # seconds, no weights needed
-python benchmarks/binary_flip_test.py      # seconds - the order-flip check
-python benchmarks/mcq_eval.py              # the 55-item calibration suite
-python benchmarks/stateblind.py            # ~4 min: the leakage control
-python benchmarks/jevbench.py              # ~7 min: 231 items + reversed pass
+python tests/run_tests.py                # no model download
+./datasets/fetch_jevbench.sh            # public task items
+python benchmarks/binary_flip_test.py    # check order sensitivity
+python benchmarks/stateblind.py          # test the state-blind control
+python benchmarks/jevbench.py            # public items + reversed pass
 ```
 
-## Credits
+## Project map
 
-- **TypeSafe AI** — Jev and the System One framing. The primitives, the pricing model and the
-  public eval methodology are theirs. The name of this repository is an affectionate dig at them.
-- **fstandhartinger/jevbench** — the cross-model board, the frozen task set and the scoring code
-  we reproduce. The failure modes we test for are ones they documented first.
-- **jujumilk3/jev-calibration-audit** — the state-blind and abstain-option findings that shaped
-  the controls here.
-- **OpenBMB** — MiniCPM5-2B (Apache-2.0), the model this was measured on.
-- **convaiinnovations/laya**, **logan-markewich/jeff**, **Fastino/GLiNER2** — the open decision
-  models that show what dedicated training buys on the same board.
+- `jevtoo/readout.py`, `jevtoo/decide.py`: probability distribution and typed decisions.
+- `jevtoo/backends.py`, `jevtoo/backends_gguf.py`: MLX and llama-server backends.
+- `jevtoo/contract.py`, `jevtoo/serve.py`: request contract, local endpoint, metrics.
+- `jevtoo/calibrate.py`: calibration and abstention tools.
+- `benchmarks/`: experiments, scripts, and per-item results.
+- `docs/how-it-works.html`: light-theme visual explanation and accessible stills.
 
-## License
+## Credits and license
 
-MIT — see [LICENSE](LICENSE). No model weights are vendored here. Third-party names, data and
-referenced figures are catalogued in [THIRD-PARTY.md](THIRD-PARTY.md).
+TypeSafe AI originated Jev and the System One framing. [fstandhartinger/jevbench](https://github.com/fstandhartinger/jevbench) published the cross-model benchmark; [jev-calibration-audit](https://github.com/jujumilk3/jev-calibration-audit) motivated the state-blind control. OpenBMB publishes the MiniCPM model. More acknowledgments and third-party terms are in [THIRD-PARTY.md](THIRD-PARTY.md).
+
+MIT; see [LICENSE](LICENSE). Model weights are not bundled.
