@@ -107,7 +107,41 @@ Three details turn that into something usable:
 3. **Prefill once.** If options are not single tokens, clone the KV cache rather than re-running
    the state per option.
 
-Watch it: [`docs/how-it-works.html`](docs/how-it-works.html) — beige diagrams of the mask, the one forward, raw versus share, the three types, and the shared endpoint. Open the file in a browser; GitHub shows the source.
+### The readout, in motion
+
+The same beige diagrams play below. The full page is [`docs/how-it-works.html`](docs/how-it-works.html).
+
+<p align="center">
+  <img src="docs/anim/mask.gif" width="820" alt="A causal mask. The lower triangle lights, then the last cell, which is the read.">
+</p>
+
+<p align="center">
+  <img src="docs/anim/frame.gif" width="820" alt="The prompt assembles and stops at Answer, then three bars grow. B carries the mass.">
+</p>
+
+<p align="center">
+  <img src="docs/anim/read.gif" width="820" alt="A vocabulary skyline. The option count climbs while the forward passes stay at one.">
+</p>
+
+<p align="center">
+  <img src="docs/anim/share.gif" width="820" alt="Raw letter probabilities beside the renormalized share. The leftover mass is the gate.">
+</p>
+
+<p align="center">
+  <img src="docs/anim/types.gif" width="820" alt="One distribution read as choice, then noul, then score.">
+</p>
+
+<p align="center">
+  <img src="docs/anim/endpoint.gif" width="820" alt="A request enters any open model and comes back as typed answers, with observe fields.">
+</p>
+
+<p align="center">
+  <img src="docs/anim/prefix.gif" width="820" alt="The state is prefilled once. Choice, noul, and score branch off that cache.">
+</p>
+
+<p align="center">
+  <img src="docs/anim/trap.gif" width="820" alt="Yes and no trade places. The pick stays on the top slot.">
+</p>
 
 Full method: [`docs/TECHNIQUE.md`](docs/TECHNIQUE.md) ·
 Everything that went wrong on the way: [`docs/PITFALLS.md`](docs/PITFALLS.md)
@@ -350,7 +384,8 @@ benchmarks/        the measurement harness, and raw JSON for every number above
   latency.py / length_sweep.py
 tests/run_tests.py   12 unit tests, no external test dependency
 docs/
-  how-it-works.html  beige animated diagrams of the readout
+  how-it-works.html  the same diagrams, full page
+  anim/              those diagrams as GIFs, embedded above
   TECHNIQUE.md       the conversion method, step by step
   PITFALLS.md        nine ways to get a plausible wrong number
   RESULTS-minicpm5.md  full write-up of the MiniCPM5-2B run
