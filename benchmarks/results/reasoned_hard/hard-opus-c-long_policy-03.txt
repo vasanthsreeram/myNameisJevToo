@@ -1,0 +1,181 @@
+
+
+<think>
+Let me carefully work through this claim step by step.
+
+**Step 1: Determine the applicable PSC version**
+
+The flight was operated on 14 August 2026. The PSC Edition 2025 is in force for flights from 1 April 2025, and Revision 3 is in force for flights operated from 1 February 2026. Since the flight was on 14 August 2026, Revision 3 applies.
+
+**Step 2: Determine the Final Destination and Distance**
+
+The booking PNR 7QK4ZD has:
+- AU 311: PVL → DRN
+- AU 874: DRN → KRM
+
+The Final Destination is KRM (Kaarmo). Per B5, for bookings with connections, the distance is the great-circle distance between the airport of first departure (PVL) and the Final Destination (KRM).
+
+From Annex D: Portavela (PVL) – Kaarmo (KRM) = 3,440 km
+
+This is more than 1,500 km and up to 3,500 km. So the applicable compensation tier is EUR 400.
+
+**Step 3: Determine the Arrival Delay**
+
+Per B3, Arrival Time is when at least one door is opened after the aircraft has reached its parking position, passengers being permitted to leave.
+
+Elena accepted AU 878 as rerouting. AU 878 operational log:
+- Forward left door opened, passengers released 21:14Z (UTC)
+
+The scheduled arrival of AU 874 at KRM was 21:10 local. KRM local = UTC+3.
+
+So scheduled arrival in UTC: 21:10 - 3 = 18:10Z
+
+Actual Arrival Time: 21:14Z
+
+Arrival Delay = 21:14Z - 18:10Z = 3 hours 4 minutes
+
+Wait, let me re-check. The scheduled arrival of AU 874 at KRM is 21:10 local (KRM time, UTC+3). So in UTC that's 18:10Z.
+
+The actual arrival (door opened) on AU 878 is 21:14Z.
+
+Delay = 21:14Z - 18:10Z = 3 hours 4 minutes.
+
+This is 3 hours or more, so E1 applies.
+
+**Step 4: Check for Extraordinary Circumstances (E3)**
+
+The cause of the delay was a hydraulic fluid leak found during pre-flight inspection. A seal was replaced. No manufacturer or authority notice applied.
+
+Under Revision 3, Part F6: "technical problems that arise in connection with the maintenance or operation of the aircraft, including those discovered during routine checks or pre-flight inspections, are not Extraordinary Circumstances unless covered by F5."
+
+F5 covers "Hidden manufacturing defects that affect the safety of the flight and that the aircraft manufacturer or an authority has notified to operators."
+
+The technical log states: "No airworthiness directive or service bulletin applicable to P/N 42-7719-03." So F5 does NOT apply.
+
+Therefore, this is NOT an Extraordinary Circumstance under Revision 3. The template pre-fill suggesting F5 is incorrect (and per I3, the automatic pre-fill is not binding).
+
+Note: Under the superseded Revision 2, F5 would have covered "Unexpected technical defects, including defects discovered during pre-flight inspection, where the aircraft had been maintained in accordance with the approved maintenance programme." But Revision 3 is in force, and it explicitly excludes such technical problems from being Extraordinary Circumstances.
+
+So E3 does NOT bar compensation.
+
+**Step 5: Check the 14-day advance notice (E3)**
+
+The flight was on 14 August 2026. The ticket was issued on 2 June 2026. The delay was not a cancellation - it was a delay. The 14-day rule in E3 applies to cancellations ("where the passenger was informed of a cancellation at least 14 days before scheduled departure"). This was a delay, not a cancellation, so this doesn't apply.
+
+**Step 6: Check E2 (50% reduction for rerouting)**
+
+E2: "Compensation under E1 is reduced by 50% where the passenger was offered Rerouting and the Arrival Delay at the Final Destination does not exceed: 2 hours (Distance up to 1,500 km), 3 hours (more than 1,500 up to 3,500 km), 4 hours (more than 3,500 km)."
+
+Elena was offered rerouting (AU 878). The distance is 3,440 km (more than 1,500 up to 3,500 km). The threshold for the 50% reduction is 3 hours.
+
+The Arrival Delay is 3 hours 4 minutes. This EXCEEDS 3 hours.
+
+Therefore, the 50% reduction does NOT apply. The full EUR 400 is payable.
+
+Wait, let me re-read E2: "reduced by 50% where the passenger was offered Rerouting and the Arrival Delay at the Final Destination does not exceed: ... 3 hours (more than 1,500 up to 3,500 km)"
+
+The delay is 3h 4min, which exceeds 3 hours. So the condition "does not exceed 3 hours" is NOT met. Therefore, no 50% reduction.
+
+**Step 7: Check E5 (missed connection)**
+
+E5: "Where a delay on an earlier flight of the Booking causes a missed connection, the Arrival Delay at the Final Destination is decisive; the cause of the delay of the earlier flight is examined under E3."
+
+This confirms we look at the Arrival Delay at KRM (3h 4min) and examine the cause under E3. We've already done this - the cause (hydraulic leak found in pre-flight) is NOT an Extraordinary Circumstance under Revision 3.
+
+**Step 8: Check E6 (time limit)**
+
+The flight was on 14 August 2026. The claim was made on 18 August 2026. Well within 2 years.
+
+**Step 9: Check E4 (per passenger)**
+
+Elena is an adult, not an infant on a lap. She's entitled to compensation.
+
+**Step 10: Check the earlier claims**
+
+- CR-25-11-20931: Different flight, different date, rejected. Not relevant to this claim.
+- CR-24-06-10077: Different person (different date of birth, "MRS" vs "MS"). Not relevant.
+
+**Step 11: Check I1 (per passenger, per booking)**
+
+Elena claims under PNR 7QK4ZD. Juhani claims under PNR 7QL0BA. They are separate bookings (B1). Each claims separately. This is fine.
+
+**Step 12: Final calculation**
+
+- Distance: 3,440 km (more than 1,500, up to 3,500)
+- Arrival Delay: 3h 4min (≥ 3 hours)
+- Base compensation: EUR 400
+- E2 reduction: Does NOT apply (delay exceeds 3 hours threshold)
+- E3 bar: Does NOT apply (not an Extraordinary Circumstance under Revision 3)
+- Final amount: EUR 400
+
+The answer is E. eur_400.
+
+Wait, let me double-check the time conversion.
+
+AU 874 scheduled arrival at KRM: 21:10 local. KRM local = UTC+3. So in UTC: 21:10 - 3:00 = 18:10Z.
+
+AU 878 door opened: 21:14Z.
+
+Delay: 21:14Z - 18:10Z = 3 hours 4 minutes. Yes, correct.
+
+And the template pre-fill says "AU 878 on-block 21:09Z; scheduled arrival AU 874 21:10 local; delay category: under 3 h." This is WRONG because:
+1. It uses on-block time (21:09Z) instead of door-open time (21:14Z) - per B3, on-block is not the Arrival Time.
+2. Even using on-block: 21:09Z - 18:10Z = 2h 59min, which would be under 3 hours. But the correct Arrival Time is 21:14Z, giving 3h 4min.
+3. Per I3, the automatic pre-fill is not binding.
+
+So the correct delay is 3h 4min, which is ≥ 3 hours, triggering E1 compensation.
+
+The answer is E. EUR 400.
+</think>
+
+## Analysis
+
+### 1. Applicable PSC Version
+Flight operated 14 August 2026 → **Revision 3** (in force from 1 February 2026) applies.
+
+### 2. Final Destination & Distance (B2, B5)
+PNR 7QK4ZD: PVL → DRN → KRM. Final Destination = **KRM**.
+Annex D: PVL–KRM = **3,440 km** (more than 1,500 km, up to 3,500 km tier).
+
+### 3. Arrival Time & Delay (B3, B4)
+Elena was rerouted on AU 878. Per B3, Arrival Time = door opened, passengers released:
+- **Actual Arrival Time:** 21:14Z (forward left door opened)
+- **Scheduled arrival of AU 874 at KRM:** 21:10 local = 21:10 − 3 h = **18:10Z**
+
+**Arrival Delay = 21:14Z − 18:10Z = 3 h 04 min**
+
+> The template pre-fill incorrectly used on-block time (21:09Z) and concluded "under 3 h." Per B3, on-block is not the Arrival Time, and per I3 the pre-fill is not binding.
+
+### 4. Extraordinary Circumstances? (E3, Part F – Revision 3)
+Cause: hydraulic seal leak found during pre-flight inspection; no AD/SB; no manufacturer or authority notice.
+
+- **F5** requires a *hidden manufacturing defect* notified by the manufacturer or an authority → **not met**.
+- **F6 (Revision 3)** explicitly states: *"technical problems that arise in connection with the maintenance or operation of the aircraft, including those discovered during routine checks or pre-flight inspections, are **not** Extraordinary Circumstances unless covered by F5."*
+
+→ **Not an Extraordinary Circumstance.** E3 does not bar compensation.
+
+### 5. E2 – 50 % Rerouting Reduction?
+E2 reduces compensation by 50 % only if the passenger was offered rerouting **and** the Arrival Delay does **not exceed** 3 hours (for the 1,500–3,500 km band).
+
+Delay = 3 h 04 min **exceeds** 3 hours → **No reduction applies.**
+
+### 6. E5 – Missed Connection
+The earlier flight's delay caused the missed connection. E5 confirms the Arrival Delay at the Final Destination (3 h 04 min) is decisive, and the cause is examined under E3 (done above – no bar).
+
+### 7. Other Checks
+- E6 (2-year limit): claim filed 18 Aug 2026, flight 14 Aug 2026 → within limit.
+- E4: adult passenger, not a lap infant → entitled.
+- No downgrade (Part G not triggered).
+- Earlier claims on file involve different flights/dates or a different person → irrelevant.
+
+### 8. Final Calculation
+
+| Element | Value |
+|---|---|
+| Distance tier | 1,500 < 3,440 ≤ 3,500 km |
+| Base compensation (E1) | **EUR 400** |
+| E2 reduction | None (delay > 3 h) |
+| E3 bar | None (not EC under Rev 3) |
+| **Payable** | **EUR 400** |
+
+## Answer: **E. eur_400** — Compensation of EUR 400 is payable.

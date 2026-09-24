@@ -1,0 +1,53 @@
+{
+ "tag": "ternary_bonsai_2_27b_pq2_0",
+ "intelligence": 67.20501128162658,
+ "hard_ece": 0.09400868116285616,
+ "calibration": 81.19826376742877,
+ "speed": 66.26411075572477,
+ "p50_s": 0.599637707695365,
+ "p95_s": 8.684076541103423,
+ "adjusted_p50_s": 1.3492754153907298,
+ "adjusted_p95_s": 17.518153082206844,
+ "score_equivalent_3axes": 71.24300975453095,
+ "tiers": {
+  "easy": {
+   "n": 48,
+   "accuracy": 1.0,
+   "chance": 0.28402777777777777,
+   "chance_corrected": 100.0
+  },
+  "standard": {
+   "n": 72,
+   "accuracy": 0.8611111111111112,
+   "chance": 0.31666666666666665,
+   "chance_corrected": 79.67479674796749
+  },
+  "hard": {
+   "n": 111,
+   "accuracy": 0.6036036036036037,
+   "chance": 0.3364393939393939,
+   "chance_corrected": 40.26221677780076
+  }
+ },
+ "tier_weights": {
+  "easy": 0.14,
+  "standard": 0.28,
+  "hard": 0.3
+ },
+ "stateblind": {
+  "easy": 0.3333333333333333,
+  "standard": 0.3333333333333333,
+  "hard": 0.44144144144144143
+ },
+ "stateblind_kept_pct": {
+  "easy": 33.33333333333333,
+  "standard": 38.70967741935483,
+  "hard": 73.13432835820895
+ },
+ "label_coverage": 1.0,
+ "stats": {
+  "decisions": 462,
+  "labels_missing": 0,
+  "labels_total": 1698
+ }
+}

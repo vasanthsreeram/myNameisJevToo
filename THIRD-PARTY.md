@@ -34,6 +34,11 @@ probability we read for each option, which option was picked, and our latencies.
 measurement record, published so the numbers in the documentation can be audited rather than
 taken on trust.
 
+`benchmarks/results/reasoned_hard/` holds the same kind of record for the hard-item reasoning
+rerun: our own greedy generations for 29 items, plus a summary of what each was scored as. These
+are model output, not task text, but a generation can quote a fragment of the item it is answering,
+so treat that directory as our audit trail rather than as redistributable task content.
+
 ## Other referenced work
 
 - [`jujumilk3/jev-calibration-audit`](https://github.com/jujumilk3/jev-calibration-audit) — the

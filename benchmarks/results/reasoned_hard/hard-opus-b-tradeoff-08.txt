@@ -1,0 +1,34 @@
+
+
+To determine whether Dr. Reyes can grant the full extension on her own authority, we must calculate the maximum allowable extension based on the regulations and compare it to the requested deadline.
+
+**1. Determine the Original Deadline**
+*   Original Deadline: Monday, 2026-09-21, 23:59.
+
+**2. Calculate the Maximum Extension Allowed Without Dean Approval**
+According to the regulations:
+*   **§12.1 (Instructor Discretion):** Dr. Reyes can grant up to **3 calendar days**.
+*   **§12.2 (Registered Accommodations):** Jordan has a valid DAS letter listing "extended deadlines (48 h)". This grants an automatic **48-hour (2 calendar days)** extension.
+*   **§12.2 Interaction:** The text states the automatic extension "applies on top of any instructor extension."
+
+Therefore, the total extension Dr. Reyes can authorize on her own is:
+$$3 \text{ days (Instructor)} + 2 \text{ days (Accommodation)} = 5 \text{ calendar days}$$
+
+**3. Calculate the New Deadline**
+Adding 5 calendar days to the original deadline:
+*   Original: Mon, 2026-09-21, 23:59
+*   +1 day: Tue, 2026-09-22, 23:59
+*   +2 days: Wed, 2026-09-23, 23:59
+*   +3 days: Thu, 2026-09-24, 23:59
+*   +4 days: Fri, 2026-09-25, 23:59
+*   +5 days: **Sat, 2026-09-26, 23:59**
+
+**4. Check Constraints**
+*   **§12.3 Limit:** The total extension may never exceed 7 calendar days. The calculated 5 days is within this limit.
+*   **§12.3 Approval:** Anything *beyond* what 12.1 and 12.2 allow requires Dean approval. Since the requested deadline (5 days) is exactly equal to the sum of 12.1 and 12.2, it does not go *beyond* what they allow. Therefore, Dean approval is not required.
+*   **§12.4 Recording:** The extension must be recorded before the original deadline. Today is Thu 2026-09-17, which is before Mon 2026-09-21. Dr. Reyes can record it in time.
+
+**Conclusion**
+Dr. Reyes can combine her 3-day discretion with the automatic 2-day accommodation extension to reach the requested deadline of Sat 2026-09-26 23:59 without needing Dean of Students approval.
+
+Answer: **B. yes - The requested new deadline is reachable using only the instructor's discretion plus the automatic accommodation extension.**

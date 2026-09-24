@@ -1,0 +1,131 @@
+
+
+<think>
+Let me work through this step by step.
+
+**Step 1: Identify the billing period.**
+Billing day: 20th of each month.
+The billing period in question is 2026-08-20 to 2026-09-19 (from the 20th inclusive to the day before the next 20th).
+
+**Step 2: Identify the serving cell.**
+Service address: Lindenallee 4, 28195 Bremen
+From Part 3: Lindenallee 4 → Serving cell: HB-MITTE-0412, Fallback cell: HB-MITTE-0413
+
+**Step 3: Apply cell renaming (Part 3b).**
+HB-C-112 → HB-MITTE-0412 (renamed 2026-08-15, site NOT yet migrated to NMS-2)
+
+So HB-C-112 and HB-MITTE-0412 are the same cell. The NMS-L still logs under HB-C-112 because the site hasn't been migrated yet.
+
+**Step 4: Identify all outages for HB-MITTE-0412 (including HB-C-112) in the billing period 2026-08-20 to 2026-09-19.**
+
+Let me go through the outage log:
+
+1. **INC-3301**: HB-C-112, SERVICE-AFFECTING, 2026-08-12 06:00 to 2026-08-12 12:00, unplanned
+   - Date: 2026-08-12. This is BEFORE the billing period starts (2026-08-20). EXCLUDED (outside period).
+
+2. **INC-3340**: HB-C-110, SERVICE-AFFECTING, 2026-08-19 13:00 to 2026-08-19 20:30, unplanned
+   - Cell: HB-C-110 = HB-MITTE-0411. This is NOT the serving cell (HB-MITTE-0412). EXCLUDED (other cell).
+
+3. **INC-3388**: HB-C-112, SERVICE-AFFECTING, 2026-08-22 09:10 to 2026-08-22 17:40, unplanned
+   - Cell: HB-C-112 = HB-MITTE-0412. ✓
+   - Date: 2026-08-22. Within billing period (2026-08-20 to 2026-09-19). ✓
+   - Impact: SERVICE-AFFECTING. ✓
+   - Type: unplanned. ✓
+   - Duration: 09:10 to 17:40 = 8 hours 30 minutes.
+   - COUNTED: 8h 30min
+
+4. **INC-3402**: HB-MITTE-0413, SERVICE-AFFECTING, 2026-08-30 02:00 to 2026-08-31 06:00, unplanned
+   - Cell: HB-MITTE-0413. This is NOT the serving cell (HB-MITTE-0412). EXCLUDED (other cell).
+
+5. **INC-3415**: HB-MITTE-0412, SERVICE-AFFECTING, 2026-09-03 22:00 to 2026-09-04 07:15, unplanned
+   - Cell: HB-MITTE-0412. ✓
+   - Date: 2026-09-03 to 2026-09-04. Within billing period. ✓
+   - Impact: SERVICE-AFFECTING. ✓
+   - Type: unplanned. ✓
+   - Duration: 22:00 to 07:15 next day = 9 hours 15 minutes.
+   - COUNTED: 9h 15min
+
+6. **MNT-0091**: HB-MITTE-0412, SERVICE-AFFECTING, 2026-09-10 01:00 to 2026-09-10 08:00, planned
+   - Cell: HB-MITTE-0412. ✓
+   - Date: 2026-09-10. Within billing period. ✓
+   - Impact: SERVICE-AFFECTING. ✓
+   - Type: planned. Customer announcement: SMS + e-mail sent 2026-09-06 10:00.
+   - Rule 1.5: Planned maintenance does NOT count if announced at least 48 hours before it started.
+   - Start: 2026-09-10 01:00. Announcement: 2026-09-06 10:00.
+   - Time between announcement and start: From 2026-09-06 10:00 to 2026-09-10 01:00 = 3 days 15 hours = 87 hours. That's well over 48 hours.
+   - EXCLUDED (announced maintenance, >48h notice).
+
+7. **INC-3431**: HB-C-112, DEGRADED, 2026-09-12 08:00 to 2026-09-13 04:00, unplanned
+   - Cell: HB-C-112 = HB-MITTE-0412. ✓
+   - Date: 2026-09-12 to 2026-09-13. Within billing period. ✓
+   - Impact: DEGRADED. Rule 1.4: DEGRADED does NOT count.
+   - EXCLUDED (degraded).
+
+8. **INC-3440**: HB-MITTE-0411, SERVICE-AFFECTING, 2026-09-15 18:00 to 2026-09-15 23:00, unplanned
+   - Cell: HB-MITTE-0411. NOT the serving cell. EXCLUDED (other cell).
+
+9. **MNT-0097**: HB-MITTE-0413, SERVICE-AFFECTING, 2026-09-17 00:30 to 2026-09-17 03:30, planned
+   - Cell: HB-MITTE-0413. NOT the serving cell. EXCLUDED (other cell).
+
+**Step 5: Total counted outage time.**
+- INC-3388: 8h 30min
+- INC-3415: 9h 15min
+- Total: 17h 45min
+
+**Step 6: Apply credit table (Part 2).**
+17h 45min falls in the range "12 h to less than 24 h" → 10% credit.
+
+**Step 7: Check if BUSINESS plan (Rule 1.7).**
+Plan code: HA5G-M-SB → Classification: BUSINESS (from Part 5).
+Rule 1.7: For BUSINESS plans, the credit percentage is doubled (maximum 100%).
+10% × 2 = 20%.
+
+**Step 8: Final answer.**
+The credit is 20% of the monthly fee.
+
+The previous agent made two errors:
+1. They treated it as a consumer plan (invoice says "Home Air 5G M") but the actual plan code is HA5G-M-SB which is BUSINESS.
+2. They included the 7h maintenance (MNT-0091) which was properly announced >48h in advance and should NOT count.
+3. They got 9h 15min + 7h = 16h 15min, which would be 10% for consumer. But the correct calculation is 8h 30min + 9h 15min = 17h 45min → 10% base → 20% for business.
+
+The answer is C: credit_20_percent.
+</think>
+
+## Working Through CG-31 for Account WL-4471902
+
+### 1. Billing Period
+Billing day = 20th → period: **2026-08-20 through 2026-09-19** (inclusive of start, exclusive of next 20th).
+
+### 2. Serving Cell
+Lindenallee 4, 28195 → **HB-MITTE-0412** (Part 3).
+Per the rename table (Part 3b), **HB-C-112 = HB-MITTE-0412** (site not yet migrated to NMS-2, so NMS-L still logs the old name).
+
+### 3. Filtering the Outage Log
+
+| Incident | Cell match? | In period? | Impact | Type / Notice | Verdict |
+|----------|:-----------:|:----------:|--------|---------------|---------|
+| INC-3301 (HB-C-112, 08-12) | ✓ | ✗ (before 08-20) | SA | unplanned | **Excluded – outside period** |
+| INC-3340 (HB-C-110, 08-19) | ✗ (HB-MITTE-0411) | ✗ | SA | unplanned | **Excluded – other cell** |
+| **INC-3388** (HB-C-112, 08-22 09:10–17:40) | ✓ | ✓ | SA | unplanned | **Counted: 8 h 30 min** |
+| INC-3402 (HB-MITTE-0413, 08-30) | ✗ | ✓ | SA | unplanned | **Excluded – other cell** |
+| **INC-3415** (HB-MITTE-0412, 09-03 22:00–09-04 07:15) | ✓ | ✓ | SA | unplanned | **Counted: 9 h 15 min** |
+| MNT-0091 (HB-MITTE-0412, 09-10 01:00–08:00) | ✓ | ✓ | SA | planned, announced 09-06 10:00 → **87 h notice > 48 h** | **Excluded – announced maintenance** |
+| INC-3431 (HB-C-112, 09-12) | ✓ | ✓ | **DEGRADED** | unplanned | **Excluded – degraded (Rule 1.4)** |
+| INC-3440 (HB-MITTE-0411, 09-15) | ✗ | ✓ | SA | unplanned | **Excluded – other cell** |
+| MNT-0097 (HB-MITTE-0413, 09-17) | ✗ | ✓ | SA | planned | **Excluded – other cell** |
+
+### 4. Total Counted Outage Time
+8 h 30 min + 9 h 15 min = **17 h 45 min**
+
+### 5. Credit Table Lookup
+17 h 45 min → "12 h to less than 24 h" → **10 %** base credit.
+
+### 6. Business-Plan Doubling (Rule 1.7)
+Plan code **HA5G-M-SB** is classified **BUSINESS** in Part 5.
+10 % × 2 = **20 %** (well under the 100 % cap).
+
+> The previous agent's note was wrong on two counts: (a) they included the 7 h planned maintenance that had >48 h notice, and (b) they treated the plan as consumer because the invoice label reads "Home Air 5G M," ignoring the actual plan code HA5G-M-SB (BUSINESS).
+
+### Answer
+
+**C. credit_20_percent – 20 % of the monthly fee.**

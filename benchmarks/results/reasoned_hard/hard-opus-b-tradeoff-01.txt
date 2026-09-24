@@ -1,0 +1,111 @@
+
+
+<think>
+Let me carefully analyze ticket #88213 against policy SP-4.
+
+First, let me identify what's happening in this ticket:
+
+1. **Export failure**: The scheduled export of 'Q3 Pipeline' report fails with error EXP-409 (dies at about 80%). This is a functional defect with reproducible steps (Reports > Q3 Pipeline > Export > CSV).
+
+2. **Data exposure claim**: The customer says that when the export did succeed once, the CSV had 212 rows tagged tenant tn_9120, which she claims is "NOT our main workspace tenant (ours is tn_8841)" and calls it "somebody else's data."
+
+3. **Service credit request**: She expects a service credit for September.
+
+Now let me check each rule:
+
+**R1 - Cross-organization data exposure**: "the customer can see data that belongs to a different organization."
+
+The key question: Is tn_9120 a different organization?
+
+Looking at the definitions: "Organization" means the billing entity identified by an Org ID. An organization may own several workspaces; each workspace has its own tenant ID (tn_...). Workspaces that share an Org ID are the SAME organization for every rule in this policy, even when their tenant IDs differ.
+
+The account profile for ORG-5512 lists:
+- tn_8841 "Main"
+- tn_9120 "EU Subsidiary"
+
+Both workspaces belong to ORG-5512. They share the same Org ID. Per the definition, they are the SAME organization.
+
+So tn_9120 is NOT a different organization. It's the same organization (ORG-5512), just a different workspace. The customer is confused — she thinks tn_9120 is "somebody else's data" because it's not her "main" workspace, but it's actually her own organization's EU Subsidiary workspace.
+
+Therefore, R1 does NOT apply. This is not cross-organization data exposure. It's data from the same organization (different workspace within the same Org ID).
+
+**R2 - Active outage**: "no user of an Enterprise organization can log in or load dashboards."
+
+The status page says "all systems operational." Account telemetry shows 37 distinct users of ORG-5512 loaded dashboards in the last hour. So there is NO active outage. R2 does NOT apply.
+
+**R3 - Functional defect with reproducible steps, reported by a Business or Enterprise organization**:
+
+- Is it a functional defect? Yes — the export fails with error EXP-409.
+- Are there reproducible steps? Yes — "Reports > Q3 Pipeline > Export > CSV — it dies at about 80%." This is a clear click path.
+- Is it reported by a Business or Enterprise organization? Yes — ORG-5512 is Enterprise.
+
+R3 applies.
+
+**R4 - Billing dispute, credit or refund request**:
+
+The customer does request a service credit for September. So R4 applies.
+
+However, R4 states: "Credits are issued only once any R1–R3 item on the same ticket is resolved."
+
+So even though R4 applies, the credit cannot be processed now because R3 is still open.
+
+**R5 - Anything else**: Not applicable since R3 and R4 apply.
+
+Now, applying the precedence rule: "When more than one rule below applies to a ticket, the agent performs ONLY the action of the highest-ranked applicable rule now."
+
+The applicable rules are R3 and R4. R3 is higher-ranked than R4. So the agent must perform the R3 action: escalate_to_engineering.
+
+The R4 request (credit) is noted on the ticket and handled after R3 is closed.
+
+Let me verify the answer choices:
+- A: escalate_to_security - R1 applies. INCORRECT. R1 does not apply because tn_9120 is the same organization.
+- B: page_oncall - R2 applies. INCORRECT. No outage.
+- C: escalate_to_engineering - R3 is the highest-ranked applicable rule. CORRECT.
+- D: process_refund - R4 is the highest-ranked. INCORRECT. R3 is higher-ranked and also applies.
+- E: send_kb_article - Only R5 applies. INCORRECT. R3 and R4 apply.
+
+The answer is C.
+</think>
+
+## Answer: **C. escalate_to_engineering**
+
+### Reasoning
+
+**Step 1 – Does R1 (cross-organization data exposure) apply?**
+
+Marta claims the 212 rows tagged `tn_9120` are "somebody else's data." However, the account profile for **ORG-5512** lists *both* workspaces:
+
+| Tenant ID | Workspace |
+|-----------|-----------|
+| tn_8841 | "Main" |
+| tn_9120 | "EU Subsidiary" |
+
+SP-4 §2 is explicit: *"Workspaces that share an Org ID are the SAME organization for every rule in this policy, even when their tenant IDs differ."*
+
+`tn_9120` belongs to ORG-5512 — it is Marta's own EU Subsidiary workspace, not a different organization. **R1 does not apply.**
+
+**Step 2 – Does R2 (active outage) apply?**
+
+The status page reads "all systems operational," and telemetry confirms 37 users of ORG-5512 loaded dashboards in the last hour. **R2 does not apply.**
+
+**Step 3 – Does R3 (reproducible functional defect, Business/Enterprise) apply?**
+
+- Functional defect: export fails with EXP-409 at ~80 %.
+- Reproducible steps: "Reports > Q3 Pipeline > Export > CSV" — a clear click path.
+- Organization tier: Enterprise.
+
+**R3 applies.**
+
+**Step 4 – Does R4 (billing/credit) apply?**
+
+Marta requests a September service credit, so R4 is triggered. However, R4's own text states: *"Credits are issued only once any R1–R3 item on the same ticket is resolved."* The R3 item is still open, so the credit is **noted but deferred**.
+
+**Step 5 – Precedence**
+
+Both R3 and R4 apply. R3 outranks R4. Per the precedence clause, the agent performs **only** the highest-ranked action now:
+
+> **escalate_to_engineering** (SLA: first engineering response within 8 business hours)
+
+The credit request is logged on the ticket for processing after the engineering item is closed.
+
+**∴ The correct choice is C.**

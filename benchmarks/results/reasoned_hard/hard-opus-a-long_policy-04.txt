@@ -1,0 +1,240 @@
+
+
+<think>
+Let me carefully work through this problem step by step.
+
+**Step 1: Calculate the TCV for PR-2026-4471**
+
+The TCV definition (clause 2.3) includes:
+(a) All recurring fees for the initial term
+(b) All recurring fees for any renewal or extension periods that the Group can trigger unilaterally or that occur automatically unless cancelled
+(c) One-time fees such as set-up, implementation, onboarding, training or migration fees
+(d) Any committed minimum volumes
+
+TCV excludes VAT and other recoverable indirect taxes.
+
+Where fees are not fixed for renewal periods, the fee for the last year of the initial term is used.
+
+Now let's look at the commercial terms:
+- Initial subscription term: 12 months, annual fee EUR 41,500 (excl. VAT)
+- Renewal: auto-renews for up to two further 12-month periods at the same annual fee unless Castellan gives 60 days' written notice before the end of the then-current term.
+- Implementation services (fixed fee): EUR 9,800
+- End-user training (fixed fee, two sessions): EUR 2,400
+
+So:
+(a) Initial term recurring fees: EUR 41,500
+(b) Renewal periods: The subscription renews automatically for up to two further 12-month periods. These are automatic renewals (they occur automatically unless cancelled). The fee is the same annual fee (EUR 41,500). So two renewal periods × EUR 41,500 = EUR 83,000.
+(c) One-time fees: Implementation EUR 9,800 + Training EUR 2,400 = EUR 12,200
+(d) No committed minimum volumes mentioned.
+
+TCV = 41,500 + 83,000 + 12,200 = EUR 136,700
+
+**Step 2: Consider the discount**
+
+The Requester mentions a 5% discount if signed by 30 September. However, clause 2.4 states:
+
+"A discount reduces TCV only if it is unconditional and written into the order form or contract to be signed. Conditional, time-limited or verbal offers (for example '5% off if signed by the end of the month') are disregarded when calculating TCV, even if the Requester intends to meet the condition."
+
+The email from Forelight says: "if Castellan signs the order form by 30 September 2026 we will apply a 5% promotional discount to the first-year subscription fee. This offer is not reflected in the order form and will be applied as a credit note after signature."
+
+This is:
+- Conditional (must sign by 30 September)
+- Time-limited
+- NOT written into the order form (explicitly stated: "This offer is not reflected in the order form")
+- Will be applied as a credit note after signature (not in the contract)
+
+Therefore, the discount is DISREGARDED. TCV remains EUR 136,700.
+
+**Step 3: Apply the anti-splitting / aggregation rule (clause 5.2)**
+
+Clause 5.2: "When determining the approval level, the TCV of a request is added to the TCV of all Related Purchases approved in the 90 calendar days before the date the new request is submitted. The combined figure determines the required approval level for the new request."
+
+The new request was submitted on 30 August 2026.
+
+90 calendar days before 30 August 2026: Let me calculate. 30 August minus 90 days.
+- August has 31 days, so going back from 30 August: 30 days back = 31 July (wait, let me be more careful)
+- 30 August 2026 minus 90 days:
+  - 30 August minus 30 days = 31 July (actually, 30 August - 30 days = 1 August... no)
+  
+Let me count more carefully:
+- 30 August 2026
+- Going back 30 days: 31 July 2026 (August has 31 days, so 30 Aug - 30 days = 1 Aug... wait)
+
+Actually, let me just count:
+- 30 August 2026 minus 1 day = 29 August
+- 30 August minus 30 days = 1 August (since August has 31 days, 30 - 30 = 0, so it's 31 July... hmm)
+
+Let me think differently. 90 days before 30 August 2026:
+- August: 30 days (from 1 Aug to 30 Aug) → 30 days used, 60 remaining
+- July: 31 days → 31 days used, 29 remaining
+- June: 29 days → 29 days used, 0 remaining
+
+So 90 days before 30 August 2026 = 2 June 2026.
+
+Wait, let me recount. If I go back 90 days from 30 August:
+- From 30 August back to 1 August = 29 days (30-1=29)
+- From 1 August back to 1 July = 31 days (July has 31 days) → total 60 days
+- From 1 July back to 2 June = 29 days (July 1 to June 2 is 29 days) → total 89 days
+- From 2 June back to 1 June = 1 day → total 90 days
+
+So 90 days before 30 August 2026 = 1 June 2026.
+
+Hmm, let me be more precise. "90 calendar days before the date the new request is submitted."
+
+The request was submitted on 30 August 2026. 90 calendar days before that date.
+
+30 August 2026 - 90 days:
+- Days in August before the 30th: 29 days (1st through 29th)
+- Days in July: 31 days
+- Total so far: 60 days
+- Need 30 more days from June: 30 days in June (1st through 30th)
+- Total: 90 days
+
+So 90 days before 30 August = 1 June 2026.
+
+Wait, I need to be more careful. Let me count backwards from 30 August:
+- 29 August (1 day back)
+- 28 August (2 days back)
+- ...
+- 1 August (29 days back)
+- 30 July (30 days back)
+- 29 July (31 days back)
+- ...
+- 1 July (60 days back)
+- 30 June (61 days back)
+- 29 June (62 days back)
+- ...
+- 1 June (90 days back)
+
+Yes, 90 calendar days before 30 August 2026 = 1 June 2026.
+
+So I need to look for Related Purchases approved between 1 June 2026 and 30 August 2026 (the 90 calendar days before submission).
+
+**What counts as a "Related Purchase"?**
+
+Clause 2.5: "Related Purchase — a purchase from the same supplier (including its affiliates) for the same or a directly related business purpose."
+
+The supplier is Forelight Analytics B.V.
+
+Looking at the ProcureHub history for Forelight Analytics B.V.:
+1. PR-2026-3802, submitted 18 June 2026, approved 20 June 2026 by Jonas Reiter (Level 2): "Forelight ERP data connector — one-time licence and configuration so our SAP sales history can be loaded into the Forelight forecasting platform during the pilot." TCV EUR 14,000. Status: PO issued, delivered.
+
+2. PR-2025-1190, approved 3 March 2025: "Forelight webinar tickets — industry forecasting conference", TCV EUR 450. Status: closed.
+
+Now, is PR-2026-3802 a Related Purchase?
+- Same supplier: Yes (Forelight Analytics B.V.)
+- Same or directly related business purpose: The new request is for "Forelight Demand Cloud — SaaS demand-forecasting platform for the chilled and frozen categories, including implementation and user training." The earlier purchase was "Forelight ERP data connector — one-time licence and configuration so our SAP sales history can be loaded into the Forelight forecasting platform during the pilot."
+
+The earlier purchase was specifically to load data INTO the Forelight forecasting platform. This is directly related to the same business purpose (demand forecasting using Forelight's platform). The data connector is a prerequisite/complement to the forecasting platform. I would say this is a "directly related business purpose."
+
+Was it approved within 90 calendar days before 30 August 2026? Approved 20 June 2026. 20 June is after 1 June, so yes, it falls within the 90-day window.
+
+Is PR-2025-1190 a Related Purchase?
+- Same supplier: Yes
+- Business purpose: "Forelight webinar tickets — industry forecasting conference" vs. the SaaS demand-forecasting platform. This is a conference ticket, not directly related to the same business purpose of implementing the forecasting platform. I'd say this is NOT a directly related business purpose. It's a general industry event.
+- Also, it was approved 3 March 2025, which is well outside the 90-day window.
+
+So only PR-2026-3802 counts as a Related Purchase within the 90-day window.
+
+What about ForeLogix Consulting GmbH? The note says "ForeLogix is an unrelated company (different ownership; confirmed by the supplier master team)." So ForeLogix is NOT an affiliate of Forelight Analytics B.V. Therefore, PR-2026-3977 (ForeLogix) is NOT a Related Purchase.
+
+**Step 4: Calculate the combined TCV**
+
+TCV of PR-2026-4471: EUR 136,700
+TCV of PR-2026-3802 (Related Purchase within 90 days): EUR 14,000
+
+Combined: EUR 136,700 + EUR 14,000 = EUR 150,700
+
+**Step 5: Determine the approval level**
+
+Level 1: up to and including EUR 10,000
+Level 2: above EUR 10,000 up to and including EUR 50,000
+Level 3: above EUR 50,000 up to and including EUR 150,000
+Level 4: above EUR 150,000 up to and including EUR 500,000
+Level 5: above EUR 500,000
+
+EUR 150,700 is above EUR 150,000, so it falls into Level 4 (above EUR 150,000 up to and including EUR 500,000).
+
+The required approval level is Level 4: Chief Financial Officer.
+
+**Step 6: Check for additional reviews**
+
+- Information Security review: Yes, this is a SaaS service. Ticket SEC-8812 is in progress. This is required but independent of approval level.
+- Legal review: Standard template, 12-month initial term. The total possible term is 36 months (12 + 12 + 12). Clause 6.2 says Legal review is required for "a term longer than 36 months." 36 months is not longer than 36 months, so no Legal review required. The note confirms: "no Legal review required."
+- Sustainability screening: This is a SaaS platform, not packaging or logistics. Not applicable.
+
+These additional reviews don't change the approval level.
+
+**Step 7: Verify the Requester's claim**
+
+The Requester says "Annual cost is only EUR 41.5k, which is under the Department Head limit." This is incorrect because:
+1. The TCV includes renewal periods (auto-renewal for up to 2 more years)
+2. The TCV includes one-time fees (implementation + training)
+3. The discount is disregarded per clause 2.4
+4. The aggregation rule adds the related purchase
+
+The Requester is trying to route to Level 2 (Department Head / Jonas Reiter), but the correct level is Level 4 (CFO).
+
+**Final Answer: D. cfo - Level 4 is the highest level reached (above EUR 150,000 up to EUR 500,000).**
+</think>
+
+## Determining the Required Approval Level for PR-2026-4471
+
+### Step 1: Calculate the TCV (Clause 2.3)
+
+| Component | Amount (excl. VAT) |
+|---|---|
+| (a) Initial 12-month subscription | €41,500 |
+| (b) Two automatic 12-month renewal periods (same fee) | €83,000 |
+| (c) Implementation (one-time) | €9,800 |
+| (c) End-user training (one-time) | €2,400 |
+| **TCV subtotal** | **€136,700** |
+
+**Discount excluded (Clause 2.4):** The 5% "promotional discount" is conditional (sign by 30 Sept), time-limited, explicitly *not* written into the order form, and would be applied as a post-signature credit note. Clause 2.4 states such offers are **disregarded** when calculating TCV, even if the Requester intends to meet the condition. TCV remains **€136,700**.
+
+### Step 2: Apply the Aggregation Rule (Clause 5.2, as amended by A3.2)
+
+The request was submitted **30 August 2026**. The 90-calendar-day look-back window begins **1 June 2026**.
+
+**Related Purchases (Clause 2.5: same supplier/affiliate, same or directly related purpose):**
+
+- **PR-2026-3802** (Forelight Analytics B.V., approved 20 June 2026, TCV €14,000): "ERP data connector… so our SAP sales history can be loaded into the Forelight forecasting platform during the pilot." This is the *same supplier* and a *directly related business purpose* (data ingestion into the very platform being procured). ✅ **Included.**
+- **PR-2025-1190** (Forelight, approved 3 March 2025, TCV €450): Webinar/conference tickets. Not a directly related business purpose, and well outside the 90-day window. ❌ Excluded.
+- **PR-2026-3977** (ForeLogix Consulting GmbH, €18,600): Confirmed by the supplier master team as an **unrelated company** (different ownership). Not an affiliate. ❌ Excluded.
+
+**Combined TCV:**
+
+$$€136{,}700 + €14{,}000 = €150{,}700$$
+
+### Step 3: Map to Approval Thresholds (Clause 4)
+
+| Level | Range |
+|---|---|
+| 1 | ≤ €10,000 |
+| 2 | > €10,000 – ≤ €50,000 |
+| 3 | > €50,000 – ≤ €150,000 |
+| **4** | **> €150,000 – ≤ €500,000** |
+| 5 | > €500,000 |
+
+€150,700 exceeds the Level 3 ceiling of €150,000 by €700, placing the request squarely in **Level 4**.
+
+### Step 4: Additional Reviews (Clause 6) – do not alter the level
+
+- **InfoSec (6.1):** Required (SaaS). Ticket SEC-8812 open. ✔
+- **Legal (6.2):** Maximum possible term = 12 + 12 + 12 = 36 months. Not *longer* than 36 months → not triggered. ✔
+- **Sustainability (6.3):** Not packaging/logistics → not triggered. ✔
+
+### Why the Requester's Routing is Wrong
+
+Hanne Voss's comment ("Annual cost is only EUR 41.5k… route to Jonas for approval") ignores:
+1. The TCV definition (renewals + one-time fees),
+2. The exclusion of the conditional discount,
+3. The 90-day aggregation with PR-2026-3802.
+
+Per Clause 10.3, approval by a person below the required level is **not valid** and the request must be re-routed.
+
+---
+
+## Answer: **D. cfo – Level 4 is the highest level reached (above EUR 150,000 up to EUR 500,000).**
+
+The combined TCV of €150,

@@ -1,0 +1,208 @@
+
+
+<think>
+Let me carefully work through the licence position for Kestrel Marine Systems AS as of the Measurement Date of 31 August 2026.
+
+**Step 1: Determine Licences Held on the Measurement Date (31 August 2026)**
+
+Per clause 5.2: "The number of Licences held on the Measurement Date is the number of Licences under all Order Forms whose licence start date is on or before the Measurement Date."
+
+- OF-1 (1 March 2023): 100 Licences, start date 1 March 2023 → on or before 31 Aug 2026 ✓
+- OF-2 draft v1 (circulated 10 January 2025, NOT signed): 20 additional Licences → NOT signed, so doesn't count
+- OF-2 (signed 18 February 2025): 15 additional Licences, licence start date 1 March 2025 → on or before 31 Aug 2026 ✓
+- OF-3 (signed 28 August 2026): 10 additional Licences, licence start date 1 September 2026 → start date is AFTER the Measurement Date (31 Aug 2026), so does NOT count
+
+Total Licences held on 31 August 2026: 100 + 15 = **115**
+
+**Step 2: Determine Named Users on the Measurement Date (31 August 2026)**
+
+Per clause 1.4: "Named User" — an individual human being who is authorised by the Licensee to access the Software and has an active account on the Measurement Date. An individual is one Named User regardless of how many accounts the individual holds.
+
+Per clause 1.7: "Active account" — any account that exists on the Measurement Date, unless it was disabled or deleted at least 30 days before the Measurement Date.
+
+Let me go through each category:
+
+**D1.1: Enabled named accounts in kestrel-prod: 96 accounts**
+
+- Two engineers each hold two accounts (j.moreau/jmoreau-admin; s.halvorsen/shalvorsen-admin). Per 1.4, an individual is one Named User regardless of how many accounts. So these 4 accounts represent 2 individuals, not 4.
+- All other accounts belong to different individuals.
+- So 96 accounts - 2 (the duplicate admin accounts) = 94 distinct individuals from named accounts.
+
+Wait, let me re-read: "96 accounts. Identity management shows that two engineers each hold two accounts (a standard account and an '-admin' account): j.moreau / jmoreau-admin; s.halvorsen / shalvorsen-admin. All other accounts belong to different individuals."
+
+So 96 accounts total. Two individuals have 2 accounts each (4 accounts for 2 people). The remaining 92 accounts belong to 92 different individuals. Total distinct individuals = 2 + 92 = 94.
+
+**D1.2: Engineer on parental leave since 15 June 2026 (account not used since 12 June 2026)**
+
+This is one of the 96 accounts in D1.1. Let me check Amendment No. 1, B1.1: "Named Users who, on the Measurement Date, have been on continuous leave of absence (parental, sick, sabbatical) for 90 days or more, and whose accounts were not used during that leave, are not counted as Named Users for that Measurement Date."
+
+- Leave started: 15 June 2026
+- Measurement Date: 31 August 2026
+- Duration of leave: 15 June to 31 August = 16 days in June (15-30) + 31 days in July + 31 days in August = 78 days
+
+Wait, let me count more carefully. From 15 June to 31 August:
+- June: 15 to 30 = 16 days (or 15 days if we count from the 15th to the 30th inclusive... let me think about this differently)
+- Actually, "on continuous leave of absence for 90 days or more" - the leave started on 15 June 2026. By 31 August 2026, how many days has the person been on leave?
+- 15 June to 31 August: June has 30 days, so from 15 June to 30 June = 16 days. July = 31 days. August = 31 days. Total = 16 + 31 + 31 = 78 days.
+
+78 days < 90 days. So this person DOES count as a Named User.
+
+Also, the account was not used since 12 June 2026, which is consistent with the leave starting 15 June. But since the leave is only 78 days (less than 90), the B1.1 exemption doesn't apply.
+
+So this individual IS counted as a Named User. They're already included in the 94 distinct individuals from D1.1.
+
+**D1.3: Disabled accounts**
+
+- 3 accounts disabled on 20 August 2026 (leavers, last working day 19 August 2026)
+- 4 accounts disabled on 15 July 2026 (leavers)
+
+Per 1.7: "Active account" — any account that exists on the Measurement Date, unless it was disabled or deleted at least 30 days before the Measurement Date.
+
+- 3 accounts disabled 20 August 2026: 31 Aug - 20 Aug = 11 days before Measurement Date. Less than 30 days. So these accounts are still "active" per the definition. Wait, but they're disabled. Let me re-read 1.7.
+
+"Active account" — any account that exists on the Measurement Date, unless it was disabled or deleted at least 30 days before the Measurement Date.
+
+So an account is "active" if:
+- It exists on the Measurement Date, AND
+- It was NOT disabled or deleted at least 30 days before the Measurement Date
+
+The 3 accounts disabled on 20 August 2026: They exist on 31 August (still present in the tenant per D1.3). They were disabled 11 days before the Measurement Date. Since 11 < 30, they are NOT excluded by the "at least 30 days" condition. So they ARE active accounts.
+
+Wait, but they're disabled. The definition says "any account that exists on the Measurement Date, unless it was disabled or deleted at least 30 days before the Measurement Date." This means:
+- If an account exists on the Measurement Date → it's active
+- UNLESS it was disabled/deleted at least 30 days before → then it's NOT active
+
+So disabled accounts that were disabled less than 30 days before the Measurement Date are still "active" for counting purposes.
+
+The 3 accounts disabled 20 August 2026: disabled 11 days before → still active → the individuals count as Named Users.
+
+The 4 accounts disabled 15 July 2026: 31 Aug - 15 July = 16 days in July (15-31) + 31 days in August = 47 days before the Measurement Date. 47 > 30. So these are NOT active. The individuals do NOT count.
+
+Wait, let me recount: 15 July to 31 August.
+- July: 15 to 31 = 17 days (or 16 days if we count the gap)
+- Actually, the number of days between 15 July and 31 August:
+  - From 15 July to 31 July = 16 days
+  - From 1 August to 31 August = 31 days
+  - Total = 47 days
+
+47 > 30, so these 4 accounts are NOT active. These 4 individuals do NOT count.
+
+So from D1.3: 3 individuals (disabled 20 Aug) count as Named Users; 4 individuals (disabled 15 July) do NOT count.
+
+**D1.4: Shared account "cad-kiosk-01"**
+
+Per 1.5: "Where an account is used by more than one individual, each individual who used that account during the three months ending on the Measurement Date is a Named User."
+
+The three months ending on 31 August 2026 = 1 June 2026 to 31 August 2026.
+
+Login audit shows use by 6 distinct individuals, all shop-floor technicians. None holds a named account.
+
+So 6 Named Users from the shared account.
+
+Note: D5.4 says the kiosk was replaced on 1 September 2026 and cad-kiosk-01 was disabled on 1 September 2026. But the Measurement Date is 31 August 2026, so the account was still enabled on the Measurement Date. It exists on the Measurement Date. So it's an active account.
+
+**D1.5: Contractor accounts (Pellam Engineering GmbH): 8 accounts**
+
+Per 3.1: The Licensee may permit contractors to use the Software for internal business purposes.
+Per 3.2: Contractors who use the Software under 3.1 are Named Users of the Licensee and require Licences, UNLESS the contractor uses the contractor's own Tessellate licences under the contractor's own agreement AND the Licensee has received written confirmation of this from Tessellate.
+
+Pellam holds its own Tessellate subscription for its other customers, BUT "no written confirmation from Tessellate under 3.2 is on file."
+
+So the exception in 3.2 does NOT apply. The 8 Pellam individuals ARE Named Users of Kestrel.
+
+They hold no other Kestrel accounts, so they're 8 additional Named Users.
+
+**D1.6: Service accounts**
+
+- svc-render-1: API sessions only → Service Account, not a Named User (per 1.6)
+- svc-render-3: API sessions only → Service Account, not a Named User (per 1.6)
+- svc-render-2: API sessions PLUS 14 interactive desktop-client logins between 3 and 21 August 2026 from workstation WS-HULL-117, assigned to a.lindqvist (summer intern, employed 1 June – 28 August 2026; no named Tessellate account; intern's Windows account disabled 28 August 2026).
+
+Per 1.6: "If an individual logs in interactively through a Service Account at any time during the three months ending on the Measurement Date, that individual is a Named User."
+
+The three months ending on 31 August 2026 = 1 June to 31 August 2026. The interactive logins were between 3 and 21 August 2026, which falls within this period.
+
+So a.lindqvist is a Named User. The intern was employed 1 June – 28 August 2026, so on the Measurement Date (31 August), the intern was no longer employed (left 28 August). However, the definition of Named User in 1.4 says "an individual human being who is authorised by the Licensee to access the Software and has an active account on the Measurement Date."
+
+Hmm, wait. Let me re-read 1.4: "an individual human being who is authorised by the Licensee to access the Software and has an active account on the Measurement Date."
+
+The intern doesn't have a named Tessellate account. But per 1.6, the individual who logged in interactively through a Service Account IS a Named User. Does 1.6 override the "active account" requirement in 1.4?
+
+Let me re-read 1.6: "An account used solely by software processes through the rendering-server API, without interactive login, is a 'Service Account' and is not a Named User. If an individual logs in interactively through a Service Account at any time during the three months ending on the Measurement Date, that individual is a Named User."
+
+I think 1.6 is a specific rule that makes the individual a Named User regardless of whether they have their own active account. The Service Account (svc-render-2) is active on the Measurement Date (it exists and was not disabled 30+ days before). The individual who used it interactively is a Named User.
+
+Actually, let me think about this more carefully. The definition in 1.4 requires "has an active account on the Measurement Date." The intern doesn't have a named account. But 1.6 specifically states that the individual IS a Named User. I'll treat 1.6 as a specific provision that creates Named User status for the individual, even without their own account. The Service Account itself is active (exists on the Measurement Date, not disabled 30+ days prior).
+
+So a.lindqvist = 1 Named User.
+
+**D2: QA tenant "kestrel-qa"**
+
+Per Amendment No. 2:
+- B2.1: Registration takes effect on the date Tessellate confirms receipt of form NPE-1.
+- B2.2: Accounts that exist only in a registered Non-Production Environment are not counted in the true-up for any Measurement Date on which the registration was in effect.
+- B2.3: Accounts in an environment that is not registered on the Measurement Date are counted in the same way as Production Environment accounts, and each individual is counted once across all environments (1.4).
+
+Form NPE-1 for "kestrel-qa" was submitted on 2 September 2026; Tessellate confirmed receipt on 5 September 2026.
+
+The Measurement Date is 31 August 2026. The registration was NOT in effect on 31 August 2026 (it only became effective on 5 September 2026).
+
+So per B2.3, the QA tenant accounts are counted the same way as Production Environment accounts.
+
+D2.1: 9 accounts in kestrel-qa.
+- 4 belong to engineers who also hold accounts in kestrel-prod (already counted in D1.1)
+- 5 belong to software testers who hold no other Tessellate account
+
+Per B2.3: "each individual is counted once across all environments (1.4)"
+
+So the 4 engineers are already counted in the production count. The 5 testers are NEW individuals not counted elsewhere.
+
+So from D2: 5 additional Named Users.
+
+**D3: Training tenant "kestrel-train"**
+
+Registered Non-Production Environment, Tessellate confirmation of NPE-1 dated 14 March 2026.
+
+Per B2.2: "Accounts that exist only in a registered Non-Production Environment are not counted in the true-up for any Measurement Date on which the registration was in effect."
+
+The registration was in effect on 31 August 2026 (confirmed 14 March 2026, no indication it was revoked).
+
+D3: 12 accounts, all belonging to individuals who also hold kestrel-prod accounts.
+
+Since these accounts exist ONLY in the registered NPE (the individuals also have prod accounts, but the NPE accounts themselves exist only in the NPE), they are NOT counted. And the individuals are already counted via their prod accounts.
+
+So from D3: 0 additional Named Users.
+
+**D4: Web viewer guest links**
+
+"licensed separately under the 'Viewer Unlimited' add-on and does not require Named User Licences."
+
+So 0 Named Users from guest links.
+
+**Now let me tally all Named Users:**
+
+1. D1.1: 94 distinct individuals (96 accounts minus 2 duplicate admin accounts)
+2. D1.2: Already included in the 94 (the engineer on leave is one of the 96 accounts). Leave is 78 days < 90, so they count. Already in the 94.
+3. D1.3: 3 individuals (disabled 20 Aug, still active per 1.7) + 0 (disabled 15 July, not active) = 3 additional
+4. D1.4: 6 individuals (shared account users)
+5. D1.5: 8 individuals (Pellam contractors)
+6. D1.6: 1 individual (a.lindqvist via svc-render-2)
+7. D2: 5 individuals (testers with no other account)
+8. D3: 0 (registered NPE, accounts exist only there)
+9. D4: 0 (Viewer Unlimited add-on)
+
+Total Named Users = 94 + 3 + 6 + 8 + 1 + 5 + 0 + 0 = **117**
+
+Wait, let me double-check D1.1. The 96 accounts include the engineer on parental leave (D1.2). So the 94 distinct individuals already include that person. Good.
+
+Let me also verify: the 3 disabled accounts from D1.3 - are these individuals already counted in the 96 enabled accounts? No, D1.3 says "Disabled accounts (still present in the tenant)" - these are separate from the 96 enabled accounts. So they're additional individuals.
+
+And the 4 disabled accounts from 15 July - they're not active, so they don't count.
+
+Let me re-verify the 96 accounts:
+- 96 enabled named accounts
+- 2 individuals have 2 accounts each → 4 accounts for 2 people
+- Remaining 92 accounts for 92 people
+- Total: 2 + 92 = 94 distinct individuals ✓
+
+Now, are any of the 3 disabled (20 Aug) individuals the same

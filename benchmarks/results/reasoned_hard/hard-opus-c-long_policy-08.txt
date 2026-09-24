@@ -1,0 +1,141 @@
+
+
+<think>
+Let me work through this step by step, applying ISR v5.0 as amended by CN-5.1 to the facts of INC-2026-0908-114.
+
+**Step 1: Determine affected tenants**
+
+Per definition 2.2: "Affected tenant" — an active tenant for which more than 5% of its API requests failed (5xx or timeout) in at least one 10-minute monitoring window during the incident.
+
+From the data (E):
+- Active tenants: 4,020
+- Tenants with more than 5% of API requests failed in at least one 10-minute window: 318
+
+So affected tenants = 318 out of 4,020.
+
+Percentage: 318/4,020 = 7.91%
+
+**Step 2: Determine Enterprise tenants affected**
+
+From the data (E):
+- T-10044 Moravia Retail Group — Enterprise plan, Enterprise MSA signed 2023. → Enterprise tenant (per 2.3)
+- T-11820 Kestrel Hospitality — Enterprise plan, Enterprise MSA signed March 2026. → Enterprise tenant (per 2.3)
+- T-12977 Orinoco Sports GmbH — Enterprise Trial plan (evaluation until 30 September 2026); MSA under negotiation. → NOT an Enterprise tenant (per 2.3: "Tenants on an Enterprise Trial (evaluation) plan are not Enterprise tenants")
+
+So Enterprise tenants affected = 2 (T-10044 and T-11820).
+
+Note: T-10390 Harwell Foods had failures below 5% in every window, so it is NOT an affected tenant per definition 2.2.
+
+**Step 3: Determine base severity (Section 3)**
+
+- 3.1 SEV-1: more than 40% of active tenants affected? No (7.91%). Unrecoverable data loss? No. Complete unavailability of payment processing in any region for 5+ minutes? No (payments were normal).
+- 3.2 SEV-2: more than 10% and up to 40% of active tenants affected? No (7.91%). 3 or more Enterprise tenants affected? No (only 2).
+- 3.3 SEV-3: at least 1% and up to 10% of active tenants affected? Yes (7.91%). 1 or 2 Enterprise tenants affected? Yes (2).
+- 3.4 SEV-4: fewer than 1%? No.
+
+Base severity = SEV-3.
+
+**Step 4: Check CN-5.1.2 — Payment processing floor (Section 3.6)**
+
+"Any incident in which payment processing was degraded (more than 5% failed requests in a 10-minute window) for 15 minutes or more is at least SEV-2 before adjustments."
+
+From the timeline: "Payments API, Payouts API: error rates checked — normal (0.02%); no degradation of authorisation, capture or refund at any time during the incident."
+
+Payment processing was NOT degraded. This floor does not apply.
+
+**Step 5: Check CN-5.1.3 — Data recovery (Section 2.7 amendment)**
+
+"Data that is recoverable only by manual reconstruction, or where more than 15 minutes of data is affected, is recoverable but not within RPO; such an incident is at least SEV-2 before adjustments."
+
+The webhook events: 11 minutes of "invoice.rendered" events (14:36–14:47) were dropped. They were replayed automatically from the event archive (15:10–15:18), no manual steps.
+
+- Was it manual reconstruction? No, it was automatic replay.
+- Was more than 15 minutes of data affected? No, it was 11 minutes.
+
+So this is "recoverable within RPO" per the original 2.7 definition. The CN-5.1.3 floor does NOT apply.
+
+**Step 6: Apply adjustments (Section 4)**
+
+**4.1 Duration:**
+Per definition 2.5: "Incident duration" — the time from the start of the first 10-minute monitoring window in which the incident's failure criterion was met to the end of the last such window.
+
+First window: 13:40–13:50 (start = 13:40)
+Last window: 17:30–17:40 (end = 17:40)
+
+Duration = 17:40 - 13:40 = 4 hours.
+
+Is 4 hours "more than 4 hours"? No, it's exactly 4 hours. The criterion is "more than 4 hours." So the duration adjustment does NOT apply.
+
+Wait, let me re-read: "if the incident duration is more than 4 hours, raise the severity by one level."
+
+4 hours is not more than 4 hours. So no raise.
+
+**4.2 Workaround:**
+Per definition 2.6: "a documented alternative that allows affected tenants to complete the affected operation without LatticePay intervention (e.g. a fallback endpoint), communicated to them on the status page or directly."
+
+The workaround was published at 14:08. The incident started at 13:40.
+
+The condition: "if a Workaround was available to all affected tenants for the whole incident duration after the first 30 minutes, lower the severity by one level."
+
+First 30 minutes of the incident: 13:40 to 14:10.
+Workaround published at 14:08, which is within the first 30 minutes (before 14:10).
+
+So the workaround was available from 14:08 onwards. The "whole incident duration after the first 30 minutes" means from 14:10 to 17:40. The workaround was available from 14:08, so it was available for the entire period after the first 30 minutes.
+
+Wait, let me re-read: "if a Workaround was available to all affected tenants for the whole incident duration after the first 30 minutes"
+
+This means: after the first 30 minutes of the incident, the workaround must have been available for the entire remaining duration. The first 30 minutes end at 14:10. The workaround was published at 14:08, so from 14:10 onwards it was available. The incident ended at 17:40. So yes, the workaround was available for the whole incident duration after the first 30 minutes.
+
+Lower by one level: SEV-3 → SEV-4.
+
+**4.3:** Adjustment never moves below SEV-4. SEV-4 is the floor.
+
+**Step 7: Apply CN-5.1.1 — Enterprise floor (Section 4.4)**
+
+"After the adjustments in 4.1 and 4.2, an incident in which at least one Enterprise tenant was affected is never below SEV-3."
+
+After adjustments, we're at SEV-4. But 2 Enterprise tenants were affected. So the floor raises it to SEV-3.
+
+**Final severity: SEV-3**
+
+The answer is B. 1 - SEV-3.
+</think>
+
+## Determining Final Severity for INC-2026-0908-114
+
+### 1. Affected Tenants (Def. 2.2)
+- Active tenants: 4,020
+- Tenants with >5% failed requests in ≥1 ten-minute window: **318**
+- Percentage: 318 / 4,020 = **7.91%**
+
+### 2. Enterprise Tenants Affected (Def. 2.3)
+- T-10044 (Enterprise, MSA 2023) ✓
+- T-11820 (Enterprise, MSA 2026) ✓
+- T-12977 (Enterprise **Trial**, MSA under negotiation) ✗ — explicitly excluded by 2.3
+- T-10390 (below 5% in every window) ✗ — not an affected tenant
+
+**Enterprise tenants affected: 2**
+
+### 3. Base Severity (Section 3)
+- 7.91% falls in "at least 1% and up to 10%" → **SEV-3** (3.3)
+- 2 Enterprise tenants affected → also SEV-3 (3.3)
+- No SEV-1 or SEV-2 criteria met.
+
+**Base = SEV-3**
+
+### 4. CN-5.1 Floors (pre-adjustment)
+- **Payment processing floor (3.6):** Payments/Payouts error rate was 0.02% throughout — no degradation. *Not triggered.*
+- **Data recovery floor (2.7 amendment):** 11 minutes of webhook events, replayed automatically from archive, no manual steps. ≤15 min, no manual reconstruction → "recoverable within RPO." *Not triggered.*
+
+### 5. Adjustments (Section 4)
+- **4.1 Duration:** First window start 13:40, last window end 17:40 → **exactly 4 hours**. Criterion is "more than 4 hours." *No raise.*
+- **4.2 Workaround:** Published 14:08 (within first 30 min, which ends 14:10). Available for the entire remaining duration (14:10→17:40). *Lower by one level: SEV-3 → SEV-4.*
+
+### 6. CN-5.1.1 Enterprise Floor (Section 4.4)
+"After the adjustments in 4.1 and 4.2, an incident in which at least one Enterprise tenant was affected is never below SEV-3."
+
+Post-adjustment severity is SEV-4, but 2 Enterprise tenants were affected → **floor raises to SEV-3**.
+
+### Final Severity: **SEV-3**
+
+**Answer: B**

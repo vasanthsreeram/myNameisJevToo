@@ -10,18 +10,71 @@ The name is a joke and a nod to TypeSafe AI. This is an independent project, una
 
 ## What we measured
 
-The interface is cheap; **answer quality depends on the base model and the task**. On public JevBench items, our 2B model struggled on hard decisions. Running the same readout on Qwen3.8-27B improved its intelligence axis substantially.
+The interface is cheap; **answer quality depends on the base model and the task**. On the 231 public JevBench items (48 easy, 72 standard, 111 hard), the same readout was run on five legs: a 2B MLX model, a ternary 27B, and three Qwen3.8-27B quantisations. The harness reads the option letters' probability mass in one forward pass; nothing is generated.
 
-| Public JevBench tier | Items | MiniCPM5-2B MLX | Qwen3.8-27B MLX 4-bit | Qwen3.8-27B GGUF Q4_K_M |
-|---|---:|---:|---:|---:|
-| Easy | 48 | 77.1% | 100.0% | 100.0% |
-| Standard | 72 | 50.0% | 94.4% | 97.2% |
-| Hard | 111 | 39.6% | 69.4% | 74.8% |
-| Intelligence axis | — | 27.4 | 77.6 | 82.6 |
+| Public JevBench tier or axis | Items | MiniCPM5-2B MLX 4-bit | Ternary-Bonsai-2-27B PQ2_0 (6.7 GB) | Qwen3.8-27B MLX 4-bit | Qwen3.8-27B GGUF Q4_K_M | Qwen3.8-27B GGUF Q8_0 |
+|---|---:|---:|---:|---:|---:|---:|
+| Easy | 48 | 77.1% | 100.0% | 100.0% | 100.0% | 100.0% |
+| Standard | 72 | 50.0% | 86.1% | 94.4% | 97.2% | 97.2% |
+| Hard | 111 | 39.6% | 60.4% | 69.4% | 74.8% | 73.9% |
+| Intelligence axis | — | 27.4 | 67.2 | 77.6 | 82.6 | 82.0 |
+| Calibration axis | — | 40.2 | 81.2 | 86.9 | 77.2 | 86.1 |
+| Speed axis | — | 73.6 | 66.3 | 67.4 | 65.9 | 66.4 |
+| Score over three axes | — | ≈13 | 71.2 | 76.9 | 74.9 | 77.7 |
+| Hard-tier ECE (lower is better) | 111 | 0.2989 | 0.0940 | 0.0655 | 0.1139 | 0.0693 |
 
-The **state-blind control** replaces the state with a placeholder while leaving the options intact. On hard items, the 2B model scored **45.9% without the state versus 39.6% with it**. Its hard-tier score largely reflected option-list priors. The 27B retained 71–75% of its hard accuracy in the state-blind control, so option-list reliance remains worth checking.
+Every leg saw the same 231 public items, scored with JevBench's own formulas: chance-corrected per tier, weights easy 0.14 / standard 0.28 / hard 0.30, intelligence as the weighted mean of the chance-corrected tier scores, calibration from hard-tier ECE, and speed from latency under JevBench's own-server rule (raw ×2 + 0.15 s).
 
-These are our runs on the **public portions only** (48/72 easy, 72/96 standard, 111/220 hard). They cannot be read as full-board JevBench scores. The 2B ran on a Mac mini M4 (16 GB); the 27B ran on a Mac Studio M3 Ultra (96 GB). Results are task-specific and include confident errors. The 27B MLX hard-tier expected calibration error (ECE) was **0.0655**; GGUF was **0.1139**. See [the complete 2B write-up](docs/RESULTS-minicpm5.md), [the method](docs/TECHNIQUE.md), [pitfalls](docs/PITFALLS.md), and the committed per-item records under [`benchmarks/results/`](benchmarks/results/).
+### The readout, not the model, is the ceiling on hard items
+
+Of the 111 hard items, the one-pass readout got 29 wrong. Re-running those same rendered prompts with a thinking budget (greedy, up to 4,000 tokens) answered **23 of the 29 correctly**. On the Q8_0 leg that moves the hard tier from 82/111 (73.9%) to 105/111 (94.6%), chance-corrected 60.6 to 91.9, and the intelligence axis from 82.0 to about **95.0**.
+
+That ~95.0 is an **upper bound, not a measured reasoned score**. Only the 29 failures were re-attempted, so it assumes reasoning never breaks an item the readout already had right. Three of the 29 stopped at the 4,000-token cap mid-reasoning. The true reasoned figure requires running all 111 hard items with reasoning, which we have not done. The 29 generations and their per-item outcomes are committed under [`benchmarks/results/reasoned_hard/`](benchmarks/results/reasoned_hard/).
+
+### No precision ladder on intelligence
+
+The three 27B legs are statistically indistinguishable on intelligence. McNemar, paired on the hard tier: Q8_0 vs Q4_K_M p = 1.000, Q8_0 vs MLX 4-bit p = 0.267, Q4_K_M vs MLX 4-bit p = 0.238. With 111 hard items, one item is 0.9% raw and 0.57 intelligence points, and Q8_0 vs Q4_K_M is a **one-item difference** (82 vs 83 of 111). Do not read a real spread into these three numbers.
+
+### Calibration follows the quant scheme, not the bit width
+
+MLX 4-bit reaches **86.9**, about level with GGUF Q8_0 at **86.1**, while GGUF Q4_K_M sits at **77.2**. The spread is between the GGUF and MLX quantisation schemes, not between 4-bit and 8-bit. An earlier version of this document generalised from that one Q4_K_M pair into "calibration is the precision-sensitive axis". That claim was wrong, and the MLX 4-bit and GGUF Q8_0 legs contradict it.
+
+### Where the hard items fail
+
+Hard-tier accuracy by family on Q8_0:
+
+| Family | Correct | Accuracy |
+|---|---:|---:|
+| temporal_numeric | 6/15 | 40.0% |
+| probability | 6/10 | 60.0% |
+| tradeoff | 4/6 | 66.7% |
+| long_policy | 14/19 | 73.7% |
+| judge_hard | 13/17 | 76.5% |
+| multi_hop | 14/18 | 77.8% |
+| trap | 7/8 | 87.5% |
+| ambiguous | 7/7 | 100.0% |
+| adversarial | 6/6 | 100.0% |
+| routing_hard | 5/5 | 100.0% |
+
+The failures concentrate on arithmetic over dates and amounts, and on probability estimates.
+
+### Latency tracks context, not model size
+
+Ternary-Bonsai is **6.7 GB** against Qwen Q8_0's **27 GB**, and the latency is the same: raw p50 **600 ms** versus **589 ms**, p95 **8.7 s** versus **8.5 s**. The long tail is prefill of the hard items' roughly 3,700-token states, not weight size. Under JevBench's own-server adjustment the Q8_0 leg is p50 1.33 s and p95 17.19 s.
+
+### The state-blind control
+
+The **state-blind control** replaces the state with a placeholder while leaving the options intact. On hard items the 27B legs keep 71% to 73% of their accuracy with the state removed (Q8_0 70.7%, Q4_K_M 71.1%, Bonsai 73.1%). The 2B model scored **better without the state (45.9% vs 39.6% with it)**, which is the option-list prior showing through. Its hard-tier score largely reflected those priors; the 27B legs still show real option-list reliance on hard items, but they are no longer ignoring the input.
+
+### Caveats
+
+These are our runs on the **public portions only** (48/72 easy, 72/96 standard, 111/220 hard; the judge tier is not public, so tier weights are renormalised over three tiers). They cannot be read as full-board JevBench scores. The claimed ~95.0 reasoned intelligence is an upper bound from 29 re-attempts, not a full reasoned run. The 2B ran on a Mac mini M4 (16 GB); the 27B legs ran on a Mac Studio M3 Ultra (96 GB). The GGUF legs ran on `llama.cpp`; the Ternary-Bonsai PQ2_0 leg ran on PrismML's prebuilt fork. Results are task-specific and include confident errors.
+
+Two suspected artefacts were probed and ruled out, and are not open questions. A `min_p` effect was disproved: identical top-logprobs with no `min_p`, with `min_p = 0.05`, and with `min_p = 0.0` on both builds. Xing4.0-29B-A4B cannot run on this stack at all; `llama.cpp` reports `unknown model architecture: 'xing4_0'`.
+
+For reference, JevBench's own board lists Jev 1.13.0 at **85.7**, SemIf (Qwen3.5-4B) at **79.0**, and jeff (GLiFormer 400M) at **46.9** intelligence. Those are the vendors' published numbers on the full board, not our measurements, and they are not directly comparable to the public portions above.
+
+The full write-up is at [research.lintlabs.org/jevbench](https://research.lintlabs.org/jevbench). See also [the complete 2B write-up](docs/RESULTS-minicpm5.md), [the method](docs/TECHNIQUE.md), [pitfalls](docs/PITFALLS.md), and the committed per-item records under [`benchmarks/results/`](benchmarks/results/).
 
 ## The idea
 
@@ -57,7 +110,7 @@ python -m jevtoo.serve --model openbmb/MiniCPM5-2B-MLX
 python -m jevtoo.serve --gguf http://127.0.0.1:8080
 ```
 
-The server listens on `127.0.0.1:8787` by default. The core package uses the Python standard library; MLX is optional. `jev-latest` and `jev-preview` resolve to the loaded model. Set `JEVTOO_API_KEY` or pass `--api-key` to require `Authorization: Bearer <key>`.
+The server listens on `127.0.0.1:8787` by default. The core package uses the Python standard library; MLX is optional. `jev-latest` and `jev-preview` resolve to the loaded model. Set `JEVTOO_API_KEY` or pass `--api-key` to require `Authorization: Bearer ***`
 
 ```bash
 curl -s http://127.0.0.1:8787/v1/systemone \
@@ -132,6 +185,8 @@ python benchmarks/stateblind.py          # test the state-blind control
 python benchmarks/jevbench.py            # public items + reversed pass
 ```
 
+The Q8_0 and Ternary-Bonsai legs use the same harness and the same 231 public items; their per-item records are `benchmarks/results/jevbench_qwen38_27b_q8_0*.json` and `benchmarks/results/jevbench_ternary_bonsai_2_27b_pq2_0*.json`. The reasoning rerun was ad hoc rather than a committed script; its 29 generations and outcomes are under `benchmarks/results/reasoned_hard/`.
+
 ## Project map
 
 - `jevtoo/readout.py`, `jevtoo/decide.py`: probability distribution and typed decisions.
@@ -139,10 +194,11 @@ python benchmarks/jevbench.py            # public items + reversed pass
 - `jevtoo/contract.py`, `jevtoo/serve.py`: request contract, local endpoint, metrics.
 - `jevtoo/calibrate.py`: calibration and abstention tools.
 - `benchmarks/`: experiments, scripts, and per-item results.
+- `benchmarks/results/reasoned_hard/`: the 29 hard-item reasoning reruns and their summary.
 - `docs/how-it-works.html`: light-theme visual explanation and accessible stills.
 
 ## Credits and license
 
-TypeSafe AI originated Jev and the System One framing. [fstandhartinger/jevbench](https://github.com/fstandhartinger/jevbench) published the cross-model benchmark; [jev-calibration-audit](https://github.com/jujumilk3/jev-calibration-audit) motivated the state-blind control. OpenBMB publishes the MiniCPM model. More acknowledgments and third-party terms are in [THIRD-PARTY.md](THIRD-PARTY.md).
+TypeSafe AI originated Jev and the System One framing. [fstandhartinger/jevbench](https://github.com/fstandhartinger/jevbench) published the cross-model benchmark and the scoring formulas; [jev-calibration-audit](https://github.com/jujumilk3/jev-calibration-audit) motivated the state-blind control. OpenBMB publishes the MiniCPM model. More acknowledgments and third-party terms are in [THIRD-PARTY.md](THIRD-PARTY.md).
 
 MIT; see [LICENSE](LICENSE). Model weights are not bundled.

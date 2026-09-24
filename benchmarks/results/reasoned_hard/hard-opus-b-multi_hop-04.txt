@@ -1,0 +1,106 @@
+
+
+<think>
+Let me work through this step by step.
+
+**Step 1: Identify the process and map to service.**
+
+The alert is for process="ledgerd". Looking at the service catalog (section 3):
+- ledger-core: processes are "ledgerd, ledger-migrator" — Owning team: Payments-Core, Tier: tier-1
+- ledger-reports: process is "ledgerrpt" — Owning team: Data-Finance, Tier: tier-3
+
+So "ledgerd" maps to **ledger-core**, owned by **Payments-Core**, tier-1.
+
+The chat message is wrong — someone says "ledger-reports, right? Data-Finance" but that's incorrect. "ledgerd" is ledger-core, not ledger-reports (which is "ledgerrpt"). And the other person says "Payments-Core. Dmitri is on their sheet this week." — Payments-Core is correct, but Dmitri is on the retired payments-core-primary rotation.
+
+**Step 2: Determine severity.**
+
+Alert rule: ProcessCrashLoop
+Base severity: SEV3
+Service tier: tier-1 (ledger-core is tier-1)
+
+From the severity matrix: ProcessCrashLoop on tier-1 → "raise to SEV2"
+
+So the effective severity is **SEV2**.
+
+**Step 3: Does SEV2 page a human?**
+
+Section 1.2: "Only SEV1 and SEV2 page a human." Yes, SEV2 pages.
+
+**Step 4: Determine the owning team and check for merges.**
+
+The owning team is Payments-Core. Section 4 says:
+"Payments-Core — MERGED into Money Movement effective 2026-09-01 00:00 Europe/Berlin. All Payments-Core services are now on-call-supported by the Money Movement rotation. The 'payments-core-primary' rotation is retired and kept read-only for audit; do not page it."
+
+So we must page the **Money Movement** rotation (mm-primary), NOT payments-core-primary.
+
+**Step 5: Determine the alert time in Europe/Berlin.**
+
+Alert timestamp: 2026-09-21T06:30:12Z (UTC)
+September 2026: Europe/Berlin is UTC+2 (CEST)
+So local time: 2026-09-21 08:30:12 Europe/Berlin
+
+**Step 6: Determine who is on mm-primary at that time.**
+
+mm-primary rotation:
+- 2026-09-14 → 2026-09-21: Primary = Ana, Secondary = Chen
+- 2026-09-21 → 2026-09-28: Primary = Chen, Secondary = Esra
+
+Hand-over is every MONDAY 09:00 Europe/Berlin.
+
+The alert is at 2026-09-21 08:30:12 Europe/Berlin. This is BEFORE the 09:00 hand-over on Monday 09-21. So the current primary is still **Ana** (the 09-14 → 09-21 week).
+
+**Step 7: Check for overrides.**
+
+Looking at overrides for mm-primary:
+- 2026-09-20 18:00 → 2026-09-21 09:00: Scheduled primary Ana, Replaced by Bjorn (Ana travelling)
+- 2026-09-21 09:00 → 2026-09-21 14:00: Scheduled primary Chen, Replaced by Esra (Chen at dentist)
+
+The alert time is 2026-09-21 08:30:12 Europe/Berlin.
+
+First override: [2026-09-20 18:00, 2026-09-21 09:00) — Is 08:30:12 inside this window? Yes! 08:30 is after 18:00 on 09-20 and before 09:00 on 09-21. So this override applies.
+
+The override replaces Ana with **Bjorn**.
+
+Second override: [2026-09-21 09:00, 2026-09-21 14:00) — 08:30 is NOT inside this window (it's before 09:00).
+
+So the effective primary at the alert time is **Bjorn**.
+
+**Step 8: Final answer.**
+
+The page goes to Bjorn.
+
+The answer is **C. bjorn - Page Bjorn.**
+</think>
+
+## Working Through the Alert
+
+**1. Process → Service mapping:**
+The alert is for process `ledgerd`. Per the catalog (section 3), `ledgerd` belongs to **ledger-core** (not ledger-reports, which uses `ledgerrpt`). Owning team: **Payments-Core**, Tier: **tier-1**.
+
+The chat is wrong on both counts: it's not ledger-reports/Data-Finance, and it's not the retired payments-core-primary rotation.
+
+**2. Severity:**
+Rule: `ProcessCrashLoop`, base SEV3. Tier-1 adjustment: **raise to SEV2**. SEV2 pages a human. ✓
+
+**3. Owning team → rotation:**
+Payments-Core was **merged into Money Movement** effective 2026-09-01 00:00 CEST. The `payments-core-primary` rotation is retired; do not page it. We must page **mm-primary**.
+
+**4. Alert time in local time:**
+2026-09-21T06:30:12Z + 2 h (CEST) = **2026-09-21 08:30:12 Europe/Berlin**.
+
+**5. Scheduled primary at that moment:**
+The mm-primary hand-over is Monday 09:00. At 08:30 we are still in the 09-14 → 09-21 week, so the scheduled primary is **Ana**.
+
+**6. Override check:**
+- Override 1: mm-primary, [2026-09-20 18:00, **2026-09-21 09:00**) → Ana replaced by **Bjorn**.
+  - 08:30:12 falls inside this window. ✓
+- Override 2: mm-primary, [2026-09-21 09:00, 2026-09-21 14:00) → starts at 09:00, so 08:30 is **not** inside. ✗
+
+The active override replaces Ana with **Bjorn**.
+
+## Answer
+
+**C. bjorn — Page Bjorn.**
+
+The alert is a SEV2 on a tier-1 service (ledger-core), routed to the Money Movement rotation (post-merge), and the 09-20 18:00 → 09-21 09:00 override puts Bjorn on primary at the 08:30 CEST alert time.
