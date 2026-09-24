@@ -29,7 +29,7 @@ Every leg saw the same 231 public items, scored with JevBench's own formulas: ch
 
 Of the 111 hard items, the one-pass readout got 29 wrong. Re-running those same rendered prompts with a thinking budget (greedy, up to 4,000 tokens) answered **23 of the 29 correctly**. On the Q8_0 leg that moves the hard tier from 82/111 (73.9%) to 105/111 (94.6%), chance-corrected 60.6 to 91.9, and the intelligence axis from 82.0 to about **95.0**.
 
-That ~95.0 is an **upper bound, not a measured reasoned score**. Only the 29 failures were re-attempted, so it assumes reasoning never breaks an item the readout already had right. Three of the 29 stopped at the 4,000-token cap mid-reasoning. The true reasoned figure requires running all 111 hard items with reasoning, which we have not done. The 29 generations and their per-item outcomes are committed under [`benchmarks/results/reasoned_hard/`](benchmarks/results/reasoned_hard/).
+That ~95.0 is an **upper bound, not a measured reasoned score**. Only the 29 failures were re-attempted, so it assumes reasoning never breaks an item the readout already had right. Three of the 29 stopped at the 4,000-token cap mid-reasoning. The true reasoned figure requires running all 111 hard items with reasoning, which we have not done. The per-item outcomes of those 29 reruns are committed as [`benchmarks/results/reasoned_hard/reasoned_summary.json`](benchmarks/results/reasoned_hard/reasoned_summary.json); the raw transcripts are not committed, because a transcript quotes the item it answers and this repository does not redistribute JevBench task text ([why](THIRD-PARTY.md)).
 
 ### No precision ladder on intelligence
 

@@ -34,10 +34,16 @@ probability we read for each option, which option was picked, and our latencies.
 measurement record, published so the numbers in the documentation can be audited rather than
 taken on trust.
 
-`benchmarks/results/reasoned_hard/` holds the same kind of record for the hard-item reasoning
-rerun: our own greedy generations for 29 items, plus a summary of what each was scored as. These
-are model output, not task text, but a generation can quote a fragment of the item it is answering,
-so treat that directory as our audit trail rather than as redistributable task content.
+`benchmarks/results/reasoned_hard/` holds the outcome record for the hard-item reasoning rerun:
+per-item identifiers, what the one-pass readout had picked, what the reasoned pass answered, whether
+that was correct, the stop reason and the wall-clock time — committed as `reasoned_summary.json` so
+the ~95.0 upper bound can be audited.
+
+The **raw generation transcripts are deliberately not committed.** Each one is a model reply to a
+rendered item, and a reply quotes the item it is answering, so publishing them would redistribute
+JevBench task text — which this repository does not do (see above). They are kept as a local audit
+trail and are available on request. This is a correction: an earlier revision of this file committed
+those transcripts while describing them as non-redistributable, which was contradictory.
 
 ## Other referenced work
 
