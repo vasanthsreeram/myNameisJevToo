@@ -7,7 +7,6 @@
 <style>
   :root {
     --bg: #f3ecdf;
-    --bg-deep: #e9dfcd;
     --paper: #fbf6ee;
     --ink: #2c261f;
     --soft: #6f6558;
@@ -17,326 +16,167 @@
     --clay: #b85c38;
     --clay-deep: #8d4328;
     --sage: #3d6b54;
-    --gold: #b08948;
     --gold-soft: #e7d3a4;
     --shadow: 0 18px 40px rgba(74, 52, 28, 0.08);
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
   body {
     margin: 0;
-    background:
-      radial-gradient(1200px 500px at 10% -10%, #fffaf2 0%, transparent 55%),
-      var(--bg);
+    background: radial-gradient(1000px 420px at 8% -10%, #fffaf2 0%, transparent 50%), var(--bg);
     color: var(--ink);
-    font-family: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
-    line-height: 1.45;
+    font-family: "Iowan Old Style", Palatino, Georgia, serif;
   }
   a { color: var(--clay-deep); }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 28px 22px 80px; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 28px 22px 72px; }
   header.top {
-    display: flex; justify-content: space-between; gap: 16px; align-items: baseline;
-    flex-wrap: wrap;
-    padding-bottom: 18px; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap;
+    padding-bottom: 14px; border-bottom: 1px solid var(--line);
   }
-  .brand { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--soft); }
+  .brand { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--soft); }
   nav { display: flex; flex-wrap: wrap; gap: 14px; font-size: 14px; }
   nav a { text-decoration: none; color: var(--soft); }
-  nav a:hover { color: var(--ink); }
-  .hero { padding: 54px 0 18px; max-width: 740px; }
-  .eyebrow {
-    font-family: ui-sans-serif, system-ui, sans-serif;
-    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--clay); margin: 0 0 12px;
-  }
-  h1 { font-weight: 500; font-size: clamp(40px, 6vw, 68px); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 18px; }
-  .lead { font-size: 21px; color: var(--soft); margin: 0; max-width: 38em; }
-  section.scene { margin-top: 54px; }
-  .scene-head { display: grid; grid-template-columns: 72px 1fr; gap: 8px; margin-bottom: 16px; }
-  .num {
-    font-family: ui-sans-serif, system-ui, sans-serif;
-    font-size: 13px; letter-spacing: 0.14em; color: var(--gold); padding-top: 8px;
-  }
-  h2 { font-weight: 500; font-size: 32px; letter-spacing: -0.02em; margin: 0 0 8px; }
-  .scene p.note { margin: 0; color: var(--soft); max-width: 46em; font-size: 18px; }
+  .hero { padding: 42px 0 8px; max-width: 640px; }
+  h1 { font-weight: 500; font-size: clamp(36px, 5vw, 58px); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 12px; }
+  .lead { font-size: 20px; color: var(--soft); margin: 0; }
+  section.scene { margin-top: 36px; }
+  h2 { font-weight: 500; font-size: 28px; letter-spacing: -0.02em; margin: 0 0 6px; }
+  .note { margin: 0 0 12px; color: var(--soft); font-size: 17px; max-width: 40em; }
   .stage {
-    margin-top: 18px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 22px;
-    box-shadow: var(--shadow);
-    padding: 22px;
-    overflow: hidden;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 22px;
+    box-shadow: var(--shadow); padding: 22px; overflow: hidden;
   }
-  .split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 22px; align-items: center; }
-  #frame .split { grid-template-columns: 1fr; }
   .caption {
     font-family: ui-sans-serif, system-ui, sans-serif;
-    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint);
-    margin-top: 12px;
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin: 12px 0 0;
   }
 
-  /* causal mask */
+  #mask .stage, #trap .stage { width: max-content; max-width: 100%; }
   .mask {
-    display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px;
-    width: 100%; max-width: 420px; min-width: 0; margin-left: auto;
+    display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;
+    width: 520px; max-width: 100%; margin: 8px auto 0;
   }
-  .cell {
-    aspect-ratio: 1;
-    border-radius: 7px;
-    background: #efe6d6;
-    position: relative;
-  }
-  .cell.causal {
-    animation: cellIn 7.5s ease-in-out infinite;
-    background: #efe6d6;
-  }
-  .cell.read {
-    animation: readPulse 7.5s ease-in-out infinite;
-  }
+  .cell { aspect-ratio: 1; border-radius: 8px; background: #efe6d6; }
+  .cell.causal { animation: cellIn 6.4s ease-in-out infinite; }
+  .cell.read { animation: readPulse 6.4s ease-in-out infinite; }
   .axis {
-    display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px;
-    width: 100%; max-width: 420px; min-width: 0; margin-left: auto; margin-top: 6px;
+    display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;
+    width: 520px; max-width: 100%; margin: 6px auto 0;
   }
   .axis span {
-    font-family: ui-sans-serif, system-ui, sans-serif;
-    font-size: 9px; text-align: center; color: var(--faint); letter-spacing: 0.02em;
+    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 10px; text-align: center; color: var(--faint);
   }
   @keyframes cellIn {
     0%, 8% { background: #efe6d6; }
-    22%, 78% { background: var(--gold-soft); }
+    28%, 78% { background: var(--gold-soft); }
     100% { background: #efe6d6; }
   }
   @keyframes readPulse {
-    0%, 55% { background: #efe6d6; transform: scale(1); }
-    70%, 86% { background: var(--clay); transform: scale(1.06); }
-    100% { background: #efe6d6; transform: scale(1); }
+    0%, 58% { background: #efe6d6; }
+    72%, 88% { background: var(--clay); }
+    100% { background: #efe6d6; }
   }
 
-  /* prompt */
-  .prompt {
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 14.5px; line-height: 1.65; color: var(--ink);
+  .spec { display: grid; gap: 18px; }
+  .band { display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: center; }
+  .k {
+    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--faint);
   }
-  .prompt .line { opacity: 0; transform: translateY(8px); animation: lineIn 8s ease infinite; }
-  .prompt .line:nth-child(1) { animation-delay: 0.1s; }
-  .prompt .line:nth-child(2) { animation-delay: 0.55s; }
-  .prompt .line:nth-child(3) { animation-delay: 1.05s; }
-  .prompt .line:nth-child(4) { animation-delay: 1.5s; }
-  .prompt .line:nth-child(5) { animation-delay: 1.9s; }
-  .prompt .line:nth-child(6) { animation-delay: 2.15s; }
-  .prompt .line:nth-child(7) { animation-delay: 2.6s; }
-  .prompt .gap { height: 0.7em; }
-  .caret {
-    display: inline-block; width: 8px; height: 1em; background: var(--clay);
-    transform: translateY(3px); margin-left: 2px;
-    animation: blink 1s steps(1) infinite;
-  }
-  @keyframes lineIn {
-    0% { opacity: 0; transform: translateY(8px); }
-    8%, 88% { opacity: 1; transform: none; }
-    100% { opacity: 0; transform: translateY(8px); }
-  }
-  @keyframes blink { 50% { opacity: 0; } }
-  .pop {
-    margin-top: 16px; display: flex; gap: 10px; align-items: flex-end; height: 92px;
-  }
-  .pop .bar {
-    width: 54px; border-radius: 8px 8px 3px 3px; background: var(--line-strong);
-    transform-origin: bottom; animation: grow 8s ease infinite;
-  }
-  .pop .bar b {
-    display: block; text-align: center; font-family: ui-sans-serif, system-ui, sans-serif;
-    font-size: 12px; font-weight: 600; color: var(--ink); padding-top: 6px;
-  }
-  .pop .bar.a { height: 22%; animation-delay: 2.2s; }
-  .pop .bar.b { height: 78%; background: var(--clay); color: white; animation-delay: 2.35s; }
-  .pop .bar.c { height: 36%; animation-delay: 2.5s; }
-  .pop .bar.b b { color: #fffaf3; }
-  @keyframes grow {
-    0% { transform: scaleY(0.08); opacity: 0; }
-    12%, 90% { transform: scaleY(1); opacity: 1; }
-    100% { transform: scaleY(0.08); opacity: 0; }
-  }
-
-  /* vocab + cost */
-  .sky {
-    display: flex; align-items: flex-end; gap: 3px; height: 140px; padding: 8px 4px 0;
-    min-width: 0; max-width: 100%;
-  }
-  .sky i {
-    flex: 1 1 0; min-width: 0; display: block; background: #e5d9c6; border-radius: 3px 3px 0 0;
-    height: var(--h); transform-origin: bottom; animation: rise 5.5s ease-in-out infinite;
-  }
-  .sky i.hot { background: var(--clay); }
-  .sky i.mid { background: var(--gold); }
-  @keyframes rise {
-    0% { transform: scaleY(0.2); }
-    18%, 80% { transform: scaleY(1); }
-    100% { transform: scaleY(0.2); }
-  }
-  .legend-row { display: flex; gap: 16px; margin-top: 10px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; color: var(--soft); }
-  .sw { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 6px; vertical-align: -1px; }
-  .meters { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
-  .meter {
-    border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; background: #fffaf3;
-  }
-  .meter .k { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
-  .meter .v { font-size: 42px; letter-spacing: -0.03em; line-height: 1.1; }
-  .meter .v em { font-style: normal; color: var(--clay); }
-
-  /* renorm */
-  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .col h3 { margin: 0 0 10px; font-weight: 500; font-size: 18px; }
-  .track { display: flex; flex-direction: column; gap: 8px; }
-  .row { display: grid; grid-template-columns: 118px minmax(0, 1fr) 48px; gap: 8px; align-items: center; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; }
-  .row .name { color: var(--soft); white-space: nowrap; }
-  .row .pct { text-align: right; font-variant-numeric: tabular-nums; }
-  .tube { height: 14px; background: #efe6d8; border-radius: 99px; overflow: hidden; }
-  .fill { height: 100%; border-radius: 99px; background: var(--gold); width: 0; }
-  .fill.clay { background: var(--clay); }
-  .fill.ghost { background: #cfc3b0; }
-  .raw .fill { animation: rawWidth 6.5s ease-in-out infinite; }
-  .share .fill { animation: shareWidth 6.5s ease-in-out infinite; }
-  @keyframes rawWidth { 0% { width: 0; } 20%, 100% { width: var(--w); } }
-  @keyframes shareWidth { 0%, 28% { width: 0; } 55%, 100% { width: var(--w); } }
-
-  /* primitives */
-  .switcher { display: flex; gap: 8px; margin-bottom: 16px; }
-  .switcher button {
+  .toks { display: flex; gap: 10px; flex-wrap: wrap; }
+  .tok {
+    min-width: 72px; text-align: center; border: 1px solid var(--line-strong); border-radius: 12px;
+    background: #fffaf3; padding: 10px 12px 8px;
     font-family: ui-sans-serif, system-ui, sans-serif;
-    border: 1px solid var(--line-strong); background: transparent; color: var(--soft);
-    border-radius: 999px; padding: 8px 14px; cursor: pointer; font-size: 14px;
   }
-  .switcher button.on { background: var(--ink); color: #fbf6ee; border-color: var(--ink); }
-  .prim { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; align-items: center; }
-  .scale { position: relative; height: 46px; margin-top: 8px; }
-  .scale .line { position: absolute; left: 0; right: 0; top: 18px; height: 2px; background: var(--line-strong); }
-  .scale .tick { position: absolute; top: 12px; width: 2px; height: 14px; background: var(--ink); }
-  .scale .lab { position: absolute; top: 28px; transform: translateX(-50%); font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; color: var(--soft); }
-  .marker {
-    position: absolute; top: 6px; width: 18px; height: 18px; border-radius: 50%;
-    background: var(--clay); transform: translateX(-50%);
-    transition: left 0.6s ease;
-  }
-  .big-answer { font-size: 40px; letter-spacing: -0.03em; margin: 0; }
-  .big-answer span { color: var(--clay); }
-  .sub { color: var(--soft); margin: 6px 0 0; font-size: 16px; }
-
-  /* endpoint */
-  .flow { display: grid; grid-template-columns: 1fr 28px 1fr 28px 1fr; gap: 8px; align-items: stretch; }
-  .node {
-    background: #fffaf3; border: 1px solid var(--line); border-radius: 16px; padding: 14px;
-    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px; line-height: 1.55;
-    position: relative;
-  }
-  .node strong { font-family: ui-sans-serif, system-ui, sans-serif; display: block; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
-  .arrow {
-    display: flex; align-items: center; justify-content: center; color: var(--clay); font-size: 20px;
-  }
-  .dot {
-    width: 8px; height: 8px; border-radius: 50%; background: var(--clay);
-    animation: travel 2.8s ease-in-out infinite;
-  }
-  @keyframes travel {
-    0% { transform: translateX(-10px); opacity: 0; }
-    20% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { transform: translateX(10px); opacity: 0; }
-  }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-  .chip {
-    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px;
-    background: #fffaf3; border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px;
-    animation: chipIn 1s ease both;
-  }
-  .chip:nth-child(1) { animation-delay: 0.15s; }
-  .chip:nth-child(2) { animation-delay: 0.35s; }
-  .chip:nth-child(3) { animation-delay: 0.55s; }
-  .chip:nth-child(4) { animation-delay: 0.75s; }
-  @keyframes chipIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: none; }
-  }
-
-  /* prefix */
-  .tree { display: grid; grid-template-columns: 200px 1fr; gap: 18px; align-items: center; }
-  .statebox {
-    border: 1px solid var(--line-strong); border-radius: 16px; padding: 16px; background: #fffaf3;
-  }
-  .statebox .k { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
-  .branches { display: flex; flex-direction: column; gap: 10px; }
-  .branch {
-    display: flex; align-items: center; gap: 10px;
-    opacity: 0; animation: branch 6.5s ease infinite;
-  }
-  .branch:nth-child(1) { animation-delay: 0.8s; }
-  .branch:nth-child(2) { animation-delay: 1.5s; }
-  .branch:nth-child(3) { animation-delay: 2.2s; }
-  .stem { height: 2px; width: 36px; background: var(--clay); transform-origin: left; }
-  .q {
-    flex: 1; border-radius: 12px; border: 1px solid var(--line); padding: 10px 12px; background: #fffaf3;
-    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px;
-  }
-  @keyframes branch {
-    0%, 8% { opacity: 0; transform: translateX(-8px); }
-    22%, 84% { opacity: 1; transform: none; }
+  .tok b { display: block; font-size: 16px; font-weight: 650; }
+  .tok em { display: block; margin-top: 4px; font-style: normal; font-size: 13px; color: var(--soft); opacity: 0; }
+  .tok.ok em, .tok.bad em, .tok .p { animation: reveal 6.2s ease infinite; }
+  .tok.ok { border-color: var(--sage); }
+  .tok.bad { border-color: var(--clay); }
+  .tok.hot { background: #f8ebe4; border-color: var(--clay); }
+  .tok .p { color: var(--clay-deep); font-variant-numeric: tabular-nums; }
+  @keyframes reveal {
+    0%, 42% { opacity: 0; transform: translateY(6px); }
+    56%, 88% { opacity: 1; transform: none; }
     100% { opacity: 0; }
   }
+  .ribbon-wrap { position: relative; height: 78px; }
+  .ribbon { display: flex; align-items: flex-end; gap: 3px; height: 100%; }
+  .ribbon i {
+    flex: 1 1 0; min-width: 0; display: block; background: #e7dccb; border-radius: 3px 3px 0 0; height: var(--h);
+  }
+  .ribbon i.on { background: var(--clay); }
+  .sweep {
+    position: absolute; top: 0; bottom: 0; width: 22%;
+    background: linear-gradient(90deg, transparent, rgba(184, 92, 56, 0.28), transparent);
+    animation: sweep 6.2s ease-in-out infinite;
+  }
+  @keyframes sweep {
+    0% { left: -24%; opacity: 0; }
+    12% { opacity: 1; }
+    48% { left: 102%; opacity: 1; }
+    62%, 100% { left: 102%; opacity: 0; }
+  }
 
-  /* trap */
-  .slots { position: relative; height: 116px; width: min(100%, 320px); }
+  .still .fill { width: var(--w); }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .cols h3 { margin: 0 0 10px; font-weight: 500; font-size: 18px; }
+  .row {
+    display: grid; grid-template-columns: 118px minmax(0, 1fr) 44px; gap: 8px; align-items: center;
+    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; margin-bottom: 8px;
+  }
+  .row .name { color: var(--soft); white-space: nowrap; }
+  .row .pct { text-align: right; font-variant-numeric: tabular-nums; }
+  .tube { height: 12px; background: #efe6d8; border-radius: 99px; overflow: hidden; }
+  .fill { display: block; height: 100%; border-radius: 99px; background: var(--gold-soft); }
+  .fill.clay { background: var(--clay); }
+  .fill.ghost { background: #cfc3b0; }
+  .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .card {
+    border: 1px solid var(--line); border-radius: 16px; padding: 14px; background: #fffaf3;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+  .card .k { margin-bottom: 8px; }
+  .card strong { display: block; font-size: 28px; font-weight: 560; letter-spacing: -0.03em; }
+  .card span { color: var(--soft); font-size: 14px; }
+
+  .slots { position: relative; height: 116px; width: 320px; max-width: 100%; }
   .slot {
-    position: absolute; left: 0; right: 0; height: 52px;
-    border-radius: 12px; border: 1px solid var(--line-strong);
-    background: #fffaf3;
-    display: flex; align-items: center; justify-content: flex-end;
-    padding: 0 14px;
+    position: absolute; left: 0; right: 0; height: 52px; border-radius: 12px;
+    border: 1px solid var(--line-strong); background: #fffaf3;
+    display: flex; align-items: center; justify-content: flex-end; padding: 0 14px;
     font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; color: var(--faint);
   }
   .slot.win { top: 0; border-color: var(--clay); background: #f8ebe4; color: var(--clay-deep); }
   .slot.other { top: 64px; }
   .word {
     position: absolute; left: 16px; top: 16px;
-    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 16px; color: var(--ink);
-    animation: swap 5.2s ease-in-out infinite;
+    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 16px;
+    animation: swap 5s ease-in-out infinite;
   }
   .word.b { top: 80px; animation-name: swapB; }
   @keyframes swap {
-    0%, 32% { transform: none; }
-    48%, 82% { transform: translateY(64px); }
+    0%, 30% { transform: none; }
+    48%, 80% { transform: translateY(64px); }
     100% { transform: none; }
   }
   @keyframes swapB {
-    0%, 32% { transform: none; }
-    48%, 82% { transform: translateY(-64px); }
+    0%, 30% { transform: none; }
+    48%, 80% { transform: translateY(-64px); }
     100% { transform: none; }
   }
-
-  footer {
-    margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--line);
-    color: var(--soft); font-size: 15px;
-  }
-  @media (max-width: 800px) {
-    .split, .cols, .prim, .flow, .tree, .scene-head, .meters { grid-template-columns: 1fr; }
-    .flow { grid-template-columns: 1fr; }
-    .arrow { transform: rotate(90deg); height: 28px; }
-    .mask, .axis { margin-left: 0; }
-    .num { padding-top: 0; }
-    .stage { padding: 16px; }
-    .row { grid-template-columns: 92px minmax(0, 1fr) 42px; font-size: 12px; }
-    .prompt { font-size: 13px; overflow-wrap: anywhere; }
+  .trap { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--soft); }
+  @media (max-width: 720px) {
+    .cols, .three, .band { grid-template-columns: 1fr; }
+    .row { grid-template-columns: 92px minmax(0, 1fr) 40px; }
+    .mask, .axis, #mask .stage, #trap .stage, .slots { width: 100%; }
   }
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation: none !important;
-      transition: none !important;
-    }
-    .prompt .line, .chip, .branch, .pop .bar { opacity: 1; transform: none; }
-    .fill { width: var(--w); }
-    .sky i { transform: none; }
+    *, *::before, *::after { animation: none !important; }
     .cell.causal { background: var(--gold-soft); }
     .cell.read { background: var(--clay); }
+    .tok em, .sweep { opacity: 1; transform: none; }
   }
 </style>
 </head>
@@ -346,259 +186,107 @@
     <div class="brand">myNameisJevToo</div>
     <nav>
       <a href="#mask">Mask</a>
-      <a href="#frame">Frame</a>
-      <a href="#read">Read</a>
+      <a href="#spec">Pull</a>
       <a href="#share">Share</a>
-      <a href="#types">Types</a>
-      <a href="#endpoint">Endpoint</a>
+      <a href="#trap">Trap</a>
       <a href="TECHNIQUE.md">Write-up</a>
     </nav>
   </header>
 
   <div class="hero">
-    <p class="eyebrow">A light walkthrough</p>
-    <h1>The answer is already in the last position.</h1>
-    <p class="lead">A causal model only looks backward. End the prompt where the answer belongs, read the next-token distribution, and you have a typed decision. Nothing is generated, and the weights are unchanged.</p>
+    <h1>One forward. Pull the probability.</h1>
+    <p class="lead">Don’t sample. Read the tokens you already care about.</p>
   </div>
 
   <section class="scene" id="mask">
-    <div class="scene-head">
-      <div class="num">01</div>
-      <div>
-        <h2>The mask is the whole trick.</h2>
-        <p class="note">Each row is a position. A cell lights only when that position is allowed to see it — the present, and everything before it. The clay cell is where we stop. Its logits are a distribution over the next token, computed without having seen a future that does not exist yet.</p>
-      </div>
-    </div>
+    <h2>The mask.</h2>
+    <p class="note">Each row sees only its past. The clay cell is the read.</p>
     <div class="stage">
-      <div class="split">
-        <div>
-          <p class="note">Put the state and the options in the context. The last position is the word <em>Answer</em>. We never sample a continuation. We read the row.</p>
-          <p class="caption">Lower triangle lights, then the read cell. Loops.</p>
-        </div>
-        <div>
-          <div class="mask" id="mask-grid" aria-hidden="true"></div>
-          <div class="axis" aria-hidden="true">
-            <span>cust</span><span>twice</span><span>which</span><span>A</span><span>B</span><span>C</span><span>ans</span>
-          </div>
-        </div>
+      <div class="mask" id="mask-grid" aria-hidden="true"></div>
+      <div class="axis" aria-hidden="true">
+        <span>cust</span><span>twice</span><span>which</span><span>A</span><span>B</span><span>C</span><span>ans</span>
       </div>
     </div>
   </section>
 
-  <section class="scene" id="frame">
-    <div class="scene-head">
-      <div class="num">02</div>
-      <div>
-        <h2>Frame the state, then stop.</h2>
-        <p class="note">Options are letters, each one token in most tokenisers: “ A”, “ B”, “ C”. The rubric sits on the line so the model is choosing described options, not bare identifiers. The prompt ends at <em>Answer:</em>.</p>
-      </div>
-    </div>
-    <div class="stage">
-      <div class="split">
-        <div class="prompt" aria-label="Prompt assembling, then three bars">
-          <div class="line">Customer: I was charged twice.</div>
-          <div class="line gap"></div>
-          <div class="line">Which team should handle this?</div>
-          <div class="line">A. billing — money problems</div>
-          <div class="line">B. bug — broken product</div>
-          <div class="line">C. account — login or access</div>
-          <div class="line">Answer:<span class="caret"></span></div>
-          <div class="pop" aria-hidden="true">
-            <div class="bar a"><b>A</b></div>
-            <div class="bar b"><b>B</b></div>
-            <div class="bar c"><b>C</b></div>
-          </div>
-          <p class="caption">Bars grow out of the caret. B is the mass. Still one forward.</p>
+  <section class="scene" id="spec">
+    <h2>Same pull as speculative decoding.</h2>
+    <p class="note">One pass. Then take P(token) for the tokens you named.</p>
+    <div class="stage spec">
+      <div class="band">
+        <div class="k">Spec decode</div>
+        <div class="toks">
+          <div class="tok ok"><b>the</b><em>0.91 ✓</em></div>
+          <div class="tok ok"><b>cat</b><em>0.84 ✓</em></div>
+          <div class="tok bad"><b>sat</b><em>0.07 ✗</em></div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="scene" id="read">
-    <div class="scene-head">
-      <div class="num">03</div>
-      <div>
-        <h2>N options, still one pass.</h2>
-        <p class="note">The skyline is the vocabulary at that last position. Almost all of it is noise. Three bars are the letter tokens. Adding an option is another index into the same row, not another prefill.</p>
+      <div class="ribbon-wrap" aria-hidden="true">
+        <div class="ribbon" id="ribbon"></div>
+        <div class="sweep"></div>
       </div>
-    </div>
-    <div class="stage">
-      <div class="sky" id="sky" aria-hidden="true"></div>
-      <div class="legend-row">
-        <span><i class="sw" style="background:#e5d9c6"></i>rest of the vocab</span>
-        <span><i class="sw" style="background:var(--gold)"></i>other letters</span>
-        <span><i class="sw" style="background:var(--clay)"></i>the option set</span>
-      </div>
-      <div class="meters">
-        <div class="meter">
-          <div class="k">Options in the question</div>
-          <div class="v" id="opt-count">4</div>
-        </div>
-        <div class="meter">
-          <div class="k">Forward passes</div>
-          <div class="v"><em id="pass-count">1</em></div>
+      <div class="band">
+        <div class="k">This readout</div>
+        <div class="toks">
+          <div class="tok"><b>A</b><em class="p">0.11</em></div>
+          <div class="tok hot"><b>B</b><em class="p">0.72</em></div>
+          <div class="tok"><b>C</b><em class="p">0.17</em></div>
         </div>
       </div>
+      <p class="caption">Same distribution.</p>
     </div>
   </section>
 
   <section class="scene" id="share">
-    <div class="scene-head">
-      <div class="num">04</div>
-      <div>
-        <h2>Two numbers, two questions.</h2>
-        <p class="note"><strong>Raw</strong> is the probability of each letter in the full vocabulary. They do not sum to 1 — the rest of the vocab still holds mass. That remainder is the gate: did the model want to answer at all? <strong>Share</strong> divides by the option set only. That is the number to branch on.</p>
-      </div>
-    </div>
-    <div class="stage">
+    <h2>Raw, then share.</h2>
+    <p class="note">Raw keeps the rest of the vocab. Share is only the options.</p>
+    <div class="stage still">
       <div class="cols">
-        <div class="col raw">
+        <div>
           <h3>Raw</h3>
-          <div class="track">
-            <div class="row"><span class="name">billing</span><div class="tube"><div class="fill" style="--w:8%"></div></div><span class="pct">0.04</span></div>
-            <div class="row"><span class="name">bug</span><div class="tube"><div class="fill clay" style="--w:52%"></div></div><span class="pct">0.26</span></div>
-            <div class="row"><span class="name">account</span><div class="tube"><div class="fill" style="--w:12%"></div></div><span class="pct">0.06</span></div>
-            <div class="row"><span class="name">everything else</span><div class="tube"><div class="fill ghost" style="--w:100%"></div></div><span class="pct">0.64</span></div>
-          </div>
+          <div class="row"><span class="name">billing</span><div class="tube"><i class="fill" style="--w:8%"></i></div><span class="pct">0.04</span></div>
+          <div class="row"><span class="name">bug</span><div class="tube"><i class="fill clay" style="--w:52%"></i></div><span class="pct">0.26</span></div>
+          <div class="row"><span class="name">account</span><div class="tube"><i class="fill" style="--w:12%"></i></div><span class="pct">0.06</span></div>
+          <div class="row"><span class="name">other</span><div class="tube"><i class="fill ghost" style="--w:100%"></i></div><span class="pct">0.64</span></div>
         </div>
-        <div class="col share">
+        <div>
           <h3>Share</h3>
-          <div class="track">
-            <div class="row"><span class="name">billing</span><div class="tube"><div class="fill" style="--w:11%"></div></div><span class="pct">0.11</span></div>
-            <div class="row"><span class="name">bug</span><div class="tube"><div class="fill clay" style="--w:72%"></div></div><span class="pct">0.72</span></div>
-            <div class="row"><span class="name">account</span><div class="tube"><div class="fill" style="--w:17%"></div></div><span class="pct">0.17</span></div>
-          </div>
+          <div class="row"><span class="name">billing</span><div class="tube"><i class="fill" style="--w:11%"></i></div><span class="pct">0.11</span></div>
+          <div class="row"><span class="name">bug</span><div class="tube"><i class="fill clay" style="--w:72%"></i></div><span class="pct">0.72</span></div>
+          <div class="row"><span class="name">account</span><div class="tube"><i class="fill" style="--w:17%"></i></div><span class="pct">0.17</span></div>
         </div>
       </div>
-      <p class="caption">0.26 / (0.04 + 0.26 + 0.06) = 0.72. The other 0.64 is set aside, and it stays available as the gate.</p>
     </div>
   </section>
 
   <section class="scene" id="types">
-    <div class="scene-head">
-      <div class="num">05</div>
-      <div>
-        <h2>One distribution, three types.</h2>
-        <p class="note">Choice takes the argmax. Noul reads P(yes) by name, not by position. Score is the expected level, so it can land between two rungs. HTTP <em>confidence</em> is peakedness, (n × max p − 1) / (n − 1). The library’s <em>confidence</em> is the winner’s share.</p>
-      </div>
-    </div>
+    <h2>Three reads.</h2>
     <div class="stage">
-      <div class="switcher" role="tablist">
-        <button type="button" class="on" data-mode="choice">choice</button>
-        <button type="button" data-mode="noul">noul</button>
-        <button type="button" data-mode="score">score</button>
-      </div>
-      <div class="prim">
-        <div>
-          <div class="track" id="prim-bars"></div>
-        </div>
-        <div>
-          <p class="big-answer" id="prim-answer">bug</p>
-          <p class="sub" id="prim-sub">argmax of the share</p>
-          <div class="scale" id="scale" hidden>
-            <div class="line"></div>
-            <div class="tick" style="left:0"></div>
-            <div class="tick" style="left:50%"></div>
-            <div class="tick" style="left:100%"></div>
-            <div class="lab" style="left:0">low</div>
-            <div class="lab" style="left:50%">medium</div>
-            <div class="lab" style="left:100%">high</div>
-            <div class="marker" id="marker" style="left:60%"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="scene" id="endpoint">
-    <div class="scene-head">
-      <div class="num">06</div>
-      <div>
-        <h2>Same endpoint, your weights.</h2>
-        <p class="note"><code>POST /v1/systemone</code> takes <em>state</em>, <em>model</em>, and a map of questions. <em>jev-latest</em> is an alias for whatever you loaded. Answers come back under the same keys. Ask to observe, and you also get queue time, option mass, and a flag when a question has only two labels.</p>
-      </div>
-    </div>
-    <div class="stage">
-      <div class="flow">
-        <div class="node">
-          <strong>Request</strong>
-          model: jev-latest<br>
-          state: “charged twice”<br>
-          questions.topic: choice<br>
-          questions.urgent: noul
-        </div>
-        <div class="arrow"><span class="dot"></span></div>
-        <div class="node">
-          <strong>Any open model</strong>
-          one prefill of the state<br>
-          one short read per question<br>
-          no new weights<br>
-          no sampled text
-        </div>
-        <div class="arrow"><span class="dot"></span></div>
-        <div class="node">
-          <strong>Answers</strong>
-          topic.choice = bug<br>
-          topic.confidence = 0.58<br>
-          urgent.noul = 0.83<br>
-          usage.output_tokens = 2
-        </div>
-      </div>
-      <div class="chips">
-        <span class="chip">queue_ms</span>
-        <span class="chip">option_mass 0.36</span>
-        <span class="chip">shared_prefix_tokens</span>
-        <span class="chip">binary_position_prior</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="scene" id="prefix">
-    <div class="scene-head">
-      <div class="num">07</div>
-      <div>
-        <h2>The state is paid for once.</h2>
-        <p class="note">Questions in one request see the same state. On MLX, when those prompts share a long token prefix, that prefix is prefilled once and each question is a short continuation. The observe block reports <em>shared_prefix_tokens</em> so you can see whether the share happened.</p>
-      </div>
-    </div>
-    <div class="stage">
-      <div class="tree">
-        <div class="statebox">
-          <div class="k">Prefill</div>
-          <div style="margin-top:8px">The ticket, the charges, the policy. Held in the cache.</div>
-        </div>
-        <div class="branches">
-          <div class="branch"><div class="stem"></div><div class="q">choice — which team?</div></div>
-          <div class="branch"><div class="stem"></div><div class="q">noul — escalate now?</div></div>
-          <div class="branch"><div class="stem"></div><div class="q">score — how frustrated?</div></div>
-        </div>
+      <div class="three">
+        <div class="card"><div class="k">choice</div><strong>bug</strong><span>argmax</span></div>
+        <div class="card"><div class="k">noul</div><strong>0.83</strong><span>P(yes)</span></div>
+        <div class="card"><div class="k">score</div><strong>1.20</strong><span>expected level</span></div>
       </div>
     </div>
   </section>
 
   <section class="scene" id="trap">
-    <div class="scene-head">
-      <div class="num">08</div>
-      <div>
-        <h2>Two labels can be a position.</h2>
-        <p class="note">On a small model, a yes/no question sometimes picks whichever label is written first, with the state and without it. The highlight below stays on the top slot while the words trade places. Four or five options give that prior somewhere to spread. The server marks every two-label question with <em>binary_position_prior</em>.</p>
-      </div>
-    </div>
+    <h2>Two labels.</h2>
+    <p class="note">The pick stays in the top slot.</p>
     <div class="stage">
-      <div class="split">
+      <div class="trap">
         <div class="slots" aria-hidden="true">
           <div class="slot win">picked</div>
-          <div class="slot other">the other</div>
+          <div class="slot other"></div>
           <div class="word">yes</div>
           <div class="word b">no</div>
         </div>
-        <p class="note">Swapping the words does not move the pick. That is the order trap from the binary flip test, drawn as motion so it is harder to miss.</p>
       </div>
     </div>
   </section>
 
   <footer>
-    Independent of TypeSafe AI. Jev and System One are their names. The method, the limits, and the measurements are in <a href="TECHNIQUE.md">TECHNIQUE.md</a> and <a href="PITFALLS.md">PITFALLS.md</a>.
+    Independent of TypeSafe AI. Method in <a href="TECHNIQUE.md">TECHNIQUE.md</a>.
   </footer>
 </div>
 <script>
@@ -609,94 +297,24 @@
       cell.className = "cell";
       if (c <= r) {
         cell.classList.add("causal");
-        const step = r * 7 + c;
-        cell.style.animationDelay = (step * 0.045) + "s";
+        cell.style.animationDelay = ((r * 7 + c) * 0.04) + "s";
       }
       if (r === 6 && c === 6) {
         cell.classList.add("read");
-        cell.style.animationDelay = "2.4s";
+        cell.style.animationDelay = "2.2s";
       }
       grid.appendChild(cell);
     }
   }
-
-  const sky = document.getElementById("sky");
-  const hot = new Set([8, 19, 31]);
-  const mid = new Set([3, 14, 27, 40]);
-  for (let i = 0; i < 46; i++) {
+  const ribbon = document.getElementById("ribbon");
+  const hot = new Set([6, 18, 31]);
+  for (let i = 0; i < 42; i++) {
     const bar = document.createElement("i");
-    let h = 8 + ((i * 17) % 23);
-    if (hot.has(i)) h = 78 + (i % 3) * 8;
-    else if (mid.has(i)) h = 40;
+    let h = 10 + ((i * 19) % 28);
+    if (hot.has(i)) { h = 86; bar.className = "on"; }
+    else if (i % 9 === 0) h = 48;
     bar.style.setProperty("--h", h + "%");
-    bar.style.animationDelay = (i * 0.015) + "s";
-    if (hot.has(i)) bar.className = "hot";
-    else if (mid.has(i)) bar.className = "mid";
-    sky.appendChild(bar);
-  }
-
-  const optEl = document.getElementById("opt-count");
-  let n = 2;
-  setInterval(() => {
-    n = n >= 8 ? 2 : n + 1;
-    optEl.textContent = String(n);
-  }, 900);
-
-  const modes = {
-    choice: {
-      bars: [["billing", 11], ["bug", 72, true], ["account", 17]],
-      answer: "bug",
-      sub: "argmax of the share. Peakedness (3 × 0.72 − 1) / 2 = 0.58, which is the HTTP confidence.",
-      scale: false
-    },
-    noul: {
-      bars: [["no", 17], ["yes", 83, true]],
-      answer: "0.83",
-      sub: "P(yes), looked up by the label “yes”, so writing yes first does not change the number this function returns.",
-      scale: false
-    },
-    score: {
-      bars: [["low", 10], ["medium", 60, true], ["high", 30]],
-      answer: "1.20",
-      sub: "0×0.10 + 1×0.60 + 2×0.30. The marker sits between medium and high.",
-      scale: true,
-      marker: "60%"
-    }
-  };
-  const barHost = document.getElementById("prim-bars");
-  const answerEl = document.getElementById("prim-answer");
-  const subEl = document.getElementById("prim-sub");
-  const scaleEl = document.getElementById("scale");
-  const marker = document.getElementById("marker");
-  const buttons = [...document.querySelectorAll(".switcher button")];
-  let modeTimer;
-
-  function renderMode(name) {
-    const mode = modes[name];
-    barHost.innerHTML = mode.bars.map(([label, pct, clay]) =>
-      `<div class="row"><span class="name">${label}</span><div class="tube"><div class="fill${clay ? " clay" : ""}" style="width:${pct}%"></div></div><span class="pct">${(pct / 100).toFixed(2)}</span></div>`
-    ).join("");
-    answerEl.innerHTML = name === "choice" ? mode.answer : `<span>${mode.answer}</span>`;
-    subEl.textContent = mode.sub;
-    scaleEl.hidden = !mode.scale;
-    if (mode.scale) marker.style.left = mode.marker;
-    buttons.forEach(btn => btn.classList.toggle("on", btn.dataset.mode === name));
-  }
-
-  function arm(name) {
-    renderMode(name);
-    clearInterval(modeTimer);
-    const order = ["choice", "noul", "score"];
-    modeTimer = setInterval(() => {
-      const i = order.indexOf(document.querySelector(".switcher button.on").dataset.mode);
-      renderMode(order[(i + 1) % order.length]);
-    }, 3200);
-  }
-  buttons.forEach(btn => btn.addEventListener("click", () => arm(btn.dataset.mode)));
-  arm("choice");
-
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    clearInterval(modeTimer);
+    ribbon.appendChild(bar);
   }
 </script>
 </body>
