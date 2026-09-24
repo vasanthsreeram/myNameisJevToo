@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/my-name-is-jev.png" width="720" alt="MY NAME IS JEV still with a drawn TypeSafe wordmark and an independent-project disclaimer above it.">
+  <img src="docs/my-name-is-jev.png" width="420" alt="MY NAME IS JEV still with a drawn TypeSafe wordmark and an independent-project disclaimer above it.">
 </p>
 
 # myNameisJevToo
@@ -7,6 +7,21 @@
 **Turn an open decoder-only language model into a typed decision API.** Load a model with MLX or connect a running `llama-server`, then call `POST /v1/systemone` with a state and questions. The server returns `choice`, `noul`, and `score` answers using the [published request and answer shape](https://docs.typesafe.ai/api).
 
 The name is a joke and a nod to TypeSafe AI. This is an independent project, unaffiliated with TypeSafe AI; the wordmark above is drawn for this repository.
+
+## What we measured
+
+The interface is cheap; **answer quality depends on the base model and the task**. On public JevBench items, our 2B model struggled on hard decisions. Running the same readout on Qwen3.8-27B improved its intelligence axis substantially.
+
+| Public JevBench tier | Items | MiniCPM5-2B MLX | Qwen3.8-27B MLX 4-bit | Qwen3.8-27B GGUF Q4_K_M |
+|---|---:|---:|---:|---:|
+| Easy | 48 | 77.1% | 100.0% | 100.0% |
+| Standard | 72 | 50.0% | 94.4% | 97.2% |
+| Hard | 111 | 39.6% | 69.4% | 74.8% |
+| Intelligence axis | — | 27.4 | 77.6 | 82.6 |
+
+The **state-blind control** replaces the state with a placeholder while leaving the options intact. On hard items, the 2B model scored **45.9% without the state versus 39.6% with it**. Its hard-tier score largely reflected option-list priors. The 27B retained 71–75% of its hard accuracy in the state-blind control, so option-list reliance remains worth checking.
+
+These are our runs on the **public portions only** (48/72 easy, 72/96 standard, 111/220 hard). They cannot be read as full-board JevBench scores. The 2B ran on a Mac mini M4 (16 GB); the 27B ran on a Mac Studio M3 Ultra (96 GB). Results are task-specific and include confident errors. The 27B MLX hard-tier expected calibration error (ECE) was **0.0655**; GGUF was **0.1139**. See [the complete 2B write-up](docs/RESULTS-minicpm5.md), [the method](docs/TECHNIQUE.md), [pitfalls](docs/PITFALLS.md), and the committed per-item records under [`benchmarks/results/`](benchmarks/results/).
 
 ## The idea
 
@@ -107,22 +122,7 @@ Add `-H 'X-Jev-Observe: 1'` to the request above (or use `?observe=1`). The usua
 
 `GET /health`, `GET /v1/models`, and Prometheus `GET /metrics` are on the same port. Responses include `Server-Timing` and `X-Request-Id`; structured server logs exclude prompt text. An MLX server serializes forwards on one Metal lock.
 
-## What we measured
-
-The interface is cheap; **answer quality depends on the base model and the task**. On public JevBench items, our 2B model struggled on hard decisions. Running the same readout on Qwen3.8-27B improved its intelligence axis substantially.
-
-| Public JevBench tier | Items | MiniCPM5-2B MLX | Qwen3.8-27B MLX 4-bit | Qwen3.8-27B GGUF Q4_K_M |
-|---|---:|---:|---:|---:|
-| Easy | 48 | 77.1% | 100.0% | 100.0% |
-| Standard | 72 | 50.0% | 94.4% | 97.2% |
-| Hard | 111 | 39.6% | 69.4% | 74.8% |
-| Intelligence axis | — | 27.4 | 77.6 | 82.6 |
-
-The **state-blind control** replaces the state with a placeholder while leaving the options intact. On hard items, the 2B model scored **45.9% without the state versus 39.6% with it**. Its hard-tier score largely reflected option-list priors. The 27B retained 71–75% of its hard accuracy in the state-blind control, so option-list reliance remains worth checking.
-
-These are our runs on the **public portions only** (48/72 easy, 72/96 standard, 111/220 hard). They cannot be read as full-board JevBench scores. The 2B ran on a Mac mini M4 (16 GB); the 27B ran on a Mac Studio M3 Ultra (96 GB). Results are task-specific and include confident errors. The 27B MLX hard-tier expected calibration error (ECE) was **0.0655**; GGUF was **0.1139**. See [the complete 2B write-up](docs/RESULTS-minicpm5.md), [the method](docs/TECHNIQUE.md), [pitfalls](docs/PITFALLS.md), and the committed per-item records under [`benchmarks/results/`](benchmarks/results/).
-
-### Reproduce
+## Reproduce
 
 ```bash
 python tests/run_tests.py                # no model download
