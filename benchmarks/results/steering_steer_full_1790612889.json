@@ -1,0 +1,185 @@
+{
+  "prompt": "a snake",
+  "mode": "steer",
+  "vocab": "full",
+  "rounds": 4,
+  "generator": "mlx-community/Qwen3.5-0.8B-8bit",
+  "steerer": "lmstudio-community/Qwen3.8-27B-MLX-4bit",
+  "svg": "<svg width=\"200\" height=\"200\" viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <rect width=\"200\" height=\"200\" fill=\"#333\" />\n  <path d=\"M100 100 L100 150 L150 100 L150 150 L100 100 Z\" fill=\"#4CAF50\" />\n  <path d=\"M100 100 L100 150 L150 100 L150 150 L100 100 Z\" fill=\"#2196F3\" />\n  <path d=\"M100 100 L100 150 L150 100 L150 150 L100 100 Z\" fill=\"#FF5722\" />\n  <path d=\"M100 100 L100 150 L150 100 L150 150 L100 100 Z\" fill=\"#FF5722\" />\n</svg>",
+  "log": [
+    {
+      "round": 1,
+      "kind": "generate",
+      "seconds": 9.55,
+      "mode": "steer",
+      "feedback": null,
+      "svg_chars": 450,
+      "raw_chars": 3631
+    },
+    {
+      "round": 2,
+      "kind": "judge",
+      "steering": {
+        "choice": "redo",
+        "confidence": 0.3911817462861393,
+        "share": {
+          "continue": 0.09890624007550955,
+          "fix_geometry": 0.20938449737872517,
+          "fix_scale": 0.0024760691507729024,
+          "fix_color": 0.04671999912264648,
+          "add_detail": 0.18478117863673393,
+          "simplify": 0.03016469796377773,
+          "redo": 0.3911817462861393,
+          "done": 0.03638557138569495
+        },
+        "raw": {
+          "continue": 0.027402469888329506,
+          "fix_geometry": 0.058011025190353394,
+          "fix_scale": 0.0006860073772259057,
+          "fix_color": 0.012944010086357594,
+          "add_detail": 0.05119455233216286,
+          "simplify": 0.008357280865311623,
+          "redo": 0.10837886482477188,
+          "done": 0.01008080504834652
+        },
+        "option_mass": 0.2770550156128593,
+        "peakedness": 0.30420771004130204
+      },
+      "stop": {
+        "p_yes": 0.02931223311868413,
+        "p_yes_reversed": 0.037326888770562755,
+        "agree": true,
+        "mean": 0.03331956094462344
+      },
+      "quality": {
+        "expected": 0.34954316762907706,
+        "share": {
+          "unusable": 0.6870755157617707,
+          "rough": 0.2864156965812914,
+          "recognisable": 0.020747884199786588,
+          "clean": 0.0014119111803926397,
+          "polished": 0.004348992276758635
+        }
+      }
+    },
+    {
+      "round": 2,
+      "kind": "generate",
+      "seconds": 9.17,
+      "mode": "steer",
+      "feedback": "redo (conf 0.39, quality 0.35/4)",
+      "svg_chars": 450,
+      "raw_chars": 1963
+    },
+    {
+      "round": 3,
+      "kind": "judge",
+      "steering": {
+        "choice": "redo",
+        "confidence": 0.3583224245018752,
+        "share": {
+          "continue": 0.10266108310612723,
+          "fix_geometry": 0.21733353291503935,
+          "fix_scale": 0.002268078963563264,
+          "fix_color": 0.04279550867826389,
+          "add_detail": 0.21733353291503935,
+          "simplify": 0.02151893323377807,
+          "redo": 0.3583224245018752,
+          "done": 0.03776690568631367
+        },
+        "raw": {
+          "continue": 0.026348775252699852,
+          "fix_geometry": 0.05578036233782768,
+          "fix_scale": 0.0005821203230880201,
+          "fix_color": 0.010983804240822792,
+          "add_detail": 0.05578036233782768,
+          "simplify": 0.00552300363779068,
+          "redo": 0.09196627140045166,
+          "done": 0.009693173691630363
+        },
+        "option_mass": 0.25665787322213873,
+        "peakedness": 0.2666541994307145
+      },
+      "stop": {
+        "p_yes": 0.029312228692065557,
+        "p_yes_reversed": 0.0420877261639664,
+        "agree": true,
+        "mean": 0.03569997742801598
+      },
+      "quality": {
+        "expected": 0.3787303436627527,
+        "share": {
+          "unusable": 0.6599015322232105,
+          "rough": 0.31171542502359734,
+          "recognisable": 0.02258059122658596,
+          "clean": 0.001356069920441296,
+          "polished": 0.004446381606164893
+        }
+      }
+    },
+    {
+      "round": 3,
+      "kind": "generate",
+      "seconds": 9.06,
+      "mode": "steer",
+      "feedback": "redo (conf 0.36, quality 0.38/4)",
+      "svg_chars": 450,
+      "raw_chars": 4073
+    },
+    {
+      "round": 4,
+      "kind": "judge",
+      "steering": {
+        "choice": "redo",
+        "confidence": 0.3838294654331909,
+        "share": {
+          "continue": 0.09704728484153685,
+          "fix_geometry": 0.20544910385446466,
+          "fix_scale": 0.0021440537465189508,
+          "fix_color": 0.045841889763203594,
+          "add_detail": 0.20544910385446466,
+          "simplify": 0.02453739690163184,
+          "redo": 0.3838294654331909,
+          "done": 0.03570170160498853
+        },
+        "raw": {
+          "continue": 0.024886686354875565,
+          "fix_geometry": 0.05268511548638344,
+          "fix_scale": 0.0005498185055330396,
+          "fix_color": 0.01175563782453537,
+          "add_detail": 0.05268511548638344,
+          "simplify": 0.006292339880019426,
+          "redo": 0.09842875599861145,
+          "done": 0.009155300445854664
+        },
+        "option_mass": 0.2564387699821964,
+        "peakedness": 0.29580510335221816
+      },
+      "stop": {
+        "p_yes": 0.03732688750512808,
+        "p_yes_reversed": 0.04208772773564763,
+        "agree": true,
+        "mean": 0.039707307620387856
+      },
+      "quality": {
+        "expected": 0.3529059252032692,
+        "share": {
+          "unusable": 0.6854212408563511,
+          "rough": 0.2857260950957711,
+          "recognisable": 0.0234538259130856,
+          "clean": 0.001323174257841641,
+          "polished": 0.00407566387695049
+        }
+      }
+    },
+    {
+      "round": 4,
+      "kind": "generate",
+      "seconds": 9.52,
+      "mode": "steer",
+      "feedback": "redo (conf 0.38, quality 0.35/4)",
+      "svg_chars": 450,
+      "raw_chars": 1963
+    }
+  ]
+}

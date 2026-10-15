@@ -1,12 +1,21 @@
 <p align="center">
-  <img src="docs/my-name-is-jev.png" width="420" alt="MY NAME IS JEV still with a drawn TypeSafe wordmark and an independent-project disclaimer above it.">
+  <img src="docs/typesafe-ai-logo.png" width="220" alt="TypeSafe AI logo, shown to identify the project whose API inspired this experiment"><br>
+  <sub>INDEPENDENT PROJECT · UNAFFILIATED WITH TYPESAFE AI</sub>
+</p>
+<p align="center">
+  <img src="docs/my-name-is-jev.png" width="420" alt="MY NAME IS JEV still">
 </p>
 
-# myNameisJevToo
+<h1 align="center">myNameisJevToo</h1>
+<p align="center"><strong>Open models. Typed decisions. One endpoint.</strong></p>
+<p align="center">
+  <a href="#run-it"><img src="https://img.shields.io/badge/API-POST_%2Fv1%2Fsystemone-a44d34?style=flat-square" alt="API: POST /v1/systemone"></a>
+  <a href="#run-it"><img src="https://img.shields.io/badge/backends-MLX_%7C_GGUF-385f4c?style=flat-square" alt="Backends: MLX and GGUF"></a>
+</p>
 
-**Turn an open decoder-only language model into a typed decision API.** Load a model with MLX or connect a running `llama-server`, then call `POST /v1/systemone` with a state and questions. The server returns `choice`, `noul`, and `score` answers using the [published request and answer shape](https://docs.typesafe.ai/api).
+Load an open decoder-only language model with MLX or connect a running `llama-server`. Call `POST /v1/systemone` with a state and questions. The server returns `choice`, `noul`, and `score` answers using the [published request and answer shape](https://docs.typesafe.ai/api).
 
-The name is a joke and a nod to TypeSafe AI. This is an independent project, unaffiliated with TypeSafe AI; the wordmark above is drawn for this repository.
+The name is a joke and a nod to TypeSafe AI. The TypeSafe AI mark is shown for identification; this implementation is independent of TypeSafe AI.
 
 ## What we measured
 
